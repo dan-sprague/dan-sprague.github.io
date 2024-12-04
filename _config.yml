@@ -6,7 +6,7 @@ title: Daniel Sprague
 email: d.a.sprague@outlook.com
 name: Daniel Sprague
 description: >- # this means to ignore newlines until "baseurl:"
-  Projects and thoughts on biological machine learning, data science, and programming.
+  I am a computational biologist, machine learning researcher, Bayesian enthusiast, and Julia evangelist. This website contains thoughts on biological machine learning, data science, and programming. Links to my projects and publications can be found in the menu above. Thanks for visiting!
 keywords: biology, computational biology, machine learning, data science, programming
 baseurl: '' # the subpath of your site, e.g. /`blog
 url: '' # the base hostname & protocol for your site, e.g. http://example.com
