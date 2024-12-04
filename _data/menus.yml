@@ -1,4 +1,5 @@
 - default: menu_index
+  title: 'blog'
   url: ''
 
 - default: menu_category
