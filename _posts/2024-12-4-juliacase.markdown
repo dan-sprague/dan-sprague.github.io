@@ -63,6 +63,7 @@ Because Julia is JIT compiled and has Chars as a first-class type, string data c
 <br>
 Take a simple program to generate 100M short DNA sequences and check for palindromes. While DNA and RNA can and should be more efficiently represented (Julia has a package that implements efficient representations of DNA/RNA/Protein sequences), lets assume that we are simply optimizing for readability and implementation time.<br><br>
 
+#### Python
 ```python
 
 import random
@@ -91,7 +92,8 @@ print("Palindrome check time: ",end - start)
 ```
 
 Sequence generation took `246.97s` and palindrome checking took `70.22s`.<br>
-Here is a Julia implementation:<br><br>
+
+#### Julia 
 
 ```julia
 function is_palindrome(s::String)::Bool
