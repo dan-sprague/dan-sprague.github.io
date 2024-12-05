@@ -1,7 +1,7 @@
 en:
-  menu_index: 'Index'
-  menu_category: 'Categories'
-  menu_about: 'About'
+  menu_index: 'posts'
+  menu_category: 'interest areas'
+  menu_about: 'about'
   paginator_previous: 'Previous'
   paginator_pages: 'Page: '
   paginator_next: 'Next'
