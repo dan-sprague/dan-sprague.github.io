@@ -37,7 +37,7 @@ Much is made of Julia’s numerical chops (the language was built for it, after 
 
 Because Julia is JIT compiled and has Chars as a first-class type, string data can be processed extremely quickly. For bioinformaticians, this has serious implications: rather than writing difficult to maintain code in C++ or Rust, it is possible to develop a short Julia program (with python-esque syntax) to analyze millions of biological sequences with speed that is comparable to C.<br><br>
 
-Take a simple program to generate 100M short DNA sequences and check for palindromes:<br><br>
+Take a simple program to generate 100M short DNA sequences and check for palindromes. While DNA and RNA can and should be more efficiently represented (Julia has a package that implements efficient representations of DNA/RNA/Protein sequences), lets assume that we are simply optimizing for readability and implementation time.<br><br>
 
 ```python
 
@@ -50,22 +50,25 @@ def random_dna_sequence(n: int) -> str:
 
 def generate_dna_sequences(count: int) -> list:
     return [random_dna_sequence(random.randint(4, 10)) for _ in range(count)]
+  
+def is_palindrome(s: str) -> bool:
+    cleaned = ''.join(c.lower() for c in s if c.isalnum())
+    return cleaned == cleaned[::-1]
 
 # Generate 1 million random DNA strings
 start = time.time()
 dna_sequences = generate_dna_sequences(100_000_000)
 end = time.time()
 print("Sequence Generation Time: ",end - start)
-def is_palindrome(s: str) -> bool:
-    cleaned = ''.join(c.lower() for c in s if c.isalnum())
-    return cleaned == cleaned[::-1]
+
 start = time.time()
 results = [is_palindrome(s) for s in dna_sequences]
 end = time.time()
 print("Palindrome check time: ",end - start)
 ```
 
-Sequence generation took `246.97s` and palindrome checking took `70.22s`. Here is a Julia implementation:<br><br>
+Sequence generation took `246.97s` and palindrome checking took `70.22s`.<br>
+Here is a Julia implementation:<br><br>
 
 ```julia
 function is_palindrome(s::String)::Bool
@@ -84,10 +87,33 @@ end
 @time result = is_palindrome.(nucs)
 ```
 
-Sequence generation took `95.19s` and palindrome checking took `21.30s`. 
+Sequence generation took `51.52s` and palindrome checking took `19.30s`. There are several things to note about the implementations here. The first is that Julia required no imports. Second, Julia's `@time` macro saves a tremendous amount of repetitious code. Third, the `is_palindrome` function can be broadcasted over the `nucs` vector with the `.` syntax. This is despite being a handrolled function, something which is not really feasible in Python. 
 
+We can speed this calculation up even more without importing libraries:
 
+```julia
+@time result =  begin
+    result = Vector{Bool}(undef, length(nucs))
+    Threads.@threads for i in eachindex(nucs)
+        result[i] = is_palindrome(nucs[i])
+    end
 
+    result
+end
+```
+
+This expression (defined with the `begin ... end` syntax) evaluates in `6.44` seconds, resulting in an order of magnitude runtime decrease in overall evaluation. For most modern bioinformatics applications, the implications are substantial. C/C++/Java/Rust are not easy languages to develop in.
+
+Finally, we can work with Julia's `Biosequences.jl` package. This implements 2-bit representations for DNA letters, and contains highly optimized routines for biosequences:
+
+```julia
+using BioSequences
+
+@time seqs = [randseq(DNAAlphabet{2}(), rand(4:10)) for i in 1:1e8]
+@time ispalindromic.(seqs) ## threaded loop is no faster due to overhead
+```
+
+These sequences are now generated in `14.15s` and palindrome checking is done in `2.35s`, in two lines! Python obviously has large repositories on its own, however even with exclusively native Julia code, we are able to get an order of magnitude decrease in run time.
 
 
 ## Fast and Easy Multithreading
