@@ -33,7 +33,7 @@ Perhaps most conveniently: no more remembering the name of all the environments 
 
 ## Text Processing
 <br>
-Much is made of Julia’s numerical chops (the language was built for it, after all), as well as Python’s world class numerical wrapper libraries (Pytorch, JAX, Tensorflow, numpy). However, computational biologists and bioinformaticians often work with text-based data. For Python users, it should go without saying that text-based computation is extremely slow. Often, this problem is so severe that multi-language pipelines become necessary. The underlying reason for this is that strings are generic objects in Python, and little to no optimization in performed at runtime.<br><br>
+Much is made of Julia’s numerical chops (the language was built for it, after all), as well as Python’s world class numerical wrapper libraries (Pytorch, JAX, Tensorflow, numpy). However, computational biologists and bioinformaticians often work with text-based data. While speed may not often be limiting for many workflows, it does matter when processing HTS data. For Python users, it should go without saying that text-based computation is extremely slow. Often, this problem is so severe that multi-language pipelines become necessary. The underlying reason for this is that strings are generic objects in Python, and little to no optimization in performed at runtime.<br><br>
 
 Because Julia is JIT compiled and has Chars as a first-class type, string data can be processed extremely quickly. For bioinformaticians, this has serious implications: rather than writing difficult to maintain code in C++ or Rust, it is possible to develop a short Julia program (with python-esque syntax) to analyze millions of biological sequences with speed that is comparable to C.<br><br>
 
@@ -78,7 +78,7 @@ end
 
 
 function random_dna_sequence(n::Int)::String
-    join(rand(["A","T","C","G"],n))
+    join(rand(['A','T','C','G'],n))
 end
 
 
@@ -89,7 +89,7 @@ end
 
 Sequence generation took `51.52s` and palindrome checking took `19.30s`. There are several things to note about the implementations here. The first is that Julia required no imports. Second, Julia's `@time` macro saves a tremendous amount of repetitious code. Third, the `is_palindrome` function can be broadcasted over the `nucs` vector with the `.` syntax. This is despite being a handrolled function, something which is not really feasible in Python. 
 
-We can speed this calculation up even more without importing libraries:
+This calculation can be sped up even more without importing libraries:
 
 ```julia
 @time result =  begin
@@ -102,7 +102,7 @@ We can speed this calculation up even more without importing libraries:
 end
 ```
 
-This expression (defined with the `begin ... end` syntax) evaluates in `6.44` seconds, resulting in an order of magnitude runtime decrease in overall evaluation. For most modern bioinformatics applications, the implications are substantial. C/C++/Java/Rust are not easy languages to develop in.
+This expression (defined with the `begin ... end` syntax) evaluates in `6.44s`, resulting in an order of magnitude runtime decrease in overall evaluation. For most modern bioinformatics applications, the implications are substantial. C/C++/Java/Rust are not easy languages to develop in.
 
 Finally, we can work with Julia's `Biosequences.jl` package. This implements 2-bit representations for DNA letters, and contains highly optimized routines for biosequences:
 
