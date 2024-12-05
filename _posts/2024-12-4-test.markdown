@@ -8,11 +8,11 @@ categories: [Julia]
 <br><br>
 Julia is a programming language that has a tremendous amount to offer scientific research and development. When people are introduced to Julia, the most common pitch is that it is fast. Indeed, it is fast. Julia is a just-in-time (JIT) compiled language, meaning that types can be defined or are inferred by the compiler and that the compiler can optimize code at run time. Julia is as fast as C while reading like Python. That being said – I think this undersells the language. <br><br>
 
-In my experience, speed is often not a critical factor in scientific R&D programming development. For ML purposes, languages like Python have fast-enough libraries that get things done efficiently and correctly. This isn’t to say that there aren’t cases where speed really matters – I have developed Julia projects that reduced program run times from 30 minutes to less than a second and this was a substantial and meaningful result for the project. In most cases, speed is not a sufficient concern to warrant thinking about a new language. So then, why Julia?<br><br>
+In my experience, speed is often not a critical factor in scientific R&D programming development. For ML purposes, languages like Python have best in class libraries that get things done efficiently and correctly. This isn’t to say that there aren’t cases where speed really matters – I have developed Julia projects that reduced program run times from 30 minutes to less than a second and this was a substantial and meaningful result for the project. In most cases, speed is not a sufficient concern to warrant thinking about a new language. So then, why Julia?<br><br>
 
 
 ## Project Management and Reproducibility
-<br><br>
+<br>
 In the sciences, reproducibility and organization are perhaps the most important component of good research. This is generally true for most applications – which is why languages like Rust and Julia have robust environment management built directly into the language as a core feature.<br><br>
 
 Python has no native environment management and reproducibility functionality. To perform environment management in Python, one must download an environment manager like Anaconda. From here, it is still quite non-obvious to many new users such as graduate students how to correctly manage their research. When a new environment is created within Anaconda, it downloads a Python distribution each time and stores that information in an inscrutable location on the computer. For most, the workflow is to simply install packages as necessary into the base environment.<br><br>
@@ -23,7 +23,7 @@ Perhaps most conveniently: no more remembering the name of all the environments 
 
 
 ## Text Processing
-<br><br>
+<br>
 Much is made of Julia’s numerical chops (the language was built for it, after all), as well as Python’s world class numerical wrapper libraries (Pytorch, JAX, Tensorflow, numpy). However, computational biologists and bioinformaticians often work with text-based data. For Python users, it should go without saying that text-based computation is extremely slow. Often, this problem is so severe that multi-language pipelines become necessary. The underlying reason for this is that strings are generic objects in Python, and little to no optimization in performed at runtime.<br><br>
 
 Because Julia is JIT compiled and has Chars as a first-class type, string data can be processed extremely quickly. For bioinformaticians, this has serious implications: rather than writing difficult to maintain code in C++ or Rust, it is possible to develop a short Julia program (with python-esque syntax) to analyze millions of biological sequences with speed that is comparable to C.<br><br>
@@ -31,7 +31,7 @@ Because Julia is JIT compiled and has Chars as a first-class type, string data c
 
 
 ## Fast and Easy Multithreading
-<br><br>
+<br>
 Parallelism and broadcasting in Python are a major weakness of the language, and this is a problem because many if not most bioinformatics workflows are embarrassingly parallel. This is an area where Julia truly shines compared to Python, particularly for data-race free (embarrassingly parallel) situations. Combined with increased text-based processing speed and native numerical computation, this is when Julia really begins to shine. Last, Python’s global interpreter lock (GIL) prevents true multi-threading, putting the language at an immediate disadvantage.<br><br>
 
 In Julia, threading over a loop is as simple as:<br><br>
@@ -70,7 +70,7 @@ julia> x' * y # apostrophe represents the transpose operation, making this an in
 <br><br>
 
 ## Elegant Machine Learning
-<br><br>
+<br>
 Julia’s syntax, large scientific and numerical ecosystem, and native support results in elegant code for statistical modeling and machine learning that does not depend on DSLs. Below is a simple program that uses two of Julia’s most powerful packages to yield a MLE for a Gamma distributed sample in only a few lines of code. <br><br>
 
 
@@ -92,13 +92,13 @@ Line 11 creates a closure such that the optimize routine only performs optimizat
 In Julia, it is possible to design quite complex neural networks using native Julia code. In early project development, this often helps to quickly iterate on ideas.<br><br>
 
 ## Functions Are Center Stage
-<br><br>
+<br>
 Most scientific research projects simply do not need the complexity and overhead introduced by OOP based programming. Julia is not an object-oriented language. Julia uses structs to create composite types and places an emphasis on functional programming design patterns (while not being a true functional language like Haskell). OOP is often unnecessary and even counterproductive to many scientific and machine learning applications.<br><br>
 
 
 
 ### Example: String Operations
-<br><br>
+<br>
 A trivial example:<br><br>
 
 ```python
