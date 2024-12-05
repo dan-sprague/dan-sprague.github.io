@@ -13,7 +13,7 @@ categories: [Julia]
 - [Text Processing](#text-processing)
 - [Fast and Easy Multithreading](#fast-and-easy-multithreading)
 - [Functions Are Center Stage](#functions-are-center-stage)
-
+<hr/>
 <br>
 Julia is a programming language that has a tremendous amount to offer scientific research and development. When people are introduced to Julia, the most common pitch is that it is fast. Indeed, it is fast. Julia is a just-in-time (JIT) compiled language, meaning that types can be defined or are inferred by the compiler and that the compiler can optimize code at run time. Julia is as fast as C while reading like Python. That being said – I think this undersells the language. <br><br>
 
