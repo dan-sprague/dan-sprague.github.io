@@ -37,6 +37,57 @@ Much is made of Julia’s numerical chops (the language was built for it, after 
 
 Because Julia is JIT compiled and has Chars as a first-class type, string data can be processed extremely quickly. For bioinformaticians, this has serious implications: rather than writing difficult to maintain code in C++ or Rust, it is possible to develop a short Julia program (with python-esque syntax) to analyze millions of biological sequences with speed that is comparable to C.<br><br>
 
+Take a simple program to generate 100M short DNA sequences and check for palindromes:<br><br>
+
+```python
+
+import random
+import time
+
+def random_dna_sequence(n: int) -> str:
+    letters = ["A", "T", "C", "G"]
+    return ''.join(random.choice(letters) for _ in range(n))
+
+def generate_dna_sequences(count: int) -> list:
+    return [random_dna_sequence(random.randint(4, 10)) for _ in range(count)]
+
+# Generate 1 million random DNA strings
+start = time.time()
+dna_sequences = generate_dna_sequences(100_000_000)
+end = time.time()
+print("Sequence Generation Time: ",end - start)
+def is_palindrome(s: str) -> bool:
+    cleaned = ''.join(c.lower() for c in s if c.isalnum())
+    return cleaned == cleaned[::-1]
+start = time.time()
+results = [is_palindrome(s) for s in dna_sequences]
+end = time.time()
+print("Palindrome check time: ",end - start)
+```
+
+Sequence generation took `246.97s` and palindrome checking took `70.22s`. Here is a Julia implementation:<br><br>
+
+```julia
+function is_palindrome(s::String)::Bool
+    cleaned = replace(lowercase(s), r"[^a-z]" => "")
+    cleaned == reverse(cleaned)
+end
+
+
+function random_dna_sequence(n::Int)::String
+    join(rand(["A","T","C","G"],n))
+end
+
+
+@time nucs = map(random_dna_sequence, rand(4:10,Int(1e8)))
+
+@time result = is_palindrome.(nucs)
+```
+
+Sequence generation took `95.19s` and palindrome checking took `21.30s`. 
+
+
+
 
 
 ## Fast and Easy Multithreading
