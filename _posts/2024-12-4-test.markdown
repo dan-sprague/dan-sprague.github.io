@@ -47,7 +47,7 @@ end
 ```
 <br><br>
 ## Built for Science
-<br><br>
+<br>
 Writing mathematical and machine learning models is simple and intuitive in Julia. Broadcasting is built into the language and almost any expression on an iterable can be vectorized. Practically, this means that a tremendous amount of time is saved from having to incessantly call numpy/pytorch/jax functions on every single numerical operation that one wishes to perform.<br><br>
 
 A more important point to note here is that in Python operations are limited to whatever numpy supports. Since Julia code is “Julia all the way down”, it is trivial to write new operations that will be performative.<br><br>
