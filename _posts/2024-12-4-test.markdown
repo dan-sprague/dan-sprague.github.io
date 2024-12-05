@@ -89,13 +89,50 @@ Line 11 creates a closure such that the optimize routine only performs optimizat
 
 In Julia, it is possible to design quite complex neural networks using native Julia code. In early project development, this often helps to quickly iterate on ideas.
 
-##  Functions Are Center Stage
+## Functions Are Center Stage
 
-Most scientific research projects simply do not need to the complexity and overhead introduced by OOP based programming. Julia is not an object-oriented language. Julia uses structs to create composite types and places an emphasis on functional programming design patterns (while not being a true functional language like Haskell). OOP is often entirely unnecessary and even counterproductive to many scientific and machine learning applications.
-
-Julia code more closely mimics 
+Most scientific research projects simply do not need the complexity and overhead introduced by OOP based programming. Julia is not an object-oriented language. Julia uses structs to create composite types and places an emphasis on functional programming design patterns (while not being a true functional language like Haskell). OOP is often unnecessary and even counterproductive to many scientific and machine learning applications.
 
 
-## Syntactic Niceties and Macros
 
-Julia has a lot of quality of life features that python does not have. For example, consider the following relative common python pattern
+### Example: String Operations
+
+A trivial example:
+
+```python
+
+>>> x = "Hello world"
+>>> x.upper()
+'HELLO WORLD'
+```
+
+`upper()` is a method of the string class. For this reason, this function can only be applied to instances of `String`.
+
+Compared to Julia
+
+```julia
+julia> x = "Hello world"
+"Hello world"
+
+julia> uppercase(x)
+"HELLO WORLD"
+```
+
+In practice, this emphasis on functions and Julia's multiple dispatch system enable extremely portable code.
+
+```julia
+abstract type Shape end
+
+struct Circle <: Shape
+    radius::Float64
+end
+
+struct Rectangle <: Shape
+    width::Float64
+    height::Float64
+end
+
+area(shape::Circle) = 3.14 * shape.radius^2
+area(shape::Rectangle) = shape.width * shape.height
+```
+
