@@ -28,6 +28,28 @@ Python has no native environment management and reproducibility functionality. T
 
 Julia, in contrast, built package and environment management directly into the language. A new project in Julia has the following workflow: Create a project directory for any new project (Julia can do this for you, if desired), activate the project inside the Julia REPL (creating an environment), and add necessary packages to the project. This does a few things: first, a Project.toml and Manifest.toml file will be created for the project. These files manage dependencies automatically and in a way that is far more structured than a requirements.txt file, and second it will download all the dependencies to a common depot within the root Julia install.<br><br>
 
+For a scientific paper or research project, the following approach organization is easy to obtain:
+
+- Project
+    - Package # generalized code for entire project
+        - Manifest.Toml
+        - Project.toml
+        - src/
+        - tests/
+        - README.md 
+        - ...
+    - Figure 1
+        - Manifest.toml
+        - Project.toml
+        - fig1.jl
+        - data/
+    - Figure 2
+        - Manifest.toml
+        - Project.toml
+        - fig2.jl
+        - data/
+    - ... 
+
 Perhaps most conveniently: no more remembering the name of all the environments you ever created and which project they map to! To truly compartmentalize one’s work in Python between projects, or even specific analyses within a project, would be practically difficult or impossible. In Julia: enter the project directory and launch Julia. The correct environment with all its dependencies will be loaded from there. The base Julia environment is kept clean.<br><br>
 
 
