@@ -105,7 +105,7 @@ print("Palindrome check time: ",end - start)
 
 ```
 
-Sequence generation took `246.97s` and palindrome checking took `70.22s`.<br>
+Sequence generation took `246.97s` and palindrome checking took `12.87s`.<br>
 
 #### Julia 
 
