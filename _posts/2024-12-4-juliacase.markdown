@@ -32,7 +32,7 @@ For a scientific paper or research project, the following approach organization 
 
 - Project
     - Package # generalized code for entire project
-        - Manifest.Toml
+        - Manifest.toml
         - Project.toml
         - src/
         - tests/
