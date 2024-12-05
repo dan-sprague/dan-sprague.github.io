@@ -79,7 +79,6 @@ def is_palindrome(s: str) -> bool:
     cleaned = ''.join(c.lower() for c in s if c.isalnum())
     return cleaned == cleaned[::-1]
 
-# Generate 1 million random DNA strings
 start = time.time()
 dna_sequences = generate_dna_sequences(100_000_000)
 end = time.time()
