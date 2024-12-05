@@ -59,6 +59,8 @@ Much is made of Julia’s numerical chops (the language was built for it, after 
 
 Because Julia is JIT compiled and has Chars as a first-class type, string data can be processed extremely quickly. For bioinformaticians, this has serious implications: rather than writing difficult to maintain code in C++ or Rust, it is possible to develop a short Julia program (with python-esque syntax) to analyze millions of biological sequences with speed that is comparable to C.<br><br>
 
+### Example
+<br>
 Take a simple program to generate 100M short DNA sequences and check for palindromes. While DNA and RNA can and should be more efficiently represented (Julia has a package that implements efficient representations of DNA/RNA/Protein sequences), lets assume that we are simply optimizing for readability and implementation time.<br><br>
 
 ```python
