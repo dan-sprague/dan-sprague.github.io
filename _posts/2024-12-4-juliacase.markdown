@@ -69,17 +69,30 @@ Take a simple program to generate 100M short DNA sequences and check for palindr
     import random
     import time
 
+
+    complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
+
+    def ceildiv(a, b):
+        return -(a // -b)
+
+
     def random_dna_sequence(n: int) -> str:
         letters = ["A", "T", "C", "G"]
         return ''.join(random.choice(letters) for _ in range(n))
 
     def generate_dna_sequences(count: int) -> list:
         return [random_dna_sequence(random.randint(4, 10)) for _ in range(count)]
-    
-    def is_palindrome(s: str) -> bool:
-        cleaned = ''.join(c.lower() for c in s if c.isalnum())
-        return cleaned == cleaned[::-1]
 
+    def is_palindrome(s: str) -> bool:
+        if len(s) % 2 != 0:
+            return False
+        else:
+            for i in range(ceildiv(len(s),2)):
+                if s[i] != complement[s[len(s) - i - 1]]:
+                    return False
+            return True 
+
+    # Generate 1 million random DNA strings
     start = time.time()
     dna_sequences = generate_dna_sequences(100_000_000)
     end = time.time()
@@ -89,6 +102,7 @@ Take a simple program to generate 100M short DNA sequences and check for palindr
     results = [is_palindrome(s) for s in dna_sequences]
     end = time.time()
     print("Palindrome check time: ",end - start)
+
     ```
 
 Sequence generation took `246.97s` and palindrome checking took `70.22s`.<br>
