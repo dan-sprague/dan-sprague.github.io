@@ -6,6 +6,15 @@ last_modified_at: 2024-12-04 12:00:00 +0800
 categories: [Julia]
 ---
 <br>
+
+## Table of Contents
+
+- [Project Management and Reproducibility](#project-management-and-reproducibility)
+- [Text Processing](#text-processing)
+- [Fast and Easy Multithreading](#fast-and-easy-multithreading)
+- [Functions Are Center Stage](#functions-are-center-stage)
+
+<br>
 Julia is a programming language that has a tremendous amount to offer scientific research and development. When people are introduced to Julia, the most common pitch is that it is fast. Indeed, it is fast. Julia is a just-in-time (JIT) compiled language, meaning that types can be defined or are inferred by the compiler and that the compiler can optimize code at run time. Julia is as fast as C while reading like Python. That being said – I think this undersells the language. <br><br>
 
 In my experience, speed is often not a critical factor in scientific R&D programming development. For ML purposes, languages like Python have best in class libraries that get things done efficiently and correctly. This isn’t to say that there aren’t cases where speed really matters – I have developed Julia projects that reduced program run times from 30 minutes to less than a second and this was a substantial and meaningful result for the project. In most cases, speed is not a sufficient concern to warrant thinking about a new language. So then, why Julia?<br><br>
