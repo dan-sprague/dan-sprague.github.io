@@ -20,7 +20,7 @@ Julia is a programming language that has a tremendous amount to offer scientific
 In my experience, speed is often not a critical factor in scientific R&D programming development. For ML purposes, languages like Python have best in class libraries that get things done efficiently and correctly. This isn’t to say that there aren’t cases where speed really matters – I have developed Julia projects that reduced program run times from 30 minutes to less than a second and this was a substantial and meaningful result for the project. In most cases, speed is not a sufficient concern to warrant thinking about a new language. So then, why Julia?<br><br>
 
 
-## Project Management and Reproducibility
+## Native Project Management and Reproducibility
 <br>
 In the sciences, reproducibility and organization are perhaps the most important component of good research. This is generally true for most applications – which is why languages like Rust and Julia have robust environment management built directly into the language as a core feature.<br><br>
 
@@ -28,7 +28,7 @@ Python has no native environment management and reproducibility functionality. T
 
 Julia, in contrast, built package and environment management directly into the language. A new project in Julia has the following workflow: Create a project directory for any new project (Julia can do this for you, if desired), activate the project inside the Julia REPL (creating an environment), and add necessary packages to the project. This does a few things: first, a Project.toml and Manifest.toml file will be created for the project. These files manage dependencies automatically and in a way that is far more structured than a requirements.txt file, and second it will download all the dependencies to a common depot within the root Julia install.<br><br>
 
-For a scientific paper or research project, the following approach organization is easy to obtain:<br>
+For a scientific paper or research project, the following organizational scheme is easy to obtain:<br>
 
 - Project
     - Package # generalized code for entire project
