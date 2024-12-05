@@ -64,78 +64,78 @@ Because Julia is JIT compiled and has Chars as a first-class type, string data c
 Take a simple program to generate 100M short DNA sequences and check for palindromes. While DNA and RNA can and should be more efficiently represented (Julia has a package that implements efficient representations of DNA/RNA/Protein sequences), lets assume that we are simply optimizing for readability and implementation time.<br><br>
 
 #### Python
-    ```python
+```python
 
-    import random
-    import time
-
-
-    complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
-
-    def ceildiv(a, b):
-        return -(a // -b)
+import random
+import time
 
 
-    def random_dna_sequence(n: int) -> str:
-        letters = ["A", "T", "C", "G"]
-        return ''.join(random.choice(letters) for _ in range(n))
+complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
 
-    def generate_dna_sequences(count: int) -> list:
-        return [random_dna_sequence(random.randint(4, 10)) for _ in range(count)]
+def ceildiv(a, b):
+    return -(a // -b)
 
-    def is_palindrome(s: str) -> bool:
-        if len(s) % 2 != 0:
-            return False
-        else:
-            for i in range(ceildiv(len(s),2)):
-                if s[i] != complement[s[len(s) - i - 1]]:
-                    return False
-            return True 
 
-    # Generate 1 million random DNA strings
-    start = time.time()
-    dna_sequences = generate_dna_sequences(100_000_000)
-    end = time.time()
-    print("Sequence Generation Time: ",end - start)
+def random_dna_sequence(n: int) -> str:
+    letters = ["A", "T", "C", "G"]
+    return ''.join(random.choice(letters) for _ in range(n))
 
-    start = time.time()
-    results = [is_palindrome(s) for s in dna_sequences]
-    end = time.time()
-    print("Palindrome check time: ",end - start)
+def generate_dna_sequences(count: int) -> list:
+    return [random_dna_sequence(random.randint(4, 10)) for _ in range(count)]
 
-    ```
+def is_palindrome(s: str) -> bool:
+    if len(s) % 2 != 0:
+        return False
+    else:
+        for i in range(ceildiv(len(s),2)):
+            if s[i] != complement[s[len(s) - i - 1]]:
+                return False
+        return True 
+
+# Generate 1 million random DNA strings
+start = time.time()
+dna_sequences = generate_dna_sequences(100_000_000)
+end = time.time()
+print("Sequence Generation Time: ",end - start)
+
+start = time.time()
+results = [is_palindrome(s) for s in dna_sequences]
+end = time.time()
+print("Palindrome check time: ",end - start)
+
+```
 
 Sequence generation took `246.97s` and palindrome checking took `70.22s`.<br>
 
 #### Julia 
 
-    ```julia
+```julia
 
-    global const complement = Dict('A'=>'T', 'T'=>'A', 'C'=>'G', 'G'=>'C');
+global const complement = Dict('A'=>'T', 'T'=>'A', 'C'=>'G', 'G'=>'C');
 
-    function is_palindrome(s::Vector{Char})::Bool
-        isodd(length(s)) && return false
+function is_palindrome(s::Vector{Char})::Bool
+    isodd(length(s)) && return false
 
-        @inbounds for i in 1:cld(length(s),2)
-            s[i] != complement[s[end-i+1]] && return false
-        end
-
-        true 
+    @inbounds for i in 1:cld(length(s),2)
+        s[i] != complement[s[end-i+1]] && return false
     end
 
+    true 
+end
 
 
-    function random_dna_sequence(n::Int)::Vector{Char}
-        rand(['A','T','C','G'],n)
-    end
+
+function random_dna_sequence(n::Int)::Vector{Char}
+    rand(['A','T','C','G'],n)
+end
 
 
-    @time nucs = map(random_dna_sequence, rand(4:10,Int(1e8)))
+@time nucs = map(random_dna_sequence, rand(4:10,Int(1e8)))
 
-    @time result = is_palindrome.(nucs)
+@time result = is_palindrome.(nucs)
 
 
-    ```
+```
 
 Sequence generation took `21.52s` and palindrome checking took `1.82s`. There are several things to note about the implementations here. The first is that Julia required no imports. Second, Julia's `@time` macro saves a tremendous amount of repetitious code. Third, the `is_palindrome` function can be broadcasted over the `nucs` vector with the `.` syntax. This is despite being a handrolled function, something which is not really feasible in Python. Finally, these functions are so efficient that very little is gained very multithreading.
 
