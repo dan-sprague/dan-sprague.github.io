@@ -137,7 +137,7 @@ end
 
 ```
 
-Sequence generation took `21.52s` and palindrome checking took `1.82s`. There are several things to note about the implementations here. The first is that Julia required no imports. Second, Julia's `@time` macro saves a tremendous amount of repetitious code. Third, the `is_palindrome` function can be broadcasted over the `nucs` vector with the `.` syntax. This is despite being a handrolled function, something which is not really feasible in Python. Finally, these functions are so efficient that very little is gained very multithreading.
+Sequence generation took `21.52s` and palindrome checking took `1.82s`. There are several things to note about the implementations here. The first is that Julia required no imports. Second, Julia's `@time` macro saves a tremendous amount of repetitious code. Third, the `is_palindrome` function can be broadcasted over the `nucs` vector with the `.` syntax. This is despite being a handrolled function, something which is not really feasible in Python. Finally, these functions are so efficient that very little is gained very multithreading. Larger relative improvements in speed would be expected for more complex operations, such as sequence alignment and mapping.
 
 ## Fast and Easy Multithreading
 <br>
