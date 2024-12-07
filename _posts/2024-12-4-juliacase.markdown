@@ -139,20 +139,6 @@ end
 
 Sequence generation took `21.52s` and palindrome checking took `1.82s`. There are several things to note about the implementations here. The first is that Julia required no imports. Second, Julia's `@time` macro saves a tremendous amount of repetitious code. Third, the `is_palindrome` function can be broadcasted over the `nucs` vector with the `.` syntax. This is despite being a handrolled function, something which is not really feasible in Python. Finally, these functions are so efficient that very little is gained very multithreading.
 
-This calculation can be slightly sped up even more without importing libraries:
-
-Finally, we can work with Julia's `Biosequences.jl` package. This implements 2-bit representations for DNA letters, and contains highly optimized routines for biosequences:
-
-```julia
-using BioSequences
-
-@time seqs = [randseq(DNAAlphabet{2}(), rand(4:10)) for i in 1:1e8]
-@time ispalindromic.(seqs) ## threaded loop is no faster due to overhead
-```
-
-These sequences are generated in `14.15s` and palindrome checking is done in `2.35s`. Python obviously has large repositories on its own for biological sequences, however even with exclusively native Julia code, we are able to get an order of magnitude decrease in run time with very little code.
-
-
 ## Fast and Easy Multithreading
 <br>
 Parallelism and broadcasting in Python are a major weakness of the language, and this is a problem because many if not most bioinformatics workflows are embarrassingly parallel. This is an area where Julia truly shines compared to Python, particularly for data-race free (embarrassingly parallel) situations. Combined with increased text-based processing speed and native numerical computation, this is when Julia really begins to shine. Last, Python’s global interpreter lock (GIL) prevents true multi-threading, putting the language at an immediate disadvantage.<br><br>
@@ -213,52 +199,4 @@ x = rand(Gamma(2.0,1.5),500) # data
 <br><br>
 Line 11 creates a closure such that the optimize routine only performs optimization on the estimated parameters captured in the theta vector. This is a common problem in likelihood functions, as both parameters and data are necessary arguments. Julia treats functions as first-class types, making anonymous functions, closures, and other functional programming paradigms a natural part of the language.<br><br>
 
-In Julia, it is possible to design quite complex neural networks using native Julia code. In early project development, this often helps to quickly iterate on ideas.<br><br>
-
-## Functions Are Center Stage
-<br>
-Most scientific research projects simply do not need the complexity and overhead introduced by OOP based programming. Julia is not an object-oriented language. Julia uses structs to create composite types and places an emphasis on functional programming design patterns (while not being a true functional language like Haskell). OOP is often unnecessary and even counterproductive to many scientific and machine learning applications.<br><br>
-
-
-
-### Example: String Operations
-<br>
-A trivial example:<br><br>
-
-```python
-
->>> x = "Hello world"
->>> x.upper()
-'HELLO WORLD'
-```
-
-`upper()` is a method of the string class. For this reason, this function can only be applied to instances of `String`.<br><br>
-
-Compared to Julia<br><br>
-
-```julia
-julia> x = "Hello world"
-"Hello world"
-
-julia> uppercase(x)
-"HELLO WORLD"
-```
-<br><br>
-In practice, this emphasis on functions and Julia's multiple dispatch system enable extremely portable code.<br><br>
-
-```julia
-abstract type Shape end
-
-struct Circle <: Shape
-    radius::Float64
-end
-
-struct Rectangle <: Shape
-    width::Float64
-    height::Float64
-end
-
-area(shape::Circle) = 3.14 * shape.radius^2
-area(shape::Rectangle) = shape.width * shape.height
-```
-<br><br>
+In Julia, it is possible to design custom networks using native Julia code. In early project development, this often helps to quickly iterate on ideas. Significant time is saved from ensuring you understand the behavior of every function in Pytorch/Jax/Tensorflow, which requires substantial upfront time investment.<br><br>
