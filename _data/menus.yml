@@ -8,5 +8,8 @@
 - title: 'projects'
   url: 'projects'
 
+- title: 'photography'
+  url: 'photography'
+
 - default: menu_about
   url: 'about'
