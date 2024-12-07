@@ -6,7 +6,7 @@ permalink: /projects/
 
 # Publications
 
-[Quasar Variability from Kepler Photometry](https://arxiv.org/abs/1303.1147)
+[Kepler Photometry of Four Radio-Loud AGN in 2010-2012](https://arxiv.org/abs/1303.1147)
 
 [Functional classification of long non-coding RNAs by k-mer content](https://www.nature.com/articles/s41588-018-0207-8)
 
