@@ -20,6 +20,6 @@ permalink: /projects/
 
 [Supervised and unsupervised domain labeling in lncRNAs](https://github.com/dan-sprague/CRFer.jl)
 
-[LongTails - DeSeq2 in Julia for RNAseq and TCRseq][https://github.com/dan-sprague/LongTails]
+[LongTails - DeSeq2 in Julia for RNAseq and TCRseq](https://github.com/dan-sprague/LongTails)
 
 [Latent Class Regression via Gumbel-Softmax](https://github.com/dan-sprague/BayesianLatentClassRegression)
