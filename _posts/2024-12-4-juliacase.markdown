@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "The Computational Biology Case for Julia"
+title:  "The Case for Julia in Computational Biology"
 date:   2024-12-04 12:00:00 +0800
 last_modified_at: 2024-12-04 12:00:00 +0800
 categories: [Julia]
