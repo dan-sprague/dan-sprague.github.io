@@ -6,11 +6,13 @@ permalink: /projects/
 
 # Publications
 
-[Kepler Photometry of Four Radio-Loud AGN in 2010-2012](https://arxiv.org/abs/1303.1147)
+[A novel HLA Class II presentation prediction algorithm deciphers immunogenic CD4 epitopes specific to KRAS G12C](https://www.biorxiv.org/content/10.1101/2024.12.06.627073v2)
+
+[Nonlinear sequence similarity between the Xist and Rsx long noncoding RNAs suggests shared functions of tandem repeat domains](https://rnajournal.cshlp.org/content/25/8/1004.long)
 
 [Functional classification of long non-coding RNAs by k-mer content](https://www.nature.com/articles/s41588-018-0207-8)
 
-[Nonlinear sequence similarity between the Xist and Rsx long noncoding RNAs suggests shared functions of tandem repeat domains](https://rnajournal.cshlp.org/content/25/8/1004.long)
+[Kepler Photometry of Four Radio-Loud AGN in 2010-2012](https://arxiv.org/abs/1303.1147)
 
 
 
