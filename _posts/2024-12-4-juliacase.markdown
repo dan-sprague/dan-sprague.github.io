@@ -51,9 +51,7 @@ Perhaps most conveniently: no more remembering the name of all the environments 
 
 ## Text Processing
 <br>
-Much is made of Julia’s numerical chops (the language was built for it, after all), as well as Python’s world class numerical wrapper libraries (Pytorch, JAX, Tensorflow, numpy). However, computational biologists and bioinformaticians often work with text-based data. While speed may not often be limiting for many workflows, it does matter when processing HTS data. For Python users, it should go without saying that text-based computation is extremely slow. Often, this problem is so severe that multi-language pipelines become necessary. The underlying reason for this is that strings are generic objects in Python, and little to no optimization in performed at runtime.<br><br>
-
-Because Julia is JIT compiled and has Chars as a first-class type, string data can be processed extremely quickly. For bioinformaticians, this has serious implications: rather than writing difficult to maintain code in C++ or Rust, it is possible to develop a short Julia program (with python-esque syntax) to analyze millions of biological sequences with speed that is comparable to C.<br><br>
+Computational biologists and bioinformaticians often work with text-based data. Because Julia is JIT compiled and Chars are a first-class type, string data can be processed extremely quickly. BioSequences.jl has efficient minimal representations for biological characters that are intuitive and simple to operate on. For bioinformaticians, this has serious implications: rather than writing difficult to maintain code in C++ or Rust, it is possible to develop a short Julia program (with python-esque syntax) to analyze millions of biological sequences with speed that is comparable to C.<br><br>
 
 ### Example
 <br>
