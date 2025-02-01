@@ -105,7 +105,7 @@ Sequence generation took `246.97s` and palindrome checking took `12.87s`.<br>
 
 ```julia
 
-global const complement = Dict('A'=>'T', 'T'=>'A', 'C'=>'G', 'G'=>'C');
+const complement = Dict('A'=>'T', 'T'=>'A', 'C'=>'G', 'G'=>'C');
 
 function is_palindrome(s::Vector{Char})::Bool
     isodd(length(s)) && return false
