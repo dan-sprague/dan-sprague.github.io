@@ -45,7 +45,7 @@ For a scientific paper or research project, the following organizational scheme 
         - data/
     - ... 
 
-Dependency management is automatic, with no overhead other than the initial creation of a project directory via `Pkg.generate("Project")` To truly compartmentalize one’s work in Python between projects, or even specific analyses within a project, would be practically difficult or impossible. In Julia: enter the project directory and launch Julia. The correct environment with all its dependencies will be loaded from there. The base Julia environment is kept clean.<br><br>
+Dependency management is automatic, with no overhead other than the initial creation of a project directory via `Pkg.generate("Project")`. To truly compartmentalize one’s work in Python between projects, or even specific analyses within a project, would be practically difficult or impossible. In Julia: enter the project directory and launch Julia. The correct environment with all its dependencies will be loaded from there. The base Julia environment is kept clean.<br><br>
 
 
 ## Text Processing
@@ -134,7 +134,7 @@ Sequence generation took `21.52s` and palindrome checking took `1.82s`. There ar
 
 ## Fast and Easy Multithreading
 <br>
-Parallelism and broadcasting in Python are a major weakness of the language, and this is a problem because many if not most bioinformatics workflows are embarrassingly parallel. This is an area where Julia truly shines compared to Python, particularly for data-race free (embarrassingly parallel) situations. Combined with increased text-based processing speed and native numerical computation, this is when Julia really begins to shine. Last, Python’s global interpreter lock (GIL) prevents true multi-threading, putting the language at an immediate disadvantage.<br><br>
+Parallelism and broadcasting in Python are a major weakness of the language, and this is a problem because many if not most bioinformatics workflows are independently parallel. This is an area where Julia truly shines compared to Python. Combined with increased text-based processing speed and native numerical computation, this is when Julia really begins to shine.<br><br>
 
 In Julia, threading over a loop is as simple as:<br><br>
 
