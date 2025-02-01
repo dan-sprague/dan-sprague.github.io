@@ -15,9 +15,8 @@ categories: [Julia]
 - [Functions Are Center Stage](#functions-are-center-stage)
 <hr/>
 <br>
-Julia is a programming language that has a tremendous amount to offer scientific research and development. When people are introduced to Julia, the most common pitch is that it is fast. Indeed, it is fast. Julia is a just-in-time (JIT) compiled language, meaning that types can be defined or are inferred by the compiler and that the compiler can optimize code at run time. Julia is as fast as C while reading like Python. That being said – I think this undersells the language. <br><br>
 
-In my experience, speed is often not a critical factor in scientific R&D programming development. For ML purposes, languages like Python have best in class libraries that get things done efficiently and correctly. This isn’t to say that there aren’t cases where speed really matters – I have developed Julia projects that reduced program run times from 30 minutes to less than a second and this was a substantial and meaningful result for the project. In most cases, speed is not a sufficient concern to warrant thinking about a new language. So then, why Julia?<br><br>
+Julia is a programming language that has a tremendous amount to offer scientific research and development. Python excels as a general purpose programming language and as a wrapper for neural network implementations, whereas R excels at data analysis, statistics, and its robust library of bioinformatics packages. What is missing from the computational biology toolkit is a language that is easy to write, read, while maximizing performance on numerical and sequence based data. This is the niche that Julia fills.<br><br>
 
 
 ## Native Project Management and Reproducibility
