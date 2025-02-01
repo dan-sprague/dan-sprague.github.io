@@ -16,7 +16,7 @@ categories: [Julia]
 <hr/>
 <br>
 
-Julia is a programming language that has a tremendous amount to offer scientific research and development. Python excels as a general purpose programming language and as a wrapper for neural network implementations, whereas R excels at data analysis, statistics, and its robust library of bioinformatics packages. What is missing from the computational biology toolkit is a language that is easy to write, read, while maximizing performance on numerical and sequence based data. This is the niche that Julia fills.<br><br>
+Why Julia? Python excels as a general purpose programming language and as a wrapper for neural network implementations, whereas R excels at data analysis, statistics, and its robust library of bioinformatics packages. What is missing from the computational biology toolkit is a language that is easy to write, read, while maximizing performance on numerical and sequence based data. This is the niche that Julia fills.<br><br>
 
 
 ## Native Project Management and Reproducibility
