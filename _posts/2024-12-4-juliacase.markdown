@@ -16,7 +16,7 @@ categories: [Julia]
 <hr/>
 <br>
 
-Why Julia? Python excels as a general purpose programming language and as a wrapper for neural network implementations, whereas R excels at data analysis, statistics, and its robust library of bioinformatics packages. What is missing from the computational biology toolkit is a language that is easy to write, read, while maximizing performance on numerical and sequence based data. This is the niche that Julia fills.<br><br>
+Why Julia? Python excels as a general purpose programming language and as a wrapper for neural network implementations, whereas R excels at data analysis, plotting, statistics, and for its robust library of bioinformatics packages. What is missing from the computational biology toolkit is a language that is easy to write, read, while maximizing performance on numerical and sequence based data. This is the niche that Julia fills.<br><br>
 
 
 ## Native Project Management and Reproducibility
@@ -45,7 +45,7 @@ For a scientific paper or research project, the following organizational scheme 
         - data/
     - ... 
 
-Perhaps most conveniently: no more remembering the name of all the environments you ever created and which project they map to! To truly compartmentalize one’s work in Python between projects, or even specific analyses within a project, would be practically difficult or impossible. In Julia: enter the project directory and launch Julia. The correct environment with all its dependencies will be loaded from there. The base Julia environment is kept clean.<br><br>
+Dependency management is automatic, with no overhead other than the initial creation of a project directory via `Pkg.generate("Project")` To truly compartmentalize one’s work in Python between projects, or even specific analyses within a project, would be practically difficult or impossible. In Julia: enter the project directory and launch Julia. The correct environment with all its dependencies will be loaded from there. The base Julia environment is kept clean.<br><br>
 
 
 ## Text Processing
