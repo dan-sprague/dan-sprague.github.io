@@ -1,10 +1,17 @@
 @charset "utf-8";
 
+$web-font-path: "https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap" !default;
+
+@if $web-font-path {
+    @import url($web-font-path);
+}
+
+
+
 * {
   margin: 0;
   padding: 0;
   font-family: Libre Franklin New, Libre Franklin, monospace;
-  font-weight: 200;
 }
 
 html,

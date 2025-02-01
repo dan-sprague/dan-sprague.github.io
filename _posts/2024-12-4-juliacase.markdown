@@ -24,10 +24,6 @@ In my experience, speed is often not a critical factor in scientific R&D program
 <br>
 In the sciences, reproducibility and organization are perhaps the most important component of good research. This is generally true for most applications – which is why languages like Rust and Julia have robust environment management built directly into the language as a core feature.<br><br>
 
-Python has no native environment management and reproducibility functionality. To perform environment management in Python, one must download an environment manager like Anaconda. From here, it is still quite non-obvious to many new users such as graduate students how to correctly manage their research. When a new environment is created within Anaconda, it downloads a Python distribution each time and stores that information in an inscrutable location on the computer. For most, the workflow is to simply install packages as necessary into the base environment.<br><br>
-
-Julia, in contrast, built package and environment management directly into the language. A new project in Julia has the following workflow: Create a project directory for any new project (Julia can do this for you, if desired), activate the project inside the Julia REPL (creating an environment), and add necessary packages to the project. This does a few things: first, a Project.toml and Manifest.toml file will be created for the project. These files manage dependencies automatically and in a way that is far more structured than a requirements.txt file, and second it will download all the dependencies to a common depot within the root Julia install.<br><br>
-
 For a scientific paper or research project, the following organizational scheme is easy to obtain:<br>
 
 - Project
@@ -153,29 +149,6 @@ result = zeros(Float64, n)
 @threads for i in 1:n
   result[i] = sqrt(i)
 end
-```
-<br><br>
-
-## Built for Science
-<br>
-Writing mathematical and machine learning models is simple and intuitive in Julia. Broadcasting is built into the language and almost any expression on an iterable can be vectorized. Practically, this means that a tremendous amount of time is saved from having to incessantly call numpy/pytorch/jax functions on every single numerical operation that one wishes to perform.<br><br>
-
-A more important point to note here is that in Python operations are limited to whatever numpy supports. Since Julia code is “Julia all the way down”, it is trivial to write new operations that will be performative.<br><br>
-
-
-
-```julia
-julia> x,y = [1,2,3],[4,5,6]
-([1, 2, 3], [4, 5, 6])
-
-julia> x .* y
-3-element Vector{Int64}:
-  4
- 10
- 18
-
-julia> x' * y # apostrophe represents the transpose operation, making this an inner product calculation
-32
 ```
 <br><br>
 
