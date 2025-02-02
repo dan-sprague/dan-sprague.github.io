@@ -12,7 +12,7 @@ permalink: /projects/
 
 - [Functional classification of long non-coding RNAs by k-mer content](https://www.nature.com/articles/s41588-018-0207-8)
 
-- [Kepler Photometry of Four Radio-Loud AGN in 2010-2012](https://arxiv.org/abs/1303.1147)
+- [Kepler Photometry of Four Radio-Loud AGN in 2010-2012](https://iopscience.iop.org/article/10.1088/0004-637X/773/2/89)
 
 
 
