@@ -23,13 +23,11 @@ This is a tremendously hard problem. Consider a DNA strand. To construct all pos
 
 Therefore, two things are necessary to generate/sample/identify biologically meaningful sequences from the soup of stochasicity. The first is a scoring function that attributes each sequence with a score, where the score encodes some notion of "better". In biology, the score is fitness -- a small number of possible DNA molecules improve an organisms chance of survival but the vast majority don't. The second is a method that can quickly find higher scoring, or "better", sequences from the soup of incredibly unlikely ones.
 
-In context of human language, the situation is even more dire. The vocabulary for modern LLMs is not 4 but on the order of $10^4$, making the search space even more impossibly large. However, LLMs represent a transformational improvement in our ability to score sequences. The score of a sequence of words $x$ is given by an LLM, such as ChatGPT or Claude. The LLM scoring function $f_\theta$ assigns a probability to each possible sequence out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for $p(x)$. To score possible generated sequences conditional on the model parameters $\theta$ and input context $c$, LLMs evaluate $\hat{p}(x \mid \theta,c)$, and attempt to sample a response that has the highest possible score.
+In context of human language, the situation is even more dire. The vocabulary for modern LLMs is not 4 but on the order of $10^4$, making the search space even more impossibly large. However, LLMs represent a transformational improvement in our ability to score sequences. The score of a sequence of words $x$ is given by an LLM, such as ChatGPT or Claude. The LLM scoring function $f_\theta$ assigns a probability to each possible sequence out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for $p(x)$. To score possible generated sequences conditional on the model parameters $\theta$ and input context $c$, LLMs evaluate $\hat{p}(x \mid \theta,c)$, and attempt to sample a response that has the highest possible score. The best response $x_{\texttt{best}}$ is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$. To guarantee that the best possible response from the model, $x_{\texttt{best}}$ must maximize $f_\theta$.
 
 $$p(x | c) \approx \hat{p}(x \mid \theta,c)$$
 
 $$\hat{p}(x \mid \theta,c) = f_\theta(x)$$
-
-The best response $x_{\texttt{best}}$ is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$. To guarantee that the best possible response from the model, $x_{\texttt{best}}$ must maximize $f_\theta$.
 
 $$x_{\texttt{best}} = \max_{x} f_\theta(x)$$
 
