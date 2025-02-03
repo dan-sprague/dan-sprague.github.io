@@ -11,11 +11,12 @@ LLM performance has seemed to plateau as the hoovering of the internet nears com
 
 As far as one believes that humans convey their reasoning and knowledge through language, and as far as one believes that human language can be approximated by an arbitrarily complex statistical model, then we can say that there is a probability distribution over all possible sequences of words that humans are likely to generate.
 
+$$x = (x_0,...,x_i,...,x_n)$$
+
 $$p(x_0,...,x_i,...,x_n)$$
 
 The weights inside ChatGPT encode correlations between words, sentences, and paragraphs. However, the billions of weights inside an LLM represent only a static set of variables that are not capable of generating a sequence on their own. Rather, a method is required to "decode" the weights inside the model into a generated sequence given contextualizing information $c$. In other words, a method is required to roll the metaphorical dice to generate a sequence $x$ with probability $p$. 
 
-$$x = (x_0,...,x_i,...,x_n)$$
 
 $$ x \mid c \sim p(x) $$
 
