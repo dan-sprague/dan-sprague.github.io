@@ -17,7 +17,7 @@ The weights inside ChatGPT encode correlations between words, sentences, and par
 
 $$(x_0,...,x_i,...,x_n)$$
 
-This is a tremendously hard problem. Consider a DNA strand. If we wanted to write down all possible ways to write a 100 base pair long DNA molecule, then at each position we have to include all 4 possible of ATCG. There are $4^100$ or $$1 \times 10^{60}$$ possible strings of A,T,C,G that are length 100. This is impossible even when there are only 4 choices at each position, in human language the vocabulary is immense. Therefore, we need an approximation or estimation of the distribution $\hat{p}$ that minimizes the difference between natural language and our ability to approximate it
+This is a tremendously hard problem. Consider a DNA strand. If we wanted to write down all possible ways to write a 100 base pair long DNA molecule, then at each position we have to include all 4 possible of ATCG. There are $4^{100}$ or $$1 \times 10^{60}$$ possible strings of A,T,C,G that are length 100. This is impossible even when there are only 4 choices at each position, in human language the vocabulary is immense. Therefore, we need an approximation or estimation of the distribution $\hat{p}$ that minimizes the difference between natural language and our ability to approximate it
 
 $$\min |p(x) - \hat{p}(x)|$$
 
