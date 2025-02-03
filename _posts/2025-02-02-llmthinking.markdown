@@ -21,7 +21,7 @@ This is a tremendously hard problem. Consider a DNA strand. If we wanted to writ
 
 Therefore, we need to define an approximating density for the set of sequences $x \in X$, given model parameters $\theta$, $\hat{p}(x \mid \theta)$, that minimizes the difference between natural language and our ability to approximate it
 
-$$p(x) \\approx \hat{p}(x|\theta)$$
+$$p(x) \approx \hat{p}(x|\theta)$$
 
 $$\hat{p}(x|\theta) = f_\theta(x)$$
 
