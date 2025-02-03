@@ -7,7 +7,7 @@ categories: [Statistical Modeling]
 ---
 <br>
 
-LLMs are going to exceed people's expectations in the coming years. LLM performance has seemed to plateau and all available training data has been mined. The prevailing line is that this is a sign that LLMs have advanced as far as they can advance. However, this might not be the case. Rather it is possible that LLMs know more than we think they do, but they haven't learned how to think before they speak. 
+LLMs are going to exceed people's expectations in the coming years. LLM performance has seemed to plateau as the hoovering of the internet nears completion. The prevailing line is that this is a sign that LLMs have advanced as far as they can advance. However, this might not be the case. Rather it is possible that LLMs know more than we think they do, but they haven't learned how to think before they speak. 
 
 As far as one believes that humans convey their reasoning and knowledge through language, and as far as one believes that human language can be approximated by an arbitrarily complex statistical model, then we can say that there is a probability distribution over all possible sequences of words that humans are likely to generate.
 
@@ -25,7 +25,7 @@ $$\min |p(x) - \hat{p}(x)|$$
 
 Of course, in the era of ChatGPT and Claude, our approximation of language is given by the LLM that assigns a probability to each possible sequence.
 
-$$\hat{p(x_1,...,x_n)} = f_{LLM}(x_1,...,x_n)$$
+$$\hat{p}(x_1,...,x_n) = f_{LLM}(x_1,...,x_n)$$
 
 
 The problem encountered by modern LLMs is that succeeding in building very good likelihood estimators $f_{LLM}$, where $f$ represents an arbitrary language model, was only half the problem. The other half, as with DNA, is to guarantee the best response given input to the model. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. 
