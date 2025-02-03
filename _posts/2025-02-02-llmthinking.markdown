@@ -7,7 +7,7 @@ categories: [Statistical Modeling]
 ---
 # Table of Contents
 - [Language Models](#language-models)
-- [Text Processing](#llms-are-approximating-densities-of-natural-language)
+- [LLMs Are Approximating Densities of Natural Language](#llms-are-approximating-densities-of-natural-language)
 <hr>
 <br><br>
 
