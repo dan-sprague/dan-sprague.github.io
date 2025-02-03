@@ -21,9 +21,11 @@ This is a tremendously hard problem. Consider a DNA strand. If we wanted to writ
 
 Therefore, we need to define an approximating density for the set of sequences $x \in X$, given model parameters $\theta$, $\hat{p}(x \mid \theta)$, that minimizes the difference between natural language and our ability to approximate it
 
-$$f_\theta(x_1,...,x_n) \approx p(x)$$
+$$\hat{p}(x|\theta) \approx p(x)$$
 
-Of course, in the era of ChatGPT and Claude, our approximation of language is given by the LLM that assigns a probability to each possible sequence.
+$$\hat{p}(x|\theta) = f_\theta(x)$$
+
+Of course, in the era of ChatGPT and Claude, our approximation of language $f_\theta$ is given by the LLM that assigns a probability to each possible sequence.
 
 The problem encountered by modern LLMs is that building a very good likelihood estimator $f_{LLM}$, where $f$ represents an arbitrary language model, was only half the problem. The other half, as with DNA, is to generate the best response given input to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. <br>
 
