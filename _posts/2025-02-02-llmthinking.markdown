@@ -26,7 +26,7 @@ Of course, in the era of ChatGPT and Claude, our approximation of language is gi
 $$\hat{p}(x_1,...,x_n) = f_{LLM}(x_1,...,x_n)$$
 
 
-The problem encountered by modern LLMs is that building a very good likelihood estimator $f_{LLM}$, where $f$ represents an arbitrary language model, was only half the problem. The other half, as with DNA, is to generate the best response given input to the model. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. 
+The problem encountered by modern LLMs is that building a very good likelihood estimator $f_{LLM}$, where $f$ represents an arbitrary language model, was only half the problem. The other half, as with DNA, is to generate the best response given input to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. 
 
 The set of sequences is therefore distributed as defined by the LLM. 
 
