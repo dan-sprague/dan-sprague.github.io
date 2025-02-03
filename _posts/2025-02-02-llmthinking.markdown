@@ -15,7 +15,7 @@ $$p(x_0,...,x_i,...,x_n)$$
 
 The weights inside ChatGPT encode correlations between words, sentences, and paragraphs. However, the billions of weights inside an LLM represent only a static set of variables that are not capable of generating a sequence on their own. Rather, a method is required to "decode" the weights inside the model into a generated sequence:
 
-$$(x_0,...,x_i,...,x_n)$$
+$$x = (x_0,...,x_i,...,x_n)$$
 
 This is a tremendously hard problem. Consider a DNA strand. If we wanted to write down all possible ways to write a 100 base pair long DNA molecule, then at each position we have to include all 4 possible of ATCG. There are $4^{100}$ or $$1 \times 10^{60}$$ possible strings of A,T,C,G that are length 100. This is impossible even when there are only 4 choices at each position, in human language the vocabulary is immense. Therefore, two things are necessary to generate biologically meaningful sequences from the soup of stochasicity. The first is a scoring function that gives each sequence a score, and the second is a method to sample sequences that are more likely than not.
 
