@@ -27,7 +27,7 @@ $$ x \mid c \sim p(x) $$
 
 ## Combinatorial Explosion
 
-Unlike rolling a die, this is a tremendously hard problem. Consider a DNA strand. To construct all possible 100 base pair long DNA molecules, then at each position there must be a subset of sequences that contain all possibilities of A,T,C, or G. For this reason, there are $4^{100}$ or $$1 \times 10^{60}$$ possible DNA strands that are length 100. Evaluating all $4^{100}$ molecules is impossible.
+Unlike rolling a die, sampling the set of all possible sequences is a tremendous problem. Consider a DNA strand. To construct all possible 100 base pair long DNA molecules, then at each position there must be a subset of sequences that contain all possibilities of A,T,C, or G. For this reason, there are $4^{100}$ or $$1 \times 10^{60}$$ possible DNA strands that are length 100. Evaluating all $4^{100}$ molecules is impossible.
 
 To work around this problem, two things are necessary to generate/sample/identify biologically meaningful sequences. The first is a language model that attributes each sequence with a score, where the score encodes some notion of "better". In biology, the score is fitness -- a small number of possible DNA molecules improve an organisms chance of survival but the vast majority don't. The second is a method that can quickly find higher scoring, or "better", sequences from the soup of meaningless ones.
 
