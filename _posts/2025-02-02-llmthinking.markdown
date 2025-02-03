@@ -23,13 +23,13 @@ This is a tremendously hard problem. Consider a DNA strand. To construct all pos
 
 Therefore, two things are necessary to generate/sample/identify biologically meaningful sequences from the soup of stochasicity. The first is a scoring function that attributes each sequence with a score, where the score encodes some notion of "better". In biology, the score is fitness -- a small number of possible DNA molecules improve an organisms chance of survival but the vast majority don't. The second is a method that can quickly find higher scoring, or "better", sequences from the soup of incredibly unlikely ones.
 
-In context of human language, the score of a sequence of words $x$ is given by an LLM, such as ChatGPT or Claude. The LLM scoring function $f_\theta$ assigns a probability to each possible sequence out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for the set of sequences $x \in X$, conditional on the model parameters $\theta$ and input context $c$, $\hat{p}(x \mid \theta,c)$, that minimizes the difference between natural language and our ability to approximate it
+In context of human language, the score of a sequence of words $x$ is given by an LLM, such as ChatGPT or Claude. The LLM scoring function $f_\theta$ assigns a probability to each possible sequence out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for $p(x)$. To score possible generated sequences conditional on the model parameters $\theta$ and input context $c$, LLMs evaluate $\hat{p}(x \mid \theta,c)$, and attempt to sample the generated sequence that has the highest probability.
 
 $$p(x | c) \approx \hat{p}(x \mid \theta,c)$$
 
 $$\hat{p}(x \mid \theta,c) = f_\theta(x)$$
 
-Since $f_\theta$ calculates a probability for any sequence $x$, then the best response $x_{\texttt{best}}$ for a given context $c$ to the LLM and the model parameters $\theta$ is the the point of highest conditional density $\hat{p}(x \mid c,\theta)$. This requires us to find the sequence $x_{\texttt{best}}$ that maximizes $f_\theta$.
+The best response $x_{\texttt{best}}$ is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$. To guarantee that the best possible response from the model, $x_{\texttt{best}}$ must maximize $f_\theta$.
 
 $$(x_0,...,x_n)_{\texttt{best}} = \max_{x} f_\theta(x)$$
 
