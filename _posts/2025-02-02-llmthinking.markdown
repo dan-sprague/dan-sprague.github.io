@@ -29,7 +29,7 @@ Of course, in the era of ChatGPT and Claude, our approximation of language $f_\t
 
 $$(x_0,...,x_n)_{\texttt{best}} = \max f_\theta$$
 
-The problem encountered by modern LLMs is that building a very good likelihood estimator $f_{LLM}$, where $f$ represents an arbitrary language model, was only half the problem. The other half, as with DNA, is to generate the best response given input to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. <br>
+The problem encountered by modern LLMs is that building a very good likelihood estimator $f_{LLM}$, where $f$ represents an arbitrary language model, was only half the problem. The other half, as with DNA, is to generate the best response given input to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. For human language, $M > 10^4$<br>
 
 To avoid having to sample more sequences than there are atoms in the universe, a method is needed to quickly sample a sequence that is likely to be near the maximum of $f_{LLM}$. The simplest and fastest approach is take the most likely token at each position independent of the rest, however this method is very susceptible to ending up in local minima, possibly very far from the true best scoring sequence. More complicated algorithms exist, however the number of samples taken is still miniscule and greedy heuristics are still used.<br>
 
