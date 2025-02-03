@@ -25,9 +25,9 @@ Therefore, two things are necessary to generate biologically meaningful sequence
 
 In context of human language, the score of a sequence of words $x$ is given by an LLM, such as ChatGPT or Claude. The LLM scoring function $f_\theta$ assigns a probability to each possible sequence out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for the set of sequences $x \in X$, conditional on the model parameters $\theta$ and input context $c$, $\hat{p}(x \mid \theta,c)$, that minimizes the difference between natural language and our ability to approximate it
 
-$$p(x) \approx \hat{p}(x \mid \theta)$$
+$$p(x | c) \approx \hat{p}(x \mid \theta,c)$$
 
-$$\hat{p}(x \mid \theta) = f_\theta(x)$$
+$$\hat{p}(x \mid \theta,c) = f_\theta(x)$$
 
 Since $f_\theta$ calculates a probability for any sequence $x$, then the best response $x_{\texttt{best}}$ for a given context $c$ to the LLM and the model parameters $\theta$ is the the point of highest conditional density $p(x \mid c,\theta)$. This requires us to find the sequence $x_{\texttt{best}}$ that maximizes $f_\theta$.
 
