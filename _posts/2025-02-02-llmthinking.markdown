@@ -5,9 +5,12 @@ date:   2025-02-02 12:00:00 +0800
 last_modified_at: 2025-02-02 12:00:00 +0800
 categories: [Statistical Modeling]
 ---
-<br>
+## Table of Contents
+
 
 LLM performance has seemed to plateau as the hoovering of the internet nears completion. The prevailing line is that this is a sign that LLMs have advanced as far as they can advance. However, this might not be the case. Rather it is possible that LLMs know more than we think they do, but they haven't learned how to think before they speak. <br/>
+
+# Language Models
 
 As far as one believes that humans convey their reasoning and knowledge through language, and as far as one believes that human language can be approximated by an arbitrarily complex statistical model, then we can say that there is a probability distribution over all possible sequences of words that humans are likely to generate.
 
@@ -19,11 +22,11 @@ Of course, the "true" nature of $p(x)$ is unknown and therefore requires mathema
 
 $$ x \mid c \sim p(x) $$
 
-This is a tremendously hard problem. Consider a DNA strand. To construct all possible 100 base pair long DNA molecules, then at each position there must be a subset of sequences that contain all possibilities of A,T,C, or G. For this reason, there are $4^{100}$ or $$1 \times 10^{60}$$ possible DNA strands that are length 100. Evaluating all $4^{100}$ molecules is impossible.
+Unlike rolling a die, this is a tremendously hard problem. Consider a DNA strand. To construct all possible 100 base pair long DNA molecules, then at each position there must be a subset of sequences that contain all possibilities of A,T,C, or G. For this reason, there are $4^{100}$ or $$1 \times 10^{60}$$ possible DNA strands that are length 100. Evaluating all $4^{100}$ molecules is impossible.
 
-Therefore, two things are necessary to generate/sample/identify biologically meaningful sequences from the soup of stochasicity. The first is a scoring function that attributes each sequence with a score, where the score encodes some notion of "better". In biology, the score is fitness -- a small number of possible DNA molecules improve an organisms chance of survival but the vast majority don't. The second is a method that can quickly find higher scoring, or "better", sequences from the soup of incredibly unlikely ones.
+Therefore, two things are necessary to generate/sample/identify biologically meaningful sequences. The first is a scoring function that attributes each sequence with a score, where the score encodes some notion of "better". In biology, the score is fitness -- a small number of possible DNA molecules improve an organisms chance of survival but the vast majority don't. The second is a method that can quickly find higher scoring, or "better", sequences from the soup of meaningless ones.
 
-In context of human language, the situation is even more dire. The vocabulary for modern LLMs is not 4 but on the order of $10^4$, making the search space even more impossibly large. However, LLMs represent a transformational improvement in our ability to score sequences. The score of a sequence of words $x$ is given by an LLM, such as ChatGPT or Claude. The LLM scoring function $f_\theta$ assigns a probability to each possible sequence out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for $p(x)$. To score possible generated sequences conditional on the model parameters $\theta$ and input context $c$, LLMs evaluate $\hat{p}(x \mid \theta,c)$, and attempt to sample a response that has the highest possible score. The best response $x_{\texttt{best}}$ is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$. To guarantee that the best possible response from the model, $x_{\texttt{best}}$ must maximize $f_\theta$.
+In context of human language, the situation is more dire. The vocabulary for modern LLMs is not 4 but on the order of $10^4$, making the search space even more impossibly large. That being said, LLMs represent a transformational improvement in our ability to score generated human language. An LLM $f_\theta$ assigns a probability to each possible sequence of words out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for $p(x)$. To score possible generated sequences conditional on the model parameters $\theta$ and input context $c$, LLMs evaluate $\hat{p}(x \mid \theta,c)$, and attempt to sample a response that has the highest possible score. The best response $x_{\texttt{best}}$ is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$. To guarantee that the best possible response from the model, $x_{\texttt{best}}$ must maximize $f_\theta$.
 
 $$p(x | c) \approx \hat{p}(x \mid \theta,c)$$
 
