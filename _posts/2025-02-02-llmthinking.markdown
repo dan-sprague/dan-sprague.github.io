@@ -7,7 +7,7 @@ categories: [Statistical Modeling]
 ---
 <br>
 
-LLM performance has seemed to plateau as the hoovering of the internet nears completion. The prevailing line is that this is a sign that LLMs have advanced as far as they can advance. However, this might not be the case. Rather it is possible that LLMs know more than we think they do, but they haven't learned how to think before they speak. 
+LLM performance has seemed to plateau as the hoovering of the internet nears completion. The prevailing line is that this is a sign that LLMs have advanced as far as they can advance. However, this might not be the case. Rather it is possible that LLMs know more than we think they do, but they haven't learned how to think before they speak. <br/>
 
 As far as one believes that humans convey their reasoning and knowledge through language, and as far as one believes that human language can be approximated by an arbitrarily complex statistical model, then we can say that there is a probability distribution over all possible sequences of words that humans are likely to generate.
 
@@ -17,9 +17,7 @@ The weights inside ChatGPT encode correlations between words, sentences, and par
 
 $$(x_0,...,x_i,...,x_n)$$
 
-This is a tremendously hard problem. Consider a DNA strand. If we wanted to write down all possible ways to write a 100 base pair long DNA molecule, then at each position we have to include all 4 possible of ATCG. There are $4^100$ or $$1 \times 10^{60}$$ possible strings of A,T,C,G that are length 100. This is impossible even when there are only 4 choices at each position, in human language the vocabulary is immense.
-
-Therefore, we need an approximation or estimation of the distribution $\hat{p}$ that minimizes the difference between natural language and our ability to approximate it
+This is a tremendously hard problem. Consider a DNA strand. If we wanted to write down all possible ways to write a 100 base pair long DNA molecule, then at each position we have to include all 4 possible of ATCG. There are $4^100$ or $$1 \times 10^{60}$$ possible strings of A,T,C,G that are length 100. This is impossible even when there are only 4 choices at each position, in human language the vocabulary is immense. Therefore, we need an approximation or estimation of the distribution $\hat{p}$ that minimizes the difference between natural language and our ability to approximate it
 
 $$\min |p(x) - \hat{p}(x)|$$
 
@@ -28,7 +26,7 @@ Of course, in the era of ChatGPT and Claude, our approximation of language is gi
 $$\hat{p}(x_1,...,x_n) = f_{LLM}(x_1,...,x_n)$$
 
 
-The problem encountered by modern LLMs is that succeeding in building very good likelihood estimators $f_{LLM}$, where $f$ represents an arbitrary language model, was only half the problem. The other half, as with DNA, is to guarantee the best response given input to the model. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. 
+The problem encountered by modern LLMs is that building a very good likelihood estimator $f_{LLM}$, where $f$ represents an arbitrary language model, was only half the problem. The other half, as with DNA, is to generate the best response given input to the model. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. 
 
 The set of sequences is therefore distributed as defined by the LLM. 
 
