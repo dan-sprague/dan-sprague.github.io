@@ -7,13 +7,13 @@ categories: [Statistical Modeling]
 ---
 <br>
 
-LLMs are going to exceed people's expectations in the coming years. LLM performance has seemed to be plateuing and has run out of training data. The prevailing line is that this is a sign that LLMs have advanced as far as they can advance. However, this might not be the case. Rather it is possible that LLMs know more than we think they do, but they haven't learned how to think before they speak. 
+LLMs are going to exceed people's expectations in the coming years. LLM performance has seemed to plateau and all available training data has been mined. The prevailing line is that this is a sign that LLMs have advanced as far as they can advance. However, this might not be the case. Rather it is possible that LLMs know more than we think they do, but they haven't learned how to think before they speak. 
 
 As far as one believes that humans convey their reasoning and knowledge through language, and as far as one believes that human language can be approximated by an arbitrarily complex statistical model, then we can say that there is a probability distribution over all possible sequences of words that humans are likely to generate.
 
 $p(x_0,...,x_i,...,x_n)$
 
-The weights inside ChatGPT encode correlations between words, sentences, and paragraphs. However, the billions of weights inside an LLM represent only a static set of variables and they are not capable of generating a sequence themselves. Rather, a method is required to "decode" the weights inside the model into a generated sequence:
+The weights inside ChatGPT encode correlations between words, sentences, and paragraphs. However, the billions of weights inside an LLM represent only a static set of variables that are not capable of generating a sequence on their own. Rather, a method is required to "decode" the weights inside the model into a generated sequence:
 
 $(x_0,...,x_i,...,x_n)$
 
@@ -38,6 +38,10 @@ To avoid having to sample more sequences than there are atoms in the universe, a
 
 Users of ChatGPT, Claude, and other LLMs have noticed that the models now "think" before replying. It is unlikely that much or any formal logic has been encoded into the model. Rather, the companies are devising more elaborate sampling stragies for their LLMs. The startling implication is that these LLMs may actually know our language  better than we currently think, and that LLM reasoning may appear simply as a consequence of more efficiently obtaining better generated responses from the model. 
 
-Current LLM performance may be no where near their true approximation of human language, and the good news is that we may not need exponentially more data to see it.
+Given these limitations, current LLM performance may be no where near its true level of knowledge or approximation of human language. It is possible that improvements to LLMs will come from a team of mathematicians and computer scientists in a few lines of math, rather than relying on data. 
+
+Our brains effortlessly sample language with essentially no error, especially on common knowledge subjects. The frequent and nonsensical "hallucinations" of an LLM are essentially a poor estimate for $\max{f_{LLM}}$ that a human brain would never make. 
+
+As sampling algorithms for generative AI improves, we will get a better picture of the true level of knowledge store in modern LLMs. I strongly suspect that better exploration of the sequence space via improved markov-chain monte carlo methods or similar will result in improved AI performance despite the data ceiling.
 
 
