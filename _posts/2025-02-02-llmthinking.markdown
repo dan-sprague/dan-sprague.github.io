@@ -10,6 +10,7 @@ categories: [Statistical Modeling]
 - [Text Processing](#llms-are-approximating-densities-of-natural-language)
 <hr>
 <br><br>
+
 LLM performance has seemed to plateau as the hoovering of the internet nears completion. The prevailing line is that this is a sign that LLMs have advanced as far as they can advance. However, this might not be the case. Rather it is possible that LLMs know more than we think they do, but they haven't learned how to think before they speak. <br/>
 
 # Language Models
