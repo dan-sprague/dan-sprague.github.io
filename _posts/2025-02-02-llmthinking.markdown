@@ -23,7 +23,7 @@ This is a tremendously hard problem. Consider a DNA strand. To construct all pos
 
 Therefore, two things are necessary to generate biologically meaningful sequences from the soup of stochasicity. The first is a scoring function that attributes each sequence with a score, where the score encodes some notion of "better". In biology, the score is fitness -- a small number of possible DNA molecules improve an organisms chance of survival but the vast majority don't. The second is a method that can quickly find higher scoring, or "better", sequences from the soup of incredibly unlikely ones.
 
-In context of human language, the score of a sequence of words $x$ is given by an LLM, such as ChatGPT or Claude. The LLM scoring function $f_\theta$ assigns a probability to each possible sequence out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for the set of sequences $x \in X$, conditional on the model parameters $\theta$ and input context $c$, $\hat{p}(x \mid \theta)$, that minimizes the difference between natural language and our ability to approximate it
+In context of human language, the score of a sequence of words $x$ is given by an LLM, such as ChatGPT or Claude. The LLM scoring function $f_\theta$ assigns a probability to each possible sequence out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for the set of sequences $x \in X$, conditional on the model parameters $\theta$ and input context $c$, $\hat{p}(x \mid \theta,c)$, that minimizes the difference between natural language and our ability to approximate it
 
 $$p(x) \approx \hat{p}(x \mid \theta)$$
 
