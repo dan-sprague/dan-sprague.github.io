@@ -26,19 +26,15 @@ Of course, in the era of ChatGPT and Claude, our approximation of language is gi
 $$\hat{p}(x_1,...,x_n) = f_{LLM}(x_1,...,x_n)$$
 
 
-The problem encountered by modern LLMs is that building a very good likelihood estimator $f_{LLM}$, where $f$ represents an arbitrary language model, was only half the problem. The other half, as with DNA, is to generate the best response given input to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. 
+The problem encountered by modern LLMs is that building a very good likelihood estimator $f_{LLM}$, where $f$ represents an arbitrary language model, was only half the problem. The other half, as with DNA, is to generate the best response given input to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. <br>
 
-The set of sequences is therefore distributed as defined by the LLM. 
+To avoid having to sample more sequences than there are atoms in the universe, a method is needed to quickly sample a sequence that is likely to be near the maximum of $f_{LLM}$. To accomplish this, heuristic driven algorithms are necessary. The simplest and fastest approach is take the most likely token at each position independent of the rest, however this method is very susceptible to ending up in local minima, possibly very far from the true best scoring sequence. More complicated algorithms exist, such as beam search, however the number of samples taken is still miniscule and greedy heuristics are still used.<br>
 
-$$x \sim f_{LLM}(x_0,...x_i,...,x_n)$$
+Users of ChatGPT, Claude, and other LLMs have noticed that the models now "think" before replying. It is unlikely that much or any formal logic has been encoded into the model. Rather, the companies are devising more elaborate sampling stragies for their LLMs. The startling implication is that these LLMs may actually know our language  better than we currently think, and that LLM reasoning may appear simply as a consequence of more efficiently obtaining better generated responses from the model.<br>
 
-To avoid having to sample more sequences than there are atoms in the universe, a method is needed to quickly sample a sequence that is likely to be near the maximum of $f_{LLM}$. To accomplish this, heuristic driven algorithms are necessary. The simplest and fastest approach is take the most likely token at each position independent of the rest, however this method is very susceptible to ending up in local minima, possibly very far from the true best scoring sequence. More complicated algorithms exist, such as beam search, however the number of samples taken is still miniscule and greedy heuristics are still used.
+Given these limitations, current LLM performance may be no where near its true level of knowledge or approximation of human language. It is possible that improvements to LLMs will come from a team of mathematicians and computer scientists in a few lines of math, rather than relying on data. <br>
 
-Users of ChatGPT, Claude, and other LLMs have noticed that the models now "think" before replying. It is unlikely that much or any formal logic has been encoded into the model. Rather, the companies are devising more elaborate sampling stragies for their LLMs. The startling implication is that these LLMs may actually know our language  better than we currently think, and that LLM reasoning may appear simply as a consequence of more efficiently obtaining better generated responses from the model. 
-
-Given these limitations, current LLM performance may be no where near its true level of knowledge or approximation of human language. It is possible that improvements to LLMs will come from a team of mathematicians and computer scientists in a few lines of math, rather than relying on data. 
-
-Our brains effortlessly sample language with essentially no error, especially on common knowledge subjects. The frequent and nonsensical "hallucinations" of an LLM are essentially a poor estimate for $\max{f_{LLM}}$ that a human brain would never make. 
+Our brains effortlessly sample language with essentially no error, especially on common knowledge subjects. The frequent and nonsensical "hallucinations" of an LLM are essentially a poor estimate for $\max{f_{LLM}}$ that a human brain would never make. <br>
 
 As sampling algorithms for generative AI improves, we will get a better picture of the true level of knowledge store in modern LLMs. I strongly suspect that better exploration of the sequence space via improved markov-chain monte carlo methods or similar will result in improved AI performance despite the data ceiling.
 
