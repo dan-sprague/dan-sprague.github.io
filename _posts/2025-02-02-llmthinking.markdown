@@ -19,7 +19,7 @@ $$x = (x_0,...,x_i,...,x_n)$$
 
 $$ x \mid c \sim p(x) $$
 
-This is a tremendously hard problem. Consider a DNA strand. To construct all possible 100 base pair long DNA molecules, then at each position there must be a subset of sequences that contain all possibilities of A,T,C, or G. For this reason, there are $4^{100}$ or $$1 \times 10^{60}$$ possible DNA strands that are length 100. Evaluating all $4^{100}$ molecules is impossible even when there are only 4 choices at each position.
+This is a tremendously hard problem. Consider a DNA strand. To construct all possible 100 base pair long DNA molecules, then at each position there must be a subset of sequences that contain all possibilities of A,T,C, or G. For this reason, there are $4^{100}$ or $$1 \times 10^{60}$$ possible DNA strands that are length 100. Evaluating all $4^{100}$ molecules is impossible.
 
 Therefore, two things are necessary to generate biologically meaningful sequences from the soup of stochasicity. The first is a scoring function that attributes each sequence with a score, where the score encodes some notion of "better". In biology, the score is fitness -- a small number of possible DNA molecules improve an organisms chance of survival but the vast majority don't. The second is a method that can quickly find higher scoring, or "better", sequences from the soup of incredibly unlikely ones.
 
