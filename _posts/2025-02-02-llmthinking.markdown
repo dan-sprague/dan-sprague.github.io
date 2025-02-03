@@ -21,9 +21,9 @@ This is a tremendously hard problem. Consider a DNA strand. If we wanted to writ
 
 Therefore, we need to define an approximating density for the set of sequences $x \in X$, given model parameters $\theta$, $\hat{p}(x \mid \theta)$, that minimizes the difference between natural language and our ability to approximate it
 
-$$p(x) \approx \hat{p}(x|\theta)$$
+$$p(x) \approx \hat{p}(x \mid \theta)$$
 
-$$\hat{p}(x|\theta) = f_\theta(x)$$
+$$\hat{p}(x \mid \theta) = f_\theta(x)$$
 
 Of course, in the era of ChatGPT and Claude, our approximation of language $f_\theta$ is given by the LLM that assigns a probability to each possible sequence. Since $f_\theta$ calculates a probability for any input sequence $x$, then the best response $x$ for a given context $c$ to the LLM and the model parameters $\theta$ is the the point of highest conditional density $p(x \mid c,\theta)$ and requires us to find the sequence $x$ that maximizes $f_\theta$.
 
