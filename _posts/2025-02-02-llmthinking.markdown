@@ -29,7 +29,7 @@ $$p(x | c) \approx \hat{p}(x \mid \theta,c)$$
 
 $$\hat{p}(x \mid \theta,c) = f_\theta(x)$$
 
-Since $f_\theta$ calculates a probability for any sequence $x$, then the best response $x_{\texttt{best}}$ for a given context $c$ to the LLM and the model parameters $\theta$ is the the point of highest conditional density $p(x \mid c,\theta)$. This requires us to find the sequence $x_{\texttt{best}}$ that maximizes $f_\theta$.
+Since $f_\theta$ calculates a probability for any sequence $x$, then the best response $x_{\texttt{best}}$ for a given context $c$ to the LLM and the model parameters $\theta$ is the the point of highest conditional density $\hat{p}(x \mid c,\theta)$. This requires us to find the sequence $x_{\texttt{best}}$ that maximizes $f_\theta$.
 
 $$(x_0,...,x_n)_{\texttt{best}} = \max_{x} f_\theta(x)$$
 
