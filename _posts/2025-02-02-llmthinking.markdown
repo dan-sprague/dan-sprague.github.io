@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "LLMs May Know More Than We Think"
+title:  "LLMs Need To Think More"
 date:   2025-02-02 12:00:00 +0800
 last_modified_at: 2025-02-02 12:00:00 +0800
 categories: [Statistical Modeling]
