@@ -15,7 +15,7 @@ $$x = (x_0,...,x_i,...,x_n)$$
 
 $$p(x)$$
 
-Of course, the "true" nature of $p(x)$ is unknown and therefore requires mathematical approximation. The weights inside ChatGPT encode correlations between words, sentences, and paragraphs. However, the billions of weights inside an LLM represent only a static set of variables that are not capable of generating a sequence on their own. Rather, a method is required to "decode" the weights inside the model into a generated sequence given contextualizing information $c$. In other words, a method is required to roll the metaphorical dice to generate a sequence $x$ with probability $p$. 
+Of course, the "true" nature of $p(x)$ is unknown and therefore requires mathematical approximation. The weights inside ChatGPT encode correlations between words, sentences, and paragraphs. However, the billions of weights inside an LLM represent only a static set of variables that are not capable of generating a sequence on their own. Rather, a method is required to "decode" the weights inside the model into a generated sequence given contextualizing information $c$. In other words, a method is required to roll the metaphorical dice to generate a sequence $x$ with probability $p$, given context $c$. 
 
 $$ x \mid c \sim p(x) $$
 
