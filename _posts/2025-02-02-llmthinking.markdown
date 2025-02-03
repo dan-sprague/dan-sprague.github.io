@@ -31,7 +31,7 @@ $$\hat{p}(x \mid \theta,c) = f_\theta(x)$$
 
 The best response $x_{\texttt{best}}$ is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$. To guarantee that the best possible response from the model, $x_{\texttt{best}}$ must maximize $f_\theta$.
 
-$$(x_0,...,x_n)_{\texttt{best}} = \max_{x} f_\theta(x)$$
+$$x_{\texttt{best}} = \max_{x} f_\theta(x)$$
 
 The problem encountered by modern LLMs is that building a very good likelihood estimator $f_{LLM}$, where $f$ represents an arbitrary language model, was only half the problem. The other half, as with DNA, is to generate the best response given input to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. For human language, $M > 10^4$<br>
 
