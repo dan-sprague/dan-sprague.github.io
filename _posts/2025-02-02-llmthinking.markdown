@@ -31,9 +31,9 @@ Unlike rolling a die, sampling the set of all possible sequences is a tremendous
 
 To work around this problem, two things are necessary to generate/sample/identify biologically meaningful sequences. The first is a language model that attributes each sequence with a score, where the score encodes some notion of "better". In biology, the score is fitness -- a small number of possible DNA molecules improve an organisms chance of survival but the vast majority don't. The second is a method that can quickly find higher scoring, or "better", sequences from the soup of meaningless ones.
 
-# Part 1: LLMs Act As Language Scoring Functions
+# Part 1: Estimating p(x) with an LLM
 
-LLMs represent a transformational improvement in our ability to score generated human language. An LLM implemented as a neural network $f_\theta$ assigns a probability to each possible sequence of words out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for $p(x)$. To score possible generated sequences conditional on the model parameters $\theta$ and input context $c$, LLMs evaluate $\hat{p}(x \mid \theta,c)$, and attempt to sample a response that has the highest possible score. The best response $x_{\texttt{best}}$ is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$. To guarantee that the best possible response from the model, $x_{\texttt{best}}$ must maximize $f_\theta$.
+LLMs represent a transformational improvement in our ability to score generated human language. An LLM is a function $f$ parameterised by $\theta$ that assigns a probability to each possible sequences $x$. Therefore, an LLM is an approximating density for $p(x)$. To score possible generated sequences conditional on the model parameters $\theta$ and input context $c$, LLMs evaluate $\hat{p}(x \mid \theta,c)$, and attempt to sample a response that has the highest possible score. The best response $x_{\texttt{best}}$ is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$. To guarantee that the best possible response from the model, $x_{\texttt{best}}$ must maximize $f_\theta$.
 
 $$p(x | c) \approx \hat{p}(x \mid \theta,c)$$
 
