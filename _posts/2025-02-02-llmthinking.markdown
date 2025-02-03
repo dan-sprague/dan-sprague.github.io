@@ -32,7 +32,7 @@ The problem encountered by modern LLMs is that succeeding in building very good 
 
 The set of sequences is therefore distributed as defined by the LLM. 
 
-$$x ~ f_{LLM}(x_0,...x_i,...,x_n)$$
+$$x \sim f_{LLM}(x_0,...x_i,...,x_n)$$
 
 To avoid having to sample more sequences than there are atoms in the universe, a method is needed to quickly sample a sequence that is likely to be near the maximum of $f_{LLM}$. To accomplish this, heuristic driven algorithms are necessary. The simplest and fastest approach is take the most likely token at each position independent of the rest, however this method is very susceptible to ending up in local minima, possibly very far from the true best scoring sequence. More complicated algorithms exist, such as beam search, however the number of samples taken is still miniscule and greedy heuristics are still used.
 
