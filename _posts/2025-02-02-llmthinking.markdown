@@ -8,6 +8,7 @@ categories: [Statistical Modeling]
 # Table of Contents
 - [Language Models](#language-models)
 - [Text Processing](#llms-are-approximating-densities-of-natural-language)
+<hr>
 <br><br>
 LLM performance has seemed to plateau as the hoovering of the internet nears completion. The prevailing line is that this is a sign that LLMs have advanced as far as they can advance. However, this might not be the case. Rather it is possible that LLMs know more than we think they do, but they haven't learned how to think before they speak. <br/>
 
@@ -31,7 +32,7 @@ To work around this problem, two things are necessary to generate/sample/identif
 
 # LLMs Are Approximating Densities of Natural Language
 
-LLMs represent a transformational improvement in our ability to score generated human language. An LLM $f_\theta$ assigns a probability to each possible sequence of words out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for $p(x)$. To score possible generated sequences conditional on the model parameters $\theta$ and input context $c$, LLMs evaluate $\hat{p}(x \mid \theta,c)$, and attempt to sample a response that has the highest possible score. The best response $x_{\texttt{best}}$ is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$. To guarantee that the best possible response from the model, $x_{\texttt{best}}$ must maximize $f_\theta$.
+LLMs represent a transformational improvement in our ability to score generated human language. An LLM implemented as a neural network $f_\theta$ assigns a probability to each possible sequence of words out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for $p(x)$. To score possible generated sequences conditional on the model parameters $\theta$ and input context $c$, LLMs evaluate $\hat{p}(x \mid \theta,c)$, and attempt to sample a response that has the highest possible score. The best response $x_{\texttt{best}}$ is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$. To guarantee that the best possible response from the model, $x_{\texttt{best}}$ must maximize $f_\theta$.
 
 $$p(x | c) \approx \hat{p}(x \mid \theta,c)$$
 
