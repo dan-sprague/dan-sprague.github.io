@@ -47,6 +47,9 @@ To avoid having to sample more sequences than there are atoms in the universe, a
 
 Users of ChatGPT, Claude, and other LLMs have noticed that the models now "think" before replying. It is unlikely that much or any formal logic has been encoded into the model. Rather, the companies are devising more elaborate sampling stragies for their LLMs. The startling implication is that these LLMs may actually know our language  better than we currently think they do, and that improved LLMs will emerge simply as a consequence of more efficiently obtaining better generated responses from the model.<br>
 
+![Finding the best generated response](../assets/path_opt.png)
+
+
 Given these limitations, current LLM performance may be no where near its true level of knowledge or approximation of human language. It is possible that improvements to LLMs will come from a team of mathematicians and computer scientists in a few lines of math, rather than relying on exponentially more data. <br>
 
 Our brains effortlessly sample language with essentially no error, especially on common knowledge subjects. The frequent and nonsensical "hallucinations" of an LLM are essentially a poor estimate for $\max{f_{LLM}}$ that a human brain would never make. <br>
