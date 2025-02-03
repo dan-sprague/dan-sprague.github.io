@@ -13,19 +13,23 @@ As far as one believes that humans convey their reasoning and knowledge through 
 
 $$p(x_0,...,x_i,...,x_n)$$
 
-The weights inside ChatGPT encode correlations between words, sentences, and paragraphs. However, the billions of weights inside an LLM represent only a static set of variables that are not capable of generating a sequence on their own. Rather, a method is required to "decode" the weights inside the model into a generated sequence:
+The weights inside ChatGPT encode correlations between words, sentences, and paragraphs. However, the billions of weights inside an LLM represent only a static set of variables that are not capable of generating a sequence on their own. Rather, a method is required to "decode" the weights inside the model into a generated sequence given contextualizing information $c$. In other words, a method is required to roll the metaphorical dice to generate a sequence $x$ with probability $p$. 
 
 $$x = (x_0,...,x_i,...,x_n)$$
 
-This is a tremendously hard problem. Consider a DNA strand. To construct all possible 100 base pair long DNA molecules, then at each position there must be a subset of sequences that contain all possibilities of A,T,C, or G. For this reason, there are $4^{100}$ or $$1 \times 10^{60}$$ possible DNA strands that are length 100. This is impossible even when there are only 4 choices at each position, in human language the vocabulary is immense. Therefore, two things are necessary to generate biologically meaningful sequences from the soup of stochasicity. The first is a scoring function that gives each sequence a score, and the second is a method to sample sequences that are more likely than not.
+$$ x \mid c \sim p(x) $$
 
-Therefore, we need to define an approximating density for the set of sequences $x \in X$ and model parameters $\theta$, $\hat{p}(x \mid \theta)$, that minimizes the difference between natural language and our ability to approximate it
+This is a tremendously hard problem. Consider a DNA strand. To construct all possible 100 base pair long DNA molecules, then at each position there must be a subset of sequences that contain all possibilities of A,T,C, or G. For this reason, there are $4^{100}$ or $$1 \times 10^{60}$$ possible DNA strands that are length 100. Evaluating all $4^100$ molecules is impossible even when there are only 4 choices at each position. The situation is even more dire in human language, where the vocabulary size is on the order of $10^4$. 
+
+Therefore, two things are necessary to generate biologically meaningful sequences from the soup of stochasicity. The first is a scoring function that attributes each sequence with a score, where the score encodes some notion of "better". In biology, the score is fitness -- a small number of possible DNA molecules improve an organisms chance of survival but the vast majority don't. The second is a method that can quickly find higher scoring, or "better", sequences from the soup of incredibly unlikely ones.
+
+In context of human language, the score of a sequence of words $x$ is given by an LLM, such as ChatGPT or Claude. The LLM scoring function $f_\theta$ assigns a probability to each possible sequence out of the universe of all possible sequences $x \in X$. Therefore, an LLM is an approximating density for the set of sequences $x \in X$, conditional on the model parameters $\theta$ and input context $c$, $\hat{p}(x \mid \theta)$, that minimizes the difference between natural language and our ability to approximate it
 
 $$p(x) \approx \hat{p}(x \mid \theta)$$
 
 $$\hat{p}(x \mid \theta) = f_\theta(x)$$
 
-Of course, in the era of ChatGPT and Claude, our approximation of language $f_\theta$ is given by the LLM that assigns a probability to each possible sequence out of the universe of all possible sequences $x \in X$. Since $f_\theta$ calculates a probability for any input sequence $x$, then the best response $x_{\texttt{best}}$ for a given context $c$ to the LLM and the model parameters $\theta$ is the the point of highest conditional density $p(x \mid c,\theta)$ and requires us to find the sequence $x$ that maximizes $f_\theta$.
+Since $f_\theta$ calculates a probability for any sequence $x$, then the best response $x_{\texttt{best}}$ for a given context $c$ to the LLM and the model parameters $\theta$ is the the point of highest conditional density $p(x \mid c,\theta)$. This requires us to find the sequence $x_{\texttt{best}}$ that maximizes $f_\theta$.
 
 $$(x_0,...,x_n)_{\texttt{best}} = \max f_\theta$$
 
