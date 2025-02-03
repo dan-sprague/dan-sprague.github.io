@@ -21,7 +21,7 @@ This is a tremendously hard problem. Consider a DNA strand. If we wanted to writ
 
 Therefore, we need to define an approximating density for the set of sequences $x \in X$, given model parameters $\theta$, $\hat{p}(x \mid \theta)$, that minimizes the difference between natural language and our ability to approximate it
 
-$$\min |p(x) - \hat{p}(x|\theta)|$$
+$$\min |p(x) - \hat{p}(x \mid \theta)|$$
 
 Of course, in the era of ChatGPT and Claude, our approximation of language is given by the LLM that assigns a probability to each possible sequence.
 
