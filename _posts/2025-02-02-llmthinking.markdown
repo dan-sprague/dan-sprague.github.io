@@ -25,7 +25,7 @@ $$p(x) \approx \hat{p}(x|\theta)$$
 
 $$\hat{p}(x|\theta) = f_\theta(x)$$
 
-Of course, in the era of ChatGPT and Claude, our approximation of language $f_\theta$ is given by the LLM that assigns a probability to each possible sequence. Since $f_\theta$ calculates a probability for any input sequence $x$, then the best response $x$ for a given context $c$ to the LLM and the model parameters $\theta$ is the the point of highest conditional density $p(x \mid c,\theta)$ and requires us to find the maximum of the LLM function, given the context.
+Of course, in the era of ChatGPT and Claude, our approximation of language $f_\theta$ is given by the LLM that assigns a probability to each possible sequence. Since $f_\theta$ calculates a probability for any input sequence $x$, then the best response $x$ for a given context $c$ to the LLM and the model parameters $\theta$ is the the point of highest conditional density $p(x \mid c,\theta)$ and requires us to find the sequence $x$ that maximizes $f_\theta$.
 
 $$\max f_\theta$$
 
