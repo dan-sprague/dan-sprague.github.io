@@ -27,7 +27,7 @@ The challenge LLMs tackle is twofold: estimating $p(x)$ and then sampling (gener
 
 # Estimating p(x) with an LLM
 
-LLMs represent a transformational improvement in our ability to estimate the likelihood of human language. An LLM is a function $f$ parameterised by $\theta$, $f_\theta$, that calculates the likelihood^*^ of any sequence $x$. Therefore, an LLM is an approximating density for $p(x)$. To score possible generated sequences conditional on the model parameters $\theta$ and input context $c$, LLMs evaluate $\hat{p}(x \mid \theta,c)$, and attempt to sample a response that has the highest possible score. The best response $x_{\texttt{best}}$ is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$. To guarantee that the best possible response from the model, $x_{\texttt{best}}$ must maximize $f_\theta$.
+LLMs represent a transformational improvement in our ability to estimate the likelihood of human language. An LLM is a function $f$ parameterised by $\theta$, $f_\theta$, that calculates the probability of the vocabulary given context $c$. For this reason, an LLM can be viewed as an approximating density for $p(x) \approx $\hat{p}(x \mid \theta,c)$. The best response $x_{\texttt{best}}$ from the LLM is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$, which directly means that $x_{\texttt{best}}$ must maximize $f_\theta$.
 
 $$p(x | c) \approx \hat{p}(x \mid \theta,c)$$
 
