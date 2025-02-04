@@ -23,12 +23,6 @@ Of course, the "true" nature of $p(x)$ is unknown and therefore requires mathema
 
 $$ x \mid c \sim p(x) $$
 
-## Combinatorial Explosion
-
-Unlike rolling a die, sampling the set of all possible sequences is a tremendous problem. Consider a DNA strand. To construct all possible 100 base pair long DNA molecules, then at each position there must be a subset of sequences that contain all possibilities of A,T,C, or G. For this reason, there are $4^{100}$ or $$1 \times 10^{60}$$ possible DNA strands that are length 100. Evaluating all $4^{100}$ molecules is impossible.
-
-To work around this problem, two things are necessary to generate/sample/identify biologically meaningful sequences. The first is a language model that attributes each sequence with a score, where the score encodes some notion of "better". In biology, the score is fitness -- a small number of possible DNA molecules improve an organisms chance of survival but the vast majority don't. The second is a method that can quickly find higher scoring, or "better", sequences from the soup of meaningless ones.
-
 # Estimating p(x) with an LLM
 
 LLMs represent a transformational improvement in our ability to estimate the likelihood of human language. An LLM is a function $f$ parameterised by $\theta$, $f_\theta$, that calculates the likelihood^*^ of any sequence $x$. Therefore, an LLM is an approximating density for $p(x)$. To score possible generated sequences conditional on the model parameters $\theta$ and input context $c$, LLMs evaluate $\hat{p}(x \mid \theta,c)$, and attempt to sample a response that has the highest possible score. The best response $x_{\texttt{best}}$ is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$. To guarantee that the best possible response from the model, $x_{\texttt{best}}$ must maximize $f_\theta$.
@@ -43,7 +37,11 @@ The problem encountered by modern LLMs is that building a very good likelihood e
 
 # Sequence generation
 
-To avoid having to sample more sequences than there are atoms in the universe, a method is needed to quickly sample a sequence that is likely to be near the maximum of $f_{LLM}$. The simplest and fastest approach is take the most likely token at each position independent of the rest, however this method is very susceptible to ending up in local minima, possibly very far from the true best scoring sequence. More complicated algorithms exist, however the number of samples taken is still miniscule and greedy heuristics are still used.<br>
+## Combinatorial Explosion
+
+The number of possible ways to compose human language into text is functionally infinite, however even when the maximum length is restricted the problem is intractable. Consider just 100 basepairs of DNA. To construct all possible 100 base pair DNA molecules, then at each position from 1 to 100 there must be a subset of sequences that contain all possibilities of A,T,C, and G. For this reason, there are $4^{100}$ or $$1 \times 10^{60}$$ possible DNA strands that are length 100. Evaluating all $4^{100}$ molecules is impossible.
+
+To avoid having to evaluate more sequences than there are atoms in the universe, a method is needed to quickly sample a sequence or set of sequences that are likely to be near the maximum of $\hat{p}(x \mid c)$. 
 
 Users of ChatGPT, Claude, and other LLMs have noticed that the models now "think" before replying. It is unlikely that much or any formal logic has been encoded into the model. Rather, the companies are devising more elaborate sampling stragies for their LLMs. The startling implication is that these LLMs may actually know our language  better than we currently think they do, and that improved LLMs will emerge simply as a consequence of more efficiently obtaining better generated responses from the model.<br>
 
