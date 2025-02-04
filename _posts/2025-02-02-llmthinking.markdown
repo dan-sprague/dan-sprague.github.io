@@ -51,7 +51,7 @@ Crucially, these heuristics work pretty well because the underlying models are s
 # Thinking like an LLM
 While the generated response from heuristics might be suboptimal, the response is very probably now in the neighborhood of the best response. Fortunately, there is more information available that guarantees a better prediction on a second attempt. Because an LLM is a neural network that has been trained with gradient descent, it has a calculable gradient $\nabla f\_theta$. The gradient points in the direction of change in $f_\theta$, essentially indicating how to generate <br>
 
-![Finding the best generated response](/assets/images/path_opt.png)
+![Finding the best generated response](/assets/images/path_opt.pdf)
 | Figure 1. Gradient based generated sequence optimization. Left: Given an initial prediction from the model, the gradient of the LLM $\nabla f_\theta$ points the next prediction in a direction that is guaranteed to give a higher likelihood response, however these methods get trapped in local minima. Right: Gradient-based monte carlo samplers such as HMC use the gradient of the LLM $\nabla f_\theta$ to draw samples from $f_\theta$ proportionally to how likely the samples are from the model. |
 
 <br><br>
