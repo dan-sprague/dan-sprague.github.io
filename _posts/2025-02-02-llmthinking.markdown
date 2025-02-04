@@ -65,3 +65,7 @@ As sampling algorithms for generative AI improves, we will get a better picture 
 You generate an initial proposal response, but then reevaluate the response. You pass the initial response through the LLM which gives a probability/pseudolikelihood of the response. The calculation of that probability/pseudolikelihood is differentiable. 
 
 However my sampling choices at each position in the sequence are discrete, meaning they cannot be connected to this gradient. This is resolvable, potentially, by using a continuous relaxation calculation of the samples.
+
+
+Initial → Continuous Relaxation → Gradient Updates → Final Argmax
+tokens    (Gumbel-Softmax)       (using f_θ)        (discrete tokens)
