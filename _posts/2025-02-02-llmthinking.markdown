@@ -23,7 +23,7 @@ Of course, the "true" nature of human language $p(x)$ is unknown and therefore r
 
 $$ x \mid c \sim p(x) $$
 
-The challenge LLMs tackle is twofold: estimating $p(x)$ and then sampling (generating) a reply that maximizes $p(x)$. 
+The challenge LLMs tackle is twofold: estimating $p(x)$ and then sampling (generating) a reply to a prompt $c$ that maximizes $p(x|c)$. 
 
 # Estimating p(x) with an LLM
 
