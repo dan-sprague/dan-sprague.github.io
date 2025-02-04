@@ -158,4 +158,4 @@ scatter!([Q[1,end]],[Q[2,end]],[-U(Q[:,end])],color=:red,label="End")
 plot!(Q[1,:],Q[2,:],-U.(eachcol(Q)),linewidth=3,color=:red,label="Gradient Ascent Path")
 
 
-savefig(plot(p1,p,colorbar=false,size=(600,300),dpi=600),"../assets/images/path_opt.png")
+savefig(plot(p1,p,colorbar=false,size=(600,300),dpi=600,titlefont=(10)),"../assets/images/path_opt.png")
