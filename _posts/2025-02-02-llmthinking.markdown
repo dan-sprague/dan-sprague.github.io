@@ -54,6 +54,18 @@ While the generated response from heuristics might be suboptimal, the response i
 ![Finding the best generated response](/assets/images/path_opt.pdf)
 | Figure 1. Gradient based generated sequence optimization. Left: Given an initial prediction from the model, the gradient of the LLM $\nabla f_\theta$ points the next prediction in a direction that is guaranteed to give a higher likelihood response, however these methods get trapped in local minima. Right: Gradient-based monte carlo samplers such as HMC use the gradient of the LLM $\nabla f_\theta$ to draw samples from $f_\theta$ proportionally to how likely the samples are from the model. |
 
+Gradient Ascent
+$$ x_{i+1} ← x_i + η ∇f_θ(x_i)
+ $$
+
+Gradient MCMC Samplers (HMC)
+
+$$p_{i+1/2} ← p_i + (η/2) ∇f_θ(x_i)$$
+$$x_{i+1} ← x_i + η p_{i+1/2}$$
+$$p_{i+1} ← p_{i+1/2} + (η/2) ∇f_θ(x_{i+1})$$
+
+
+
 <br><br>
 Given these limitations, current LLM performance may be no where near its true level of knowledge or approximation of human language. It is possible that improvements to LLMs will come from a team of mathematicians and computer scientists in a few lines of math, rather than relying on exponentially more data. <br>
 
