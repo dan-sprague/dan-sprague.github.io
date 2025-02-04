@@ -63,10 +63,7 @@ $x_{i+1} \leftarrow x_i + η p_{i+1/2}$
 
 $p_{i+1} \leftarrow p_{i+1/2} + (η/2) ∇f_θ(x_{i+1})$
 
-<object data="/assets/images/path_opt.pdf" type="application/pdf" width="100%" height="600px">
-    <p>It appears you don't have a PDF plugin for this browser. You can 
-    <a href="/assets/images/path_opt.pdf">click here to download the PDF file.</a></p>
-</object>
+![Finding the best generated response](/assets/images/path_opt.png)
 | Figure 1. Gradient based generated sequence optimization. Left: Given an initial prediction from the model, the gradient of the LLM $\nabla f_\theta$ points the next prediction in a direction that is guaranteed to give a higher likelihood response, however these methods get trapped in local minima. Right: Gradient-based monte carlo samplers such as HMC use the gradient of the LLM $\nabla f_\theta$ to draw samples from $f_\theta$ proportionally to how likely the samples are from the model. |
 
 
