@@ -5,7 +5,7 @@ date:   2025-02-02 12:00:00 +0800
 last_modified_at: 2025-02-02 12:00:00 +0800
 categories: [Statistical Modeling]
 ---
-# Table of Contents
+## Table of Contents
 - [Language Models](#language-models)
 - [LLMs Are Approximating Densities of Natural Language](#llms-are-approximating-densities-of-natural-language)
 <hr>
@@ -13,7 +13,7 @@ categories: [Statistical Modeling]
 
 LLM performance has seemed to plateau as the hoovering of the internet nears completion. The prevailing line is that this is a sign that LLMs have advanced as far as they can advance. However, this might not be the case. Rather it is possible that LLMs know more than we think they do, but they haven't learned how to think before they speak. <br/>
 
-# Language Models
+## Language Models
 
 As far as one believes that humans convey their reasoning and knowledge through language, and as far as one believes that human language can be approximated by an arbitrarily complex statistical model, then we can say that there is a probability distribution over all possible sequences of words $x = (x_1,\dots,x_n)$ that humans are likely to generate.
 
@@ -25,7 +25,7 @@ $$ x \mid c \sim p(x) $$
 
 The challenge LLMs tackle is twofold: estimating $p(x)$ and then sampling (generating) a reply to a prompt $c$ that maximizes $p(x \mid c)$. 
 
-# Estimating p(x) with an LLM
+## Estimating p(x) with an LLM
 
 LLMs represent a transformational improvement in our ability to estimate the likelihood of human language. An LLM is a function $f$ parameterised by $\theta$, $f_\theta$, that consumes context $c$ and estimates the probability distribution of the vocabulary at any given position within the sequence. For this reason, an LLM can be viewed as an approximating density for $p(x \mid c) \approx \hat{p}(x \mid \theta,c)$. The best response $x_{\texttt{best}}$ from the LLM is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$, which directly means that $x_{\texttt{best}}$ must maximize $f_\theta$.
 
@@ -37,7 +37,7 @@ $$x_{\texttt{best}} = \max_{x} f_\theta(x)$$
 
 The problem encountered by modern LLMs is that building a very good likelihood estimator was only half the problem. The other half, as with DNA, is to generate the best response given input to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. For human language, $M > 10^4$<br>
 
-# Sequence generation
+## Sequence generation
 
 The number of possible ways to compose human language into text is functionally infinite, however even when the maximum length is restricted the problem is intractable. DNA sequences are a helpful analog here as the choices available at each position is only A,T,C, or G. Consider just 100 basepairs of DNA. To construct all possible 100 base pair DNA molecules, then at each position from 1 to 100 there must be a subset of sequences that contain all possibilities of A,T,C, and G. For this reason, there are $4^{100}$ or $$1 \times 10^{60}$$ possible DNA strands that are length 100. Evaluating all $4^{100}$ molecules is impossible.
 
@@ -48,7 +48,7 @@ This is a very challenging task within the space of human language. To practical
 Crucially, these heuristics work pretty well because the underlying models are so large and have acquired so much data. However, as LLMs are asked increasingly nuanced questions and particularly questions that may require synthesis of unseen connections in the training data, methods that make more intelligent samples will generate better responses.
 
 
-# Thinking like an LLM
+## Thinking like an LLM
 While the generated response from heuristics might be suboptimal, the response is very probably now in the neighborhood of the best response. Fortunately, there is more information available that guarantees a better prediction on a second attempt. Because an LLM is a neural network that has been trained with gradient descent, it has a calculable gradient $\nabla f_{\theta}$. The gradient points in the direction of change in $f_\theta$, essentially indicating how to generate <br>
 
 Gradient Ascent<br>
