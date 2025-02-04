@@ -53,17 +53,15 @@ While the generated response from heuristics might be suboptimal, the response i
 
 Gradient Ascent<br>
 
-$$x_{i+1} \leftarrow x_i + η ∇f_θ(x_i)$$
+$x_{i+1} \leftarrow x_i + η ∇f_θ(x_i)$
 
 Gradient MCMC Samplers (HMC)<br>
 
-"""
-$$p_{i+1/2} \leftarrow p_i + (η/2) ∇f_θ(x_i)$$
+$p_{i+1/2} \leftarrow p_i + (η/2) ∇f_θ(x_i)$
 
-$$x_{i+1} \leftarrow x_i + η p_{i+1/2}$$
+$x_{i+1} \leftarrow x_i + η p_{i+1/2}$
 
-$$p_{i+1} \leftarrow p_{i+1/2} + (η/2) ∇f_θ(x_{i+1})$$
-"""
+$p_{i+1} \leftarrow p_{i+1/2} + (η/2) ∇f_θ(x_{i+1})$
 
 ![Finding the best generated response](/assets/images/path_opt.pdf)
 | Figure 1. Gradient based generated sequence optimization. Left: Given an initial prediction from the model, the gradient of the LLM $\nabla f_\theta$ points the next prediction in a direction that is guaranteed to give a higher likelihood response, however these methods get trapped in local minima. Right: Gradient-based monte carlo samplers such as HMC use the gradient of the LLM $\nabla f_\theta$ to draw samples from $f_\theta$ proportionally to how likely the samples are from the model. |
