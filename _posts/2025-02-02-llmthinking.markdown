@@ -41,6 +41,12 @@ The number of possible ways to compose human language into text is functionally 
 
 To avoid having to evaluate more sequences than there are atoms in the universe, a method is needed to quickly sample a DNA sequence or set of DNA sequences that are likely to be near the maximum of $\hat{p}(x \mid c)$. For DNA, this means to sample sequences that maximize the fitness function for a given phenotype. In the case of LLMs, this means to scan the set of possible responses the model might reply to you with, and identify the response that, in a way, simply makes the most sense given your prompt.
 
+This is a very challenging task within the space of human language. To practically solve this, LLMs have employed heuristics. These heuristics translate into large, rapid, and aggresive moves in the function space $f_\theta$, leading the model to find a decent but suboptimal reply to a prompt. It is possible that some hallucations are simply the product of a poor model estimate of $\max_{x} f_\theta(x)$.
+
+Crucially, these heuristics work pretty well because the underlying models are so large and have acquired so much data. However, as LLMs are asked increasingly nuanced questions and particularly questions that may require synthesis of unseen connections in the training data, methods that make more intelligent samples will find better responses.
+
+
+# Thinking like an LLM
 Users of ChatGPT, Claude, and other LLMs have noticed that the models now "think" before replying. It is unlikely that much or any formal logic has been encoded into the model. Rather, the companies are devising more elaborate sampling stragies for their LLMs. The startling implication is that these LLMs may actually know our language  better than we currently think they do, and that improved LLMs will emerge simply as a consequence of more efficiently obtaining better generated responses from the model.<br>
 
 ![Finding the best generated response](/assets/images/path_opt.png)
