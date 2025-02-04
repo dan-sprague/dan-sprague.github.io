@@ -43,7 +43,7 @@ To avoid having to evaluate more sequences than there are atoms in the universe,
 
 This is a very challenging task within the space of human language. To practically solve this, LLMs have employed heuristics. These heuristics translate into large, rapid, and aggresive moves in the function space $f_\theta$, leading the model to find a decent but suboptimal reply to a prompt. It is possible that some hallucations are simply the product of a poor model estimate of $\max_{x} f_\theta(x)$.
 
-Crucially, these heuristics work pretty well because the underlying models are so large and have acquired so much data. However, as LLMs are asked increasingly nuanced questions and particularly questions that may require synthesis of unseen connections in the training data, methods that make more intelligent samples will find better responses.
+Crucially, these heuristics work pretty well because the underlying models are so large and have acquired so much data. However, as LLMs are asked increasingly nuanced questions and particularly questions that may require synthesis of unseen connections in the training data, methods that make more intelligent samples will generate better responses.
 
 
 # Thinking like an LLM
