@@ -62,6 +62,7 @@ Now imagine that you once again find yourself in the middle of the Himalayas. Ra
 1. As you move uphill, you lose momentum and tend to make smaller moves
 2. As you move downhill, you gain momentum and start making larger moves
 3. In flat regions, your momentum doesn't change and you make large moves until you either start climbing again (1) or descending again (2)
+4. You only stop moving after a pre-determined number of steps.
 <br><br>
 
 If this is done with an element of randomness, it will be the case that you end up visiting peaks in the Himalayas proportionally to how high they are -- virtually ensuring that you will eventually find the peak of Mt. Everest.
