@@ -11,7 +11,9 @@ categories: [Statistical Modeling]
 <hr>
 <br>
 
-LLM performance has seemed to plateau as the hoovering of the internet nears completion. The prevailing line is that this is a sign that LLMs have advanced as far as they can advance. However, this might not be the case. Rather it is possible that LLMs know more than we think they do, but they haven't learned how to think before they speak. <br/>
+LLM performance has seemed to plateau as the hoovering of the internet nears completion. The prevailing belief is that this is because of fundamental limitations in the architecture of transformers and the availability of real human language for training data. It is likely if not probable that transformers represent a fundamental limitation to the performance of LLMs, yet that does not mean that there is not room for improvement. Compared to the intricacy of the transformer models themselves, the methods used to sample responses to prompts are simple and heuristic driven. The reason for this is simple: each time a LLM chooses a new word in generated text, the model has to consider which of the $>10^4$ possible words is the most likely. 
+
+A class of highly efficient algorithms have been developed for efficient sampling of complex functions: gradient based Markov Chain Monte Carlo (MCMC) methods. The challenges are numerous, as LLMs are high dimensional with a complex likelihood, and sampling sequences is a discrete and non-differentiable operation. The obstacles can perhaps be overcome with recently developed methodologies. Last, while gradient MCMC is extremely efficient at mapping functions, it is expensive and time consuming. While common use cases may not require such sampling, entities like businesses and governments may value obtaining the best response from an LLM so highly that they have no problem waiting hours for a response if such a sampling approach yields meaningful and actionable improvement.
 
 ## Language Models
 
@@ -88,3 +90,10 @@ However my sampling choices at each position in the sequence are discrete, meani
 
 Initial → Continuous Relaxation → Gradient Updates → Final Argmax
 tokens    (Gumbel-Softmax)       (using f_θ)        (discrete tokens)
+
+From yang song 
+
+
+When sampling with Langevin dynamics, our initial sample is highly likely in low density regions when data reside in a high dimensional space. Therefore, having an inaccurate score-based model will derail Langevin dynamics from the very beginning of the procedure, preventing it from generating high quality samples that are representative of the data.
+
+^ We solve this maybe by doing a greedy beam search then optimize
