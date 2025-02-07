@@ -53,7 +53,10 @@ Now imagine that you once again find yourself in the middle of the Himalayas. Ra
 2. As you move downhill, you gain momentum and start making larger moves
 3. In flat regions, your momentum doesn't change and you make large moves until you either start climbing again (1) or descending again (2)
 
-If this is done with an element of randomness, it will be the case that you end up visiting peaks in the Himalayas proportionally to how high they are -- virtually ensuring that you will eventually find the peak of Mt. Everest. 
+If this is done with an element of randomness, it will be the case that you end up visiting peaks in the Himalayas proportionally to how high they are -- virtually ensuring that you will eventually find the peak of Mt. Everest.
+
+![Finding the best generated response](/assets/images/path_opt.png)
+| Figure 2. Gradient based generated sequence optimization. Left: Given an initial prediction from the model, the gradient of the LLM $\nabla f_\theta$ points the next prediction in a direction that is guaranteed to give a higher likelihood response, however these methods get trapped in local minima. Right: Gradient-based monte carlo samplers such as HMC use the gradient of the LLM $\nabla f_\theta$ to draw samples from $f_\theta$ proportionally to how likely the samples are from the model. |
 
 To avoid having to evaluate more sequences than there are atoms in the universe, a method is needed to quickly sample a DNA sequence or set of DNA sequences that are likely to be near the maximum of $\hat{p}(x \mid c)$. For DNA, this means to sample sequences that maximize the fitness function for a given phenotype. In the case of LLMs, this means to scan the set of possible responses the model might reply to you with, and identify the response that, in a way, simply makes the most sense given your prompt.
 
@@ -76,10 +79,6 @@ $p_{i+1/2} \leftarrow p_i + (η/2) ∇f_θ(x_i)$
 $x_{i+1} \leftarrow x_i + η p_{i+1/2}$
 
 $p_{i+1} \leftarrow p_{i+1/2} + (η/2) ∇f_θ(x_{i+1})$
-
-![Finding the best generated response](/assets/images/path_opt.png)
-| Figure 2. Gradient based generated sequence optimization. Left: Given an initial prediction from the model, the gradient of the LLM $\nabla f_\theta$ points the next prediction in a direction that is guaranteed to give a higher likelihood response, however these methods get trapped in local minima. Right: Gradient-based monte carlo samplers such as HMC use the gradient of the LLM $\nabla f_\theta$ to draw samples from $f_\theta$ proportionally to how likely the samples are from the model. |
-
 
 
 
