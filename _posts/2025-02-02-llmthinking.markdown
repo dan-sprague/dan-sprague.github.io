@@ -39,11 +39,20 @@ $$x_{\text{best}} = \underset{x}{\operatorname{argmax}} f_\theta(x)$$
 
 The problem encountered by modern LLMs is that building a very good likelihood estimator was only half the problem. The other half, as with DNA, is to generate the best response given input to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. For human language, $M > 10^4$<br>
 
-## Sequence generation
+## Peak Finding 
 
-Imagine you have decided to drop yourself at a random location in the middle of Himalayas. Your goal is to find the highest peak, Everest, by only walking upwards. Crucially, once any peak in the mountain range is reached, you can no longer climb upwards so the task must complete. There are 3,411 named peaks in the Himalayas, of which only 1 is Mt. Everest. Clearly it is quite improbable to find Mt. Everest using this algorithm.
+![Finding the best generated response](/assets/images/everest_srt_dem_lrg.jpg)
+| Figure 1. Zoomed in area around Mt. Everest in the Himalayas.|
 
-The number of possible ways to compose human language into text is functionally infinite, however even when the maximum length is restricted the problem is intractable. DNA sequences are a helpful analog here as the choices available at each position is only A,T,C, or G. Consider just 100 basepairs of DNA. To construct all possible 100 base pair DNA molecules, then at each position from 1 to 100 there must be a subset of sequences that contain all possibilities of A,T,C, and G. For this reason, there are $4^{100}$ or $$1 \times 10^{60}$$ possible DNA strands that are length 100. Evaluating all $4^{100}$ molecules is impossible.
+Imagine you have decided to drop yourself at a random location in the middle of Himalayas. Your goal is to find the highest peak, Everest, by only walking upwards. Crucially, once any peak in the mountain range is reached, you can no longer climb upwards so the task must complete. There are 3,411 named peaks in the Himalayas, of which only 1 is Mt. Everest. Clearly it is quite improbable to find Mt. Everest using this algorithm. This algorithm is known as gradient ascent, and it is related to how LLMs are trained.
+
+Now imagine that you once again find yourself in the middle of the Himalayas. Rather than only climbing until a peak is reached, you continuously move around in a way that respects these rules:
+
+1. As you move uphill, you lose momentum and tend to make smaller moves
+2. As you move downhill, you gain momentum and start making larger moves
+3. In flat regions, your momentum doesn't change and you make large moves until you either start climbing again (1) or descending again (2)
+
+If this is done with an element of randomness, it will be the case that you end up visiting peaks in the Himalayas proportionally to how high they are -- virtually ensuring that you will eventually find the peak of Mt. Everest. 
 
 To avoid having to evaluate more sequences than there are atoms in the universe, a method is needed to quickly sample a DNA sequence or set of DNA sequences that are likely to be near the maximum of $\hat{p}(x \mid c)$. For DNA, this means to sample sequences that maximize the fitness function for a given phenotype. In the case of LLMs, this means to scan the set of possible responses the model might reply to you with, and identify the response that, in a way, simply makes the most sense given your prompt.
 
@@ -68,7 +77,7 @@ $x_{i+1} \leftarrow x_i + η p_{i+1/2}$
 $p_{i+1} \leftarrow p_{i+1/2} + (η/2) ∇f_θ(x_{i+1})$
 
 ![Finding the best generated response](/assets/images/path_opt.png)
-| Figure 1. Gradient based generated sequence optimization. Left: Given an initial prediction from the model, the gradient of the LLM $\nabla f_\theta$ points the next prediction in a direction that is guaranteed to give a higher likelihood response, however these methods get trapped in local minima. Right: Gradient-based monte carlo samplers such as HMC use the gradient of the LLM $\nabla f_\theta$ to draw samples from $f_\theta$ proportionally to how likely the samples are from the model. |
+| Figure 2. Gradient based generated sequence optimization. Left: Given an initial prediction from the model, the gradient of the LLM $\nabla f_\theta$ points the next prediction in a direction that is guaranteed to give a higher likelihood response, however these methods get trapped in local minima. Right: Gradient-based monte carlo samplers such as HMC use the gradient of the LLM $\nabla f_\theta$ to draw samples from $f_\theta$ proportionally to how likely the samples are from the model. |
 
 
 
