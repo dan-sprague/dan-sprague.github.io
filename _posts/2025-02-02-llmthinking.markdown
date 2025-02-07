@@ -29,7 +29,7 @@ The challenge LLMs tackle is twofold: estimating $p(x)$ and then sampling (gener
 
 ## Estimating p(x) with an LLM
 
-LLMs represent a transformational improvement in our ability to estimate the likelihood of human language. An LLM is a function $f$ parameterised by $\theta$, $f_\theta$, that consumes context $c$ and estimates the probability distribution over the vocabulary position $i$ within the sequence. For this reason, an LLM can be viewed as an approximating density for $p(x \mid c) \approx \hat{p}(x \mid \theta,c)$. The best response $x_{\texttt{best}}$ from the LLM is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$, which directly means that $x_{\texttt{best}}$ must maximize $f_\theta$.
+LLMs represent a transformational improvement in our ability to estimate the likelihood of human language. An LLM is a function $f$ parameterised by $\theta$, $f_\theta$, that consumes context $c$ and estimates the probability distribution over the vocabulary at each position $i$ within the sequence. For this reason, an LLM can be viewed as an approximating density for $p(x \mid c) \approx \hat{p}(x \mid \theta,c)$. The best response $x_{\texttt{best}}$ from the LLM is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$, which directly means that $x_{\texttt{best}}$ must maximize $f_\theta$.
 
 $$p(x \mid c) \approx \hat{p}(x \mid \theta,c)$$
 
@@ -37,7 +37,7 @@ $$\hat{p}(x \mid \theta,c) = f_\theta(x)$$
 
 $$x_{\text{best}} = \underset{x}{\operatorname{argmax}} f_\theta(x)$$
 
-The problem encountered by modern LLMs is that building a very good likelihood estimator was only half the problem. The other half, as with DNA, is to generate the best response given input to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. For human language, $M > 10^4$<br>
+The problem encountered by modern LLMs is that building a very good likelihood estimator was only half the problem. The other half is to sample the best response given context to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. For human language, $M > 10^4$<br>
 
 ## Peak Finding 
 
@@ -63,7 +63,7 @@ If this is done with an element of randomness, it will be the case that you end 
 <br><br>
 
 
-Mathematically, these algorithms can be expressed the following way:
+Mathematically, these algorithms can be expressed the following way and be used to generate the plots in Fig. 2:
 
 Gradient Ascent<br>
 
