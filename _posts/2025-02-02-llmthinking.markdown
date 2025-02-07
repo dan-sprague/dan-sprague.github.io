@@ -41,7 +41,7 @@ The problem encountered by modern LLMs is that building a very good likelihood e
 
 ## Peak Finding 
 
-<img src="/assets/images/everest_srt_dem_lrg.jpg" height="200" alt="description">
+<img src="/assets/images/himalayas.jpeg" height="200" alt="description">
 | Figure 1. Zoomed in area around Mt. Everest in the Himalayas.|
 <br><br>
 
