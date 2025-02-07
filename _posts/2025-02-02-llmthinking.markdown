@@ -57,7 +57,8 @@ Now imagine that you once again find yourself in the middle of the Himalayas. Ra
 
 If this is done with an element of randomness, it will be the case that you end up visiting peaks in the Himalayas proportionally to how high they are -- virtually ensuring that you will eventually find the peak of Mt. Everest.
 
-<p style="text-align: justify; font-size: 10px; width: 500px; margin: 0 auto;">Figure 2. Gradient based generated sequence optimization. Left: Given an initial prediction from the model, the gradient of the LLM ∇f_θ points the next prediction in a direction that is guaranteed to give a higher likelihood response, however these methods get trapped in local minima. Right: Gradient-based monte carlo samplers such as HMC use the gradient of the LLM ∇f_θ to draw samples from f_θ proportionally to how likely the samples are from the model.</p>
+![Finding the best generated response](/assets/images/path_opt.png)
+<p align="justify">Figure 2. Gradient based generated sequence optimization. Left: Given an initial prediction from the model, the gradient of the LLM $\nabla f_\theta$ points the next prediction in a direction that is guaranteed to give a higher likelihood response, however these methods get trapped in local minima. Right: Gradient-based monte carlo samplers such as HMC use the gradient of the LLM $\nabla f_\theta$ to draw samples from $f_\theta$ proportionally to how likely the samples are from the model.</p>
 
 <br><br>
 
