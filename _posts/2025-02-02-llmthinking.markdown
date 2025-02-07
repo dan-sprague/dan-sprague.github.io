@@ -48,7 +48,7 @@ $$x_{\text{best}} = \underset{x}{\operatorname{argmax}} f_\theta(x)$$
 
 The problem encountered by modern LLMs is that building a very good likelihood estimator was only half the problem. The other half is to sample the best response given context to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. For human language, $M > 10^4$<br>
 
-## Peak Finding 
+## Peak Finding vs. Peak Mapping
 
 <img src="/assets/images/himalayas.jpeg" height="300" alt="description">
 | Figure 1. Zoomed in area around Mt. Everest in the Himalayas.|
