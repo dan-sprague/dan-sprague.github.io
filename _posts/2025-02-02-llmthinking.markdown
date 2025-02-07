@@ -48,11 +48,12 @@ The problem encountered by modern LLMs is that building a very good likelihood e
 Imagine you have decided to drop yourself at a random location in the middle of Himalayas. Your goal is to find the highest peak, Everest, by only walking upwards. Crucially, once any peak in the mountain range is reached, you can no longer climb upwards so the task must complete. There are 3,411 named peaks in the Himalayas, of which only 1 is Mt. Everest. Clearly it is quite improbable to find Mt. Everest using this algorithm. This algorithm is known as gradient ascent, and it is related to how LLMs are trained.
 
 Now imagine that you once again find yourself in the middle of the Himalayas. Rather than only climbing until a peak is reached, you continuously move around in a way that respects these rules:
+<br><br>
 
 1. As you move uphill, you lose momentum and tend to make smaller moves
 2. As you move downhill, you gain momentum and start making larger moves
 3. In flat regions, your momentum doesn't change and you make large moves until you either start climbing again (1) or descending again (2)
-
+<br><br>
 If this is done with an element of randomness, it will be the case that you end up visiting peaks in the Himalayas proportionally to how high they are -- virtually ensuring that you will eventually find the peak of Mt. Everest.
 
 ![Finding the best generated response](/assets/images/path_opt.png)
