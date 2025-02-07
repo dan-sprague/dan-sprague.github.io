@@ -19,7 +19,7 @@ It is not known if using gradient information from a set of initial heuristic sa
 <br><br>
 
 1. To what extent are higher likelihood language samples associated with more nuanced, complex responses?
-2. Can the gradient of the LLM's log likelihood, $\nabla \log{\hat{p(x \mid \theta, c)}}$, otherwise known as the score function, be used to generate a set of higher likelihood samples?
+2. Can the gradient of the LLM's log likelihood, $\nabla \log{\hat{p}(x \mid \theta, c)}$, otherwise known as the score function, be used to generate a set of higher likelihood samples?
 <br><br>
 
 ## Language Models
