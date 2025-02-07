@@ -62,15 +62,8 @@ If this is done with an element of randomness, it will be the case that you end 
 
 <br><br>
 
-To avoid having to evaluate more sequences than there are atoms in the universe, a method is needed to quickly sample a DNA sequence or set of DNA sequences that are likely to be near the maximum of $\hat{p}(x \mid c)$. For DNA, this means to sample sequences that maximize the fitness function for a given phenotype. In the case of LLMs, this means to scan the set of possible responses the model might reply to you with, and identify the response that, in a way, simply makes the most sense given your prompt.
 
-This is a very challenging task within the space of human language. To practically solve this, LLMs have employed heuristics. These heuristics translate into large, rapid, and aggresive moves in the function space $f_\theta$, leading the model to find a decent but suboptimal reply to a prompt. It is possible that some hallucations are simply the product of a poor model estimate of $\max_{x} f_\theta(x)$.
-
-Crucially, these heuristics work pretty well because the underlying models are so large and have acquired so much data. However, as LLMs are asked increasingly nuanced questions and particularly questions that may require synthesis of unseen connections in the training data, methods that make more intelligent samples will generate better responses.
-
-
-## Thinking like an LLM
-While the generated response from heuristics might be suboptimal, the response is very probably now in the neighborhood of the best response. Fortunately, there is more information available that guarantees a better prediction on a second attempt. Because an LLM is a neural network that has been trained with gradient descent, it has a calculable gradient $\nabla f_{\theta}$. The gradient points in the direction of change in $f_\theta$, essentially indicating how to generate <br>
+Mathematically, these algorithms can be expressed the following way:
 
 Gradient Ascent<br>
 
@@ -84,6 +77,8 @@ $x_{i+1} \leftarrow x_i + η p_{i+1/2}$
 
 $p_{i+1} \leftarrow p_{i+1/2} + (η/2) ∇f_θ(x_{i+1})$
 
+
+## Thinking like an LLM
 
 
 <br><br>
