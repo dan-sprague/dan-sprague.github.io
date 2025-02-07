@@ -43,6 +43,7 @@ The problem encountered by modern LLMs is that building a very good likelihood e
 
 <img src="/assets/images/everest_srt_dem_lrg.jpg" height="200" alt="description">
 | Figure 1. Zoomed in area around Mt. Everest in the Himalayas.|
+<br><br>
 
 Imagine you have decided to drop yourself at a random location in the middle of Himalayas. Your goal is to find the highest peak, Everest, by only walking upwards. Crucially, once any peak in the mountain range is reached, you can no longer climb upwards so the task must complete. There are 3,411 named peaks in the Himalayas, of which only 1 is Mt. Everest. Clearly it is quite improbable to find Mt. Everest using this algorithm. This algorithm is known as gradient ascent, and it is related to how LLMs are trained.
 
