@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-11T08:41:11-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Statistical modeling and machine learning in biology.</subtitle><entry><title type="html">Thinking Machines</title><link href="http://localhost:4000/2025/02/01/llmthinking" rel="alternate" type="text/html" title="Thinking Machines" /><published>2025-02-01T23:00:00-05:00</published><updated>2025-02-01T23:00:00-05:00</updated><id>http://localhost:4000/2025/02/01/llmthinking</id><content type="html" xml:base="http://localhost:4000/2025/02/01/llmthinking"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+  <li><a href="#language-models">Language Models</a></li>
+  <li><a href="#llms-are-approximating-densities-of-natural-language">LLMs Are Approximating Densities of Natural Language</a></li>
+</ul>
+<hr />
+
+<p><br /></p>
+
+<p>To think before one speaks is to consider a set of possible responses and choose the one that best conveys one’s intent. The prevailing belief behind the declining rate of improvement of LLMs is in the fundamental limitations in the architecture of transformers and the availability of real human language for training data. It is likely if not probable that transformers represent a fundamental limitation to the performance of LLMs, yet that does not mean that there is not room for improvement in current text generation.</p>
+
+<p>Compared to the intricacy of the transformer models themselves, the methods used to sample responses to prompts are simple and heuristic driven. All LLM sampling algorithms implicitly assume that the likelihood of a response, as estimated by the LLM itself, is correlated with response quality. To calculate the likelihood for all possible responses is strictly intractable, therefore greedy heuristics are employed. Greedy heuristics represent aggressive moves through the search space, and are unlikely to find an optimal response. This is why virtually all LLMs attempt to sample at least a few possible responses.</p>
+
+<p>A class of highly efficient algorithms have been developed for efficient sampling of complex functions: gradient based Markov Chain Monte Carlo (MCMC) methods. The challenges are numerous, as LLMs are high dimensional with a complex likelihood, and sampling sequences is a discrete and non-differentiable operation. The obstacles can perhaps be overcome with recently developed methodologies. Last, while gradient MCMC is extremely efficient at mapping functions, it is expensive and time consuming. While common use cases may not require such sampling, entities like businesses and governments may value obtaining the best response from an LLM so highly that they have no problem waiting hours for a response if such a sampling approach yields meaningful and actionable improvement.</p>
+
+<p>It is not known if using gradient information from a set of initial heuristic samples meaningfully improves LLM responses. This article attempts to address that question to the extent that a lone Apple iMac is capable. To do this, two questions need to be addressed:
+<br /><br /></p>
+
+<ol>
+  <li>To what extent are higher likelihood language samples associated with more nuanced, complex responses?</li>
+  <li>Can the gradient of the LLM’s log likelihood, $\nabla \log{\hat{p}(x \mid \theta, c)}$, otherwise known as the score function, be used to generate a set of higher likelihood samples?
+<br /><br /></li>
+</ol>
+
+<h2 id="language-models">Language Models</h2>
+
+<p>As far as one believes that humans convey their reasoning and knowledge through language, and as far as one believes that human language can be approximated by an arbitrarily complex statistical model, then we can propose that there is a probability distribution over all possible sequences of words $x = (x_1,\dots,x_n)$ that humans are likely to generate.</p>
+
+\[p(x)\]
+
+<p>Of course, the “true” nature of human language $p(x)$ is unknown and therefore requires mathematical approximation. Enter LLMs. The billions of weights inside an LLM encode correlations between words, sentences, and paragraphs. However, these weights represent only a static set of variables that are not capable of generating a sequence on their own. A method is required to “decode” the weights inside the model into a generated sequence given contextualizing information $c$, such as a prompt provided to the LLM from a human. In other words, a method is required to roll metaphorical dice to generate a sequence $x$ with probability $p$, given context $c$.</p>
+
+\[x \mid c \sim p(x)\]
+
+<p>The challenge LLMs tackle is twofold: estimating $p(x)$ and then sampling (generating) a reply to a prompt $c$ that maximizes $p(x \mid c)$.</p>
+
+<h2 id="estimating-px-with-an-llm">Estimating p(x) with an LLM</h2>
+
+<p>LLMs represent a transformational improvement in our ability to estimate the likelihood of human language. An LLM is a function $f$ parameterised by $\theta$, $f_\theta$, that consumes context $c$ and estimates the probability distribution over the vocabulary at each position $i$ within the generated sequence. For this reason, an LLM can be viewed as an approximating density for $p(x \mid c) \approx \hat{p}(x \mid \theta,c)$. The best response $x_{\texttt{best}}$ from the LLM is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$, which directly means that $x_{\texttt{best}}$ must maximize $f_\theta$.</p>
+
+\[p(x \mid c) \approx \hat{p}(x \mid \theta,c)\]
+
+\[\hat{p}(x \mid \theta,c) = f_\theta(x)\]
+
+\[x_{\text{best}} = \underset{x}{\operatorname{argmax}} f_\theta(x)\]
+
+<p>The problem encountered by modern LLMs is that building a very good likelihood estimator was only half the problem. The other half is to sample the best response given context to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. For human language, $M &gt; 10^4$<br /></p>
+
+<h2 id="peak-finding-vs-peak-mapping">Peak Finding vs. Peak Mapping</h2>
+
+<p><img src="/assets/images/himalayas.jpeg" height="300" alt="description" />
+| Figure 1. Zoomed in area around Mt. Everest in the Himalayas.|
+<br /><br /></p>
+
+<p>Imagine you have decided to drop yourself at a random location in the middle of Himalayas. Your goal is to find the highest peak, Everest, by only walking upwards. Crucially, once any peak in the mountain range is reached, you can no longer climb upwards so the task must complete. There are 3,411 named peaks in the Himalayas, of which only 1 is Mt. Everest. Clearly it is quite improbable to find Mt. Everest using this algorithm. This algorithm is known as gradient ascent, and it is related to how LLMs are trained.</p>
+
+<p>Now imagine that you once again find yourself in the middle of the Himalayas. Rather than only climbing until a peak is reached, you continuously move around in a way that respects these rules:
+<br /><br /></p>
+
+<ol>
+  <li>As you move uphill, you lose momentum and tend to make smaller moves</li>
+  <li>As you move downhill, you gain momentum and start making larger moves</li>
+  <li>In flat regions, your momentum doesn’t change and you make large moves until you either start climbing again (1) or descending again (2)</li>
+  <li>You only stop moving after a pre-determined number of steps.
+<br /><br /></li>
+</ol>
+
+<p>If this is done with an element of randomness, you will provably end up visiting peaks in the Himalayas proportionally to how high they are – virtually ensuring that you will eventually find the peak of Mt. Everest.</p>
+
+<p><img src="/assets/images/path_opt.png" alt="Finding the best generated response" /></p>
+<p align="justify">Figure 2. Gradient based generated sequence optimization. Left: Given an initial prediction from the model, the gradient of the LLM $\nabla f_\theta$ points the next prediction in a direction that is guaranteed to give a higher likelihood response, however these methods get trapped in local minima. Right: Gradient-based monte carlo samplers such as HMC use the gradient of the LLM $\nabla f_\theta$ to draw samples from $f_\theta$ proportionally to how likely the samples are from the model.</p>
+
+<p><br /><br /></p>
+
+<p>Mathematically, these algorithms can be expressed the following way and be used to generate the plots in Fig. 2:</p>
+
+<p>Gradient Ascent<br /></p>
+
+<p>$x_{i+1} \leftarrow x_i + η ∇f_θ(x_i)$</p>
+
+<p>Gradient MCMC Samplers (HMC)<br /></p>
+
+<p>$p_{i+1/2} \leftarrow p_i + (η/2) ∇f_θ(x_i)$</p>
+
+<p>$x_{i+1} \leftarrow x_i + η p_{i+1/2}$</p>
+
+<p>$p_{i+1} \leftarrow p_{i+1/2} + (η/2) ∇f_θ(x_{i+1})$</p>
+
+<h2 id="thinking-like-an-llm">Thinking like an LLM</h2>
+
+<p>Given these limitations, current LLM performance may be no where near its true level of knowledge or approximation of human language. It is possible that improvements to LLMs will come from a team of mathematicians and computer scientists in a few lines of math, rather than relying on exponentially more data. <br /></p>
+
+<p>Our brains effortlessly sample language with essentially no error, especially on common knowledge subjects. The frequent and nonsensical “hallucinations” of an LLM are essentially a poor estimate for $\max{f_{LLM}}$ that a human brain would never make. <br /></p>
+
+<p>As sampling algorithms for generative AI improves, we will get a better picture of the true level of knowledge store in modern LLMs. I strongly suspect that better exploration of the sequence space via improved markov-chain monte carlo methods or similar will result in improved AI performance despite the data ceiling.</p>
+
+<h2 id="notes">Notes</h2>
+
+<p>LLMs do not estimate the true likelihood of a sequence but rather the pseudolikelihood.</p>
+
+<p>You generate an initial proposal response, but then reevaluate the response. You pass the initial response through the LLM which gives a probability/pseudolikelihood of the response. The calculation of that probability/pseudolikelihood is differentiable.</p>
+
+<p>However my sampling choices at each position in the sequence are discrete, meaning they cannot be connected to this gradient. This is resolvable, potentially, by using a continuous relaxation calculation of the samples.</p>
+
+<p>Initial → Continuous Relaxation → Gradient Updates → Final Argmax
+tokens    (Gumbel-Softmax)       (using f_θ)        (discrete tokens)</p>
+
+<p>From yang song</p>
+
+<p>When sampling with Langevin dynamics, our initial sample is highly likely in low density regions when data reside in a high dimensional space. Therefore, having an inaccurate score-based model will derail Langevin dynamics from the very beginning of the procedure, preventing it from generating high quality samples that are representative of the data.</p>
+
+<p>^ We solve this maybe by doing a greedy beam search then optimize</p>]]></content><author><name></name></author><category term="Statistical Modeling" /><summary type="html"><![CDATA[Table of Contents Language Models LLMs Are Approximating Densities of Natural Language]]></summary></entry><entry><title type="html">The Case for Julia in Computational Biology</title><link href="http://localhost:4000/2024/12/03/juliacase" rel="alternate" type="text/html" title="The Case for Julia in Computational Biology" /><published>2024-12-03T23:00:00-05:00</published><updated>2024-12-03T23:00:00-05:00</updated><id>http://localhost:4000/2024/12/03/juliacase</id><content type="html" xml:base="http://localhost:4000/2024/12/03/juliacase"><![CDATA[<p><br /></p>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#project-management-and-reproducibility">Project Management and Reproducibility</a></li>
+  <li><a href="#text-processing">Text Processing</a></li>
+  <li><a href="#fast-and-easy-multithreading">Fast and Easy Multithreading</a></li>
+  <li><a href="#functions-are-center-stage">Functions Are Center Stage</a></li>
+</ul>
+<hr />
+
+<p><br /></p>
+
+<p>Why Julia? Python excels as a general purpose programming language and as a wrapper for neural network implementations, whereas R excels at data analysis, plotting, statistics, and for its robust library of bioinformatics packages. What is missing from the computational biology toolkit is a language that is easy to write, read, while maximizing performance on numerical and sequence based data. This is the niche that Julia fills.<br /><br /></p>
+
+<h2 id="native-project-management-and-reproducibility">Native Project Management and Reproducibility</h2>
+<p><br />
+In the sciences, reproducibility and organization are perhaps the most important component of good research. This is generally true for most applications – which is why languages like Rust and Julia have robust environment management built directly into the language as a core feature.<br /><br /></p>
+
+<p>For a scientific paper or research project, the following organizational scheme is easy to obtain:<br /></p>
+
+<ul>
+  <li>Project
+    <ul>
+      <li>Package # generalized code for entire project
+        <ul>
+          <li>Manifest.toml</li>
+          <li>Project.toml</li>
+          <li>src/</li>
+          <li>tests/</li>
+          <li>README.md</li>
+          <li>…</li>
+        </ul>
+      </li>
+      <li>Figure 1
+        <ul>
+          <li>Manifest.toml</li>
+          <li>Project.toml</li>
+          <li>fig1.jl</li>
+          <li>data/</li>
+        </ul>
+      </li>
+      <li>Figure 2
+        <ul>
+          <li>Manifest.toml</li>
+          <li>Project.toml</li>
+          <li>fig2.jl</li>
+          <li>data/</li>
+        </ul>
+      </li>
+      <li>…</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Dependency management is automatic, with no overhead other than the initial creation of a project directory via <code class="language-plaintext highlighter-rouge">Pkg.generate("Project")</code>. To truly compartmentalize one’s work in Python between projects, or even specific analyses within a project, would be practically difficult or impossible. In Julia: enter the project directory and launch Julia. The correct environment with all its dependencies will be loaded from there. The base Julia environment is kept clean.<br /><br /></p>
+
+<h2 id="text-processing">Text Processing</h2>
+<p><br />
+Computational biologists and bioinformaticians often work with text-based data. Because Julia is JIT compiled and Chars are a first-class type, string data can be processed extremely quickly. BioSequences.jl has efficient minimal representations for biological characters that are intuitive and simple to operate on. For bioinformaticians, this has serious implications: rather than writing difficult to maintain code in C++ or Rust, it is possible to develop a short Julia program (with python-esque syntax) to analyze millions of biological sequences with speed that is comparable to C.<br /><br /></p>
+
+<h3 id="example">Example</h3>
+<p><br />
+Take a simple program to generate 100M short DNA sequences and check for palindromes. While DNA and RNA can and should be more efficiently represented (Julia has a package that implements efficient representations of DNA/RNA/Protein sequences), lets assume that we are simply optimizing for readability and implementation time.<br /><br /></p>
+
+<h4 id="python">Python</h4>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="n">complement</span> <span class="o">=</span> <span class="p">{</span><span class="s">'A'</span><span class="p">:</span> <span class="s">'T'</span><span class="p">,</span> <span class="s">'C'</span><span class="p">:</span> <span class="s">'G'</span><span class="p">,</span> <span class="s">'G'</span><span class="p">:</span> <span class="s">'C'</span><span class="p">,</span> <span class="s">'T'</span><span class="p">:</span> <span class="s">'A'</span><span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">ceildiv</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">a</span> <span class="o">//</span> <span class="o">-</span><span class="n">b</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">random_dna_sequence</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">letters</span> <span class="o">=</span> <span class="p">[</span><span class="s">"A"</span><span class="p">,</span> <span class="s">"T"</span><span class="p">,</span> <span class="s">"C"</span><span class="p">,</span> <span class="s">"G"</span><span class="p">]</span>
+    <span class="k">return</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">letters</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">generate_dna_sequences</span><span class="p">(</span><span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">random_dna_sequence</span><span class="p">(</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">)]</span>
+
+<span class="k">def</span> <span class="nf">is_palindrome</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ceildiv</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="mi">2</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">complement</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span> 
+
+<span class="c1"># Generate 1 million random DNA strings
+</span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">dna_sequences</span> <span class="o">=</span> <span class="n">generate_dna_sequences</span><span class="p">(</span><span class="mi">100_000_000</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Sequence Generation Time: "</span><span class="p">,</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">is_palindrome</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">dna_sequences</span><span class="p">]</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Palindrome check time: "</span><span class="p">,</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>Sequence generation took <code class="language-plaintext highlighter-rouge">246.97s</code> and palindrome checking took <code class="language-plaintext highlighter-rouge">12.87s</code>.<br /></p>
+
+<h4 id="julia">Julia</h4>
+
+<div class="language-julia highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">const</span> <span class="n">complement</span> <span class="o">=</span> <span class="kt">Dict</span><span class="x">(</span><span class="sc">'A'</span><span class="o">=&gt;</span><span class="sc">'T'</span><span class="x">,</span> <span class="sc">'T'</span><span class="o">=&gt;</span><span class="sc">'A'</span><span class="x">,</span> <span class="sc">'C'</span><span class="o">=&gt;</span><span class="sc">'G'</span><span class="x">,</span> <span class="sc">'G'</span><span class="o">=&gt;</span><span class="sc">'C'</span><span class="x">);</span>
+
+<span class="k">function</span><span class="nf"> is_palindrome</span><span class="x">(</span><span class="n">s</span><span class="o">::</span><span class="kt">Vector</span><span class="x">{</span><span class="kt">Char</span><span class="x">})</span><span class="o">::</span><span class="kt">Bool</span>
+    <span class="n">isodd</span><span class="x">(</span><span class="n">length</span><span class="x">(</span><span class="n">s</span><span class="x">))</span> <span class="o">&amp;&amp;</span> <span class="k">return</span> <span class="nb">false</span>
+
+    <span class="nd">@inbounds</span> <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">cld</span><span class="x">(</span><span class="n">length</span><span class="x">(</span><span class="n">s</span><span class="x">),</span><span class="mi">2</span><span class="x">)</span>
+        <span class="n">s</span><span class="x">[</span><span class="n">i</span><span class="x">]</span> <span class="o">!=</span> <span class="n">complement</span><span class="x">[</span><span class="n">s</span><span class="x">[</span><span class="k">end</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="x">]]</span> <span class="o">&amp;&amp;</span> <span class="k">return</span> <span class="nb">false</span>
+    <span class="k">end</span>
+
+    <span class="nb">true</span> 
+<span class="k">end</span>
+
+
+
+<span class="k">function</span><span class="nf"> random_dna_sequence</span><span class="x">(</span><span class="n">n</span><span class="o">::</span><span class="kt">Int</span><span class="x">)</span><span class="o">::</span><span class="kt">Vector</span><span class="x">{</span><span class="kt">Char</span><span class="x">}</span>
+    <span class="n">rand</span><span class="x">([</span><span class="sc">'A'</span><span class="x">,</span><span class="sc">'T'</span><span class="x">,</span><span class="sc">'C'</span><span class="x">,</span><span class="sc">'G'</span><span class="x">],</span><span class="n">n</span><span class="x">)</span>
+<span class="k">end</span>
+
+
+<span class="nd">@time</span> <span class="n">nucs</span> <span class="o">=</span> <span class="n">map</span><span class="x">(</span><span class="n">random_dna_sequence</span><span class="x">,</span> <span class="n">rand</span><span class="x">(</span><span class="mi">4</span><span class="o">:</span><span class="mi">10</span><span class="x">,</span><span class="kt">Int</span><span class="x">(</span><span class="mf">1e8</span><span class="x">)))</span>
+
+<span class="nd">@time</span> <span class="n">result</span> <span class="o">=</span> <span class="n">is_palindrome</span><span class="o">.</span><span class="x">(</span><span class="n">nucs</span><span class="x">)</span>
+
+
+</code></pre></div></div>
+
+<p>Sequence generation took <code class="language-plaintext highlighter-rouge">21.52s</code> and palindrome checking took <code class="language-plaintext highlighter-rouge">1.82s</code>. There are several things to note about the implementations here. The first is that Julia required no imports. Second, Julia’s <code class="language-plaintext highlighter-rouge">@time</code> macro saves a tremendous amount of repetitious code. Third, the <code class="language-plaintext highlighter-rouge">is_palindrome</code> function can be broadcasted over the <code class="language-plaintext highlighter-rouge">nucs</code> vector with the <code class="language-plaintext highlighter-rouge">.</code> syntax. This is despite being a handrolled function, something which is not really feasible in Python. Finally, these functions are so efficient that very little is gained very multithreading. Larger relative improvements in speed would be expected for more complex operations, such as sequence alignment and mapping.</p>
+
+<h2 id="fast-and-easy-multithreading">Fast and Easy Multithreading</h2>
+<p><br />
+Parallelism and broadcasting in Python are a major weakness of the language, and this is a problem because many if not most bioinformatics workflows are independently parallel. This is an area where Julia truly shines compared to Python. Combined with increased text-based processing speed and native numerical computation, this is when Julia really begins to shine.<br /><br /></p>
+
+<p>In Julia, threading over a loop is as simple as:<br /><br /></p>
+
+<div class="language-julia highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="n">Base</span><span class="o">.</span><span class="n">Threads</span> <span class="c">#brings Threads functions into the namespace, does not need to imported</span>
+  
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10_000_000</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span> <span class="n">n</span><span class="x">)</span>  
+<span class="nd">@threads</span> <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">n</span>
+  <span class="n">result</span><span class="x">[</span><span class="n">i</span><span class="x">]</span> <span class="o">=</span> <span class="n">sqrt</span><span class="x">(</span><span class="n">i</span><span class="x">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p><br /><br /></p>
+
+<h2 id="elegant-machine-learning">Elegant Machine Learning</h2>
+<p><br />
+Julia’s syntax, large scientific and numerical ecosystem, and native support results in elegant code for statistical modeling and machine learning that does not depend on DSLs. Below is a simple program that uses two of Julia’s most powerful packages to yield a MLE for a Gamma distributed sample in only a few lines of code. <br /><br /></p>
+
+<div class="language-julia highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="n">Distributions</span>
+<span class="k">using</span> <span class="n">Optim</span>  
+
+<span class="k">function</span><span class="nf"> f</span><span class="x">(</span><span class="n">α</span><span class="x">,</span><span class="n">β</span><span class="x">,</span><span class="n">x</span><span class="x">)</span> <span class="c"># likelihood function</span>
+  <span class="o">-</span><span class="n">sum</span><span class="x">(</span><span class="n">logpdf</span><span class="x">(</span><span class="n">Gamma</span><span class="x">(</span><span class="n">exp</span><span class="x">(</span><span class="n">α</span><span class="x">),</span><span class="n">exp</span><span class="x">(</span><span class="n">β</span><span class="x">)),</span> <span class="n">x</span><span class="x">))</span>
+<span class="k">end</span>
+ 
+<span class="n">x</span> <span class="o">=</span> <span class="n">rand</span><span class="x">(</span><span class="n">Gamma</span><span class="x">(</span><span class="mf">2.0</span><span class="x">,</span><span class="mf">1.5</span><span class="x">),</span><span class="mi">500</span><span class="x">)</span> <span class="c"># data  </span>
+<span class="n">θ_init</span> <span class="o">=</span> <span class="x">[</span><span class="mf">1.0</span><span class="x">,</span><span class="mf">1.0</span><span class="x">]</span>
+<span class="n">θ_mle</span><span class="o">=</span> <span class="n">Optim</span><span class="o">.</span><span class="n">optimize</span><span class="x">(</span><span class="n">θ</span> <span class="o">-&gt;</span> <span class="n">f</span><span class="x">(</span><span class="n">θ</span><span class="o">...</span><span class="x">,</span><span class="n">x</span><span class="x">),</span> <span class="n">θ_init</span><span class="x">)</span> <span class="c"># … is the “splat” operator in Julia </span>
+</code></pre></div></div>
+<p><br /><br />
+Line 11 creates a closure such that the optimize routine only performs optimization on the estimated parameters captured in the theta vector. This is a common problem in likelihood functions, as both parameters and data are necessary arguments. Julia treats functions as first-class types, making anonymous functions, closures, and other functional programming paradigms a natural part of the language.<br /><br /></p>
+
+<p>In Julia, it is possible to design custom networks using native Julia code. In early project development, this often helps to quickly iterate on ideas. Significant time is saved from ensuring you understand the behavior of every function in Pytorch/Jax/Tensorflow, which requires substantial upfront time investment.<br /><br /></p>]]></content><author><name></name></author><category term="Julia" /><summary type="html"><![CDATA[]]></summary></entry></feed>

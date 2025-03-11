@@ -6,7 +6,7 @@ title: Dan Sprague
 email: d.a.sprague@outlook.com
 name: Dan Sprague
 description: >- # this means to ignore newlines until "baseurl:"
-  Thoughts and projects on computational biology, machine learning, Bayesian statistics, Julia, and more.
+  Statistical modeling and machine learning in biology.
 baseurl: '' # the subpath of your site, e.g. /`blog
 url: '' # the base hostname & protocol for your site, e.g. http://example.com
 domain: 'example.com' # the domain name for your site, e.g. example.com

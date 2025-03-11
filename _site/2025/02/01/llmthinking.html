@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Thinking Machines | Dan Sprague</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Thinking Machines" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Table of Contents Language Models LLMs Are Approximating Densities of Natural Language" />
+<meta property="og:description" content="Table of Contents Language Models LLMs Are Approximating Densities of Natural Language" />
+<link rel="canonical" href="http://localhost:4000/2025/02/01/llmthinking" />
+<meta property="og:url" content="http://localhost:4000/2025/02/01/llmthinking" />
+<meta property="og:site_name" content="Dan Sprague" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-02-01T23:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Thinking Machines" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-02-01T23:00:00-05:00","datePublished":"2025-02-01T23:00:00-05:00","description":"Table of Contents Language Models LLMs Are Approximating Densities of Natural Language","headline":"Thinking Machines","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2025/02/01/llmthinking"},"url":"http://localhost:4000/2025/02/01/llmthinking"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" href="/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="Dan Sprague - Statistical modeling and machine learning in biology."
+  href="/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+<style>
+.math-container {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 10px 0;
+  margin: 1em 0;
+}
+
+.math-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.math-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.math-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.inline-math-container {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  vertical-align: middle;
+  padding: 0 2px;
+}
+
+.inline-math-container::-webkit-scrollbar {
+  height: 4px;
+}
+
+.inline-math-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
+}
+</style>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+  CommonHTML: {
+    scale: 100,
+    minScaleAdjust: 100,
+    linebreaks: { automatic: false }
+  },
+  "HTML-CSS": {
+    linebreaks: { automatic: false }
+  },
+  SVG: {
+    linebreaks: { automatic: false }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+  
+  var mathElements = document.querySelectorAll('.MathJax, .MathJax_CHTML, .MathJax_SVG');
+  
+  mathElements.forEach(function(element) {
+    var isDisplayMode = element.parentNode.className.indexOf('display') !== -1;
+    
+    var container = document.createElement('div');
+    container.className = isDisplayMode ? 'math-container' : 'inline-math-container';
+    
+    element.parentNode.insertBefore(container, element);
+    container.appendChild(element);
+    
+    element.style.fontSize = '100%';
+  });
+});
+</script>
+
+
+
+<script src="/assets/scripts/jekyllpaper.js" async></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <div class="header-info-name">Dan Sprague</div>
+  <div class="header-info-desc">Statistical modeling and machine learning in biology.</div>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/">
+        
+          home
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/categories">
+        
+          categories
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/projects">
+        
+          projects
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/photography">
+        
+          photography
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>Thinking Machines</h1>
+  </div>
+  
+  <div class="post-author print-post-author">
+    <span>Dan Sprague</span>
+  </div>
+  
+  <div class="post-content">
+    <h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+  <li><a href="#language-models">Language Models</a></li>
+  <li><a href="#llms-are-approximating-densities-of-natural-language">LLMs Are Approximating Densities of Natural Language</a></li>
+</ul>
+<hr />
+
+<p><br /></p>
+
+<p>To think before one speaks is to consider a set of possible responses and choose the one that best conveys one’s intent. The prevailing belief behind the declining rate of improvement of LLMs is in the fundamental limitations in the architecture of transformers and the availability of real human language for training data. It is likely if not probable that transformers represent a fundamental limitation to the performance of LLMs, yet that does not mean that there is not room for improvement in current text generation.</p>
+
+<p>Compared to the intricacy of the transformer models themselves, the methods used to sample responses to prompts are simple and heuristic driven. All LLM sampling algorithms implicitly assume that the likelihood of a response, as estimated by the LLM itself, is correlated with response quality. To calculate the likelihood for all possible responses is strictly intractable, therefore greedy heuristics are employed. Greedy heuristics represent aggressive moves through the search space, and are unlikely to find an optimal response. This is why virtually all LLMs attempt to sample at least a few possible responses.</p>
+
+<p>A class of highly efficient algorithms have been developed for efficient sampling of complex functions: gradient based Markov Chain Monte Carlo (MCMC) methods. The challenges are numerous, as LLMs are high dimensional with a complex likelihood, and sampling sequences is a discrete and non-differentiable operation. The obstacles can perhaps be overcome with recently developed methodologies. Last, while gradient MCMC is extremely efficient at mapping functions, it is expensive and time consuming. While common use cases may not require such sampling, entities like businesses and governments may value obtaining the best response from an LLM so highly that they have no problem waiting hours for a response if such a sampling approach yields meaningful and actionable improvement.</p>
+
+<p>It is not known if using gradient information from a set of initial heuristic samples meaningfully improves LLM responses. This article attempts to address that question to the extent that a lone Apple iMac is capable. To do this, two questions need to be addressed:
+<br /><br /></p>
+
+<ol>
+  <li>To what extent are higher likelihood language samples associated with more nuanced, complex responses?</li>
+  <li>Can the gradient of the LLM’s log likelihood, $\nabla \log{\hat{p}(x \mid \theta, c)}$, otherwise known as the score function, be used to generate a set of higher likelihood samples?
+<br /><br /></li>
+</ol>
+
+<h2 id="language-models">Language Models</h2>
+
+<p>As far as one believes that humans convey their reasoning and knowledge through language, and as far as one believes that human language can be approximated by an arbitrarily complex statistical model, then we can propose that there is a probability distribution over all possible sequences of words $x = (x_1,\dots,x_n)$ that humans are likely to generate.</p>
+
+\[p(x)\]
+
+<p>Of course, the “true” nature of human language $p(x)$ is unknown and therefore requires mathematical approximation. Enter LLMs. The billions of weights inside an LLM encode correlations between words, sentences, and paragraphs. However, these weights represent only a static set of variables that are not capable of generating a sequence on their own. A method is required to “decode” the weights inside the model into a generated sequence given contextualizing information $c$, such as a prompt provided to the LLM from a human. In other words, a method is required to roll metaphorical dice to generate a sequence $x$ with probability $p$, given context $c$.</p>
+
+\[x \mid c \sim p(x)\]
+
+<p>The challenge LLMs tackle is twofold: estimating $p(x)$ and then sampling (generating) a reply to a prompt $c$ that maximizes $p(x \mid c)$.</p>
+
+<h2 id="estimating-px-with-an-llm">Estimating p(x) with an LLM</h2>
+
+<p>LLMs represent a transformational improvement in our ability to estimate the likelihood of human language. An LLM is a function $f$ parameterised by $\theta$, $f_\theta$, that consumes context $c$ and estimates the probability distribution over the vocabulary at each position $i$ within the generated sequence. For this reason, an LLM can be viewed as an approximating density for $p(x \mid c) \approx \hat{p}(x \mid \theta,c)$. The best response $x_{\texttt{best}}$ from the LLM is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$, which directly means that $x_{\texttt{best}}$ must maximize $f_\theta$.</p>
+
+\[p(x \mid c) \approx \hat{p}(x \mid \theta,c)\]
+
+\[\hat{p}(x \mid \theta,c) = f_\theta(x)\]
+
+\[x_{\text{best}} = \underset{x}{\operatorname{argmax}} f_\theta(x)\]
+
+<p>The problem encountered by modern LLMs is that building a very good likelihood estimator was only half the problem. The other half is to sample the best response given context to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. For human language, $M &gt; 10^4$<br /></p>
+
+<h2 id="peak-finding-vs-peak-mapping">Peak Finding vs. Peak Mapping</h2>
+
+<p><img src="/assets/images/himalayas.jpeg" height="300" alt="description" />
+| Figure 1. Zoomed in area around Mt. Everest in the Himalayas.|
+<br /><br /></p>
+
+<p>Imagine you have decided to drop yourself at a random location in the middle of Himalayas. Your goal is to find the highest peak, Everest, by only walking upwards. Crucially, once any peak in the mountain range is reached, you can no longer climb upwards so the task must complete. There are 3,411 named peaks in the Himalayas, of which only 1 is Mt. Everest. Clearly it is quite improbable to find Mt. Everest using this algorithm. This algorithm is known as gradient ascent, and it is related to how LLMs are trained.</p>
+
+<p>Now imagine that you once again find yourself in the middle of the Himalayas. Rather than only climbing until a peak is reached, you continuously move around in a way that respects these rules:
+<br /><br /></p>
+
+<ol>
+  <li>As you move uphill, you lose momentum and tend to make smaller moves</li>
+  <li>As you move downhill, you gain momentum and start making larger moves</li>
+  <li>In flat regions, your momentum doesn’t change and you make large moves until you either start climbing again (1) or descending again (2)</li>
+  <li>You only stop moving after a pre-determined number of steps.
+<br /><br /></li>
+</ol>
+
+<p>If this is done with an element of randomness, you will provably end up visiting peaks in the Himalayas proportionally to how high they are – virtually ensuring that you will eventually find the peak of Mt. Everest.</p>
+
+<p><img src="/assets/images/path_opt.png" alt="Finding the best generated response" /></p>
+<p align="justify">Figure 2. Gradient based generated sequence optimization. Left: Given an initial prediction from the model, the gradient of the LLM $\nabla f_\theta$ points the next prediction in a direction that is guaranteed to give a higher likelihood response, however these methods get trapped in local minima. Right: Gradient-based monte carlo samplers such as HMC use the gradient of the LLM $\nabla f_\theta$ to draw samples from $f_\theta$ proportionally to how likely the samples are from the model.</p>
+
+<p><br /><br /></p>
+
+<p>Mathematically, these algorithms can be expressed the following way and be used to generate the plots in Fig. 2:</p>
+
+<p>Gradient Ascent<br /></p>
+
+<p>$x_{i+1} \leftarrow x_i + η ∇f_θ(x_i)$</p>
+
+<p>Gradient MCMC Samplers (HMC)<br /></p>
+
+<p>$p_{i+1/2} \leftarrow p_i + (η/2) ∇f_θ(x_i)$</p>
+
+<p>$x_{i+1} \leftarrow x_i + η p_{i+1/2}$</p>
+
+<p>$p_{i+1} \leftarrow p_{i+1/2} + (η/2) ∇f_θ(x_{i+1})$</p>
+
+<h2 id="thinking-like-an-llm">Thinking like an LLM</h2>
+
+<p>Given these limitations, current LLM performance may be no where near its true level of knowledge or approximation of human language. It is possible that improvements to LLMs will come from a team of mathematicians and computer scientists in a few lines of math, rather than relying on exponentially more data. <br /></p>
+
+<p>Our brains effortlessly sample language with essentially no error, especially on common knowledge subjects. The frequent and nonsensical “hallucinations” of an LLM are essentially a poor estimate for $\max{f_{LLM}}$ that a human brain would never make. <br /></p>
+
+<p>As sampling algorithms for generative AI improves, we will get a better picture of the true level of knowledge store in modern LLMs. I strongly suspect that better exploration of the sequence space via improved markov-chain monte carlo methods or similar will result in improved AI performance despite the data ceiling.</p>
+
+<h2 id="notes">Notes</h2>
+
+<p>LLMs do not estimate the true likelihood of a sequence but rather the pseudolikelihood.</p>
+
+<p>You generate an initial proposal response, but then reevaluate the response. You pass the initial response through the LLM which gives a probability/pseudolikelihood of the response. The calculation of that probability/pseudolikelihood is differentiable.</p>
+
+<p>However my sampling choices at each position in the sequence are discrete, meaning they cannot be connected to this gradient. This is resolvable, potentially, by using a continuous relaxation calculation of the samples.</p>
+
+<p>Initial → Continuous Relaxation → Gradient Updates → Final Argmax
+tokens    (Gumbel-Softmax)       (using f_θ)        (discrete tokens)</p>
+
+<p>From yang song</p>
+
+<p>When sampling with Langevin dynamics, our initial sample is highly likely in low density regions when data reside in a high dimensional space. Therefore, having an inaccurate score-based model will derail Langevin dynamics from the very beginning of the procedure, preventing it from generating high quality samples that are representative of the data.</p>
+
+<p>^ We solve this maybe by doing a greedy beam search then optimize</p>
+
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      Written on 
+      2025-02-01
+      
+        ,
+        updated at 
+        2025-02-02
+      
+      .
+    </div>
+    
+    <div class="post-author">
+      Author: Dan Sprague
+    </div>
+    
+    <div class="post-categories">
+      <span>Categories: </span>
+      
+      <a 
+        href="/categories#Statistical Modeling"
+        class="post-category">
+        Statistical Modeling
+      </a>
+      
+    </div>
+    <div class="post-tags">
+      <span>Tags: </span>
+      
+    </div>
+    <div class="post-other">
+      
+      
+      <div>
+        <span>
+          Previous: 
+        </span>
+        <a href="/2024/12/03/juliacase">
+          The Case for Julia in Computational Biology
+        </a>
+      </div>
+      
+    </div>
+    
+  </div>
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2025. example.com.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>

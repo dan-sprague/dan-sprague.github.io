@@ -1,7 +1,9 @@
 en:
-  menu_index: 'posts'
+  menu_index: 'home'
   menu_category: 'categories'
   menu_about: 'about'
+  menu_projects: 'projects'
+  menu_photography: 'photography'
   paginator_previous: 'Previous'
   paginator_pages: 'Page: '
   paginator_next: 'Next'

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://localhost:4000/2024/12/03/juliacase</loc>
+<lastmod>2024-12-03T23:00:00-05:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/2025/02/01/llmthinking</loc>
+<lastmod>2025-02-01T23:00:00-05:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/404</loc>
+</url>
+<url>
+<loc>http://localhost:4000/about/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/categories/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/projects/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/assets/images/path_opt.pdf</loc>
+<lastmod>2025-02-04T08:45:36-05:00</lastmod>
+</url>
+</urlset>

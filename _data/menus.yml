@@ -1,15 +1,17 @@
 - default: menu_index
-  title: 'blog'
+  title: 'home'
   url: ''
 
 - default: menu_category
   url: 'categories'
 
-- title: 'projects'
+- default: menu_projects
+  title: 'projects'
   url: 'projects'
 
-- title: 'photography'
+- default: menu_photography
+  title: 'photography'
   url: 'photography'
 
-- default: menu_about
-  url: 'about'
+# - default: menu_about
+#   url: 'about'
