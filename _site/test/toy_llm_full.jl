@@ -80,8 +80,8 @@ end
 
 function NCG(model::EBLM,x;α=0.5)
         μₓ = x - (α * model.∇U(x) / 2)
-
-        q = -(1/(2 * α) .* norm(model.V .- μₓ)^2)
+        @show sum(model.V .- μₓ';dims=1)
+        q = -(1/(2 * α) .* norm.(sum(model.V .- μₓ';dims=1)).^2)
         
         @show q 
         

@@ -211,13 +211,13 @@ MathJax.Hub.Queue(function() {
 
 <p><br /></p>
 
-<p>To think before one speaks is to consider a set of possible responses and choose the one that best conveys one’s intent. The prevailing belief behind the declining rate of improvement of LLMs is in the fundamental limitations in the architecture of transformers and the availability of real human language for training data. It is likely if not probable that transformers represent a fundamental limitation to the performance of LLMs, yet that does not mean that there is not room for improvement in current text generation.</p>
+<p>To think before one speaks is to consider a set of possible responses and choose the one that best conveys one’s intent. This is a task that most humans do intuitively and quickly, but is not something that is easily incorporated into modern AI systems. Compared to the intricacy of large language model (LLM) architectures, the methods used to sample responses from an LLM, given a prompt, are simple and heuristic driven.<br /><br /></p>
 
-<p>Compared to the intricacy of the transformer models themselves, the methods used to sample responses to prompts are simple and heuristic driven. All LLM sampling algorithms implicitly assume that the likelihood of a response, as estimated by the LLM itself, is correlated with response quality. To calculate the likelihood for all possible responses is strictly intractable, therefore greedy heuristics are employed. Greedy heuristics represent aggressive moves through the search space, and are unlikely to find an optimal response. This is why virtually all LLMs attempt to sample at least a few possible responses.</p>
+<p>Given a prompt by the user, the LLM first decides which word out of all words in the dictionary should come first in its response. This decision is made by choosing the word with the highest estimated likelihood, given the model’s training and the context provided in the form of a prompt. Note that at this point, the LLM has no information about the rest of its response to weigh in on its word choice.<br /><br /></p>
 
-<p>A class of highly efficient algorithms have been developed for efficient sampling of complex functions: gradient based Markov Chain Monte Carlo (MCMC) methods. The challenges are numerous, as LLMs are high dimensional with a complex likelihood, and sampling sequences is a discrete and non-differentiable operation. The obstacles can perhaps be overcome with recently developed methodologies. Last, while gradient MCMC is extremely efficient at mapping functions, it is expensive and time consuming. While common use cases may not require such sampling, entities like businesses and governments may value obtaining the best response from an LLM so highly that they have no problem waiting hours for a response if such a sampling approach yields meaningful and actionable improvement.</p>
+<p>Crucially, this initial word choice may end up being a mistake in the long run because the final likelihood of the generated response may have been higher if a different initial word had been chosen. This problem compounds with each word choice as sentences and paragraphs are constructed by the model. Unfortunately, it is impossible for LLMs to exhaustively search for the best response to a query. The reason for this is practical: to guarantee the best possible response to a prompt would require scoring $L^V$ responses, where $L$ is the length of the response and $V$ is the size of the vocabulary. For human language, $V$ is on the order of $10^4$ and response lengths can be hundreds of words long. Clearly, this computational problem is intractable. The practical outcome is that it is extremely unlikely, if not almost guaranteed, that the response from the LLM is not the best possible response it could have given.<br /><br /></p>
 
-<p>It is not known if using gradient information from a set of initial heuristic samples meaningfully improves LLM responses. This article attempts to address that question to the extent that a lone Apple iMac is capable. To do this, two questions need to be addressed:
+<p>It is interesting that LLMs work as well as they do despite the relative simplicity of their sequence generation. This may be one reason why LLMs require such a large amount of training data relative to humans to generate meaningful language. Fortunately, LLMs contain additional information that can be used to generate responses more efficiently. The LLM’s gradient, like the slope of a line, points in the direction of higher scoring response. This means that it is not necessary to move blindly through the response search space, like the greedy heuristic. Rather, the gradient can be used to sample better responses with much higher probability than otherwise. It is not known if using gradient information from a set of initial heuristic samples meaningfully improves LLM responses. This article attempts to address that question to the extent that a lone Apple iMac is capable. To do this, two questions need to be addressed:
 <br /><br /></p>
 
 <ol>
@@ -227,7 +227,6 @@ MathJax.Hub.Queue(function() {
 </ol>
 
 <h2 id="language-models">Language Models</h2>
-
 <p>As far as one believes that humans convey their reasoning and knowledge through language, and as far as one believes that human language can be approximated by an arbitrarily complex statistical model, then we can propose that there is a probability distribution over all possible sequences of words $x = (x_1,\dots,x_n)$ that humans are likely to generate.</p>
 
 \[p(x)\]
@@ -236,10 +235,9 @@ MathJax.Hub.Queue(function() {
 
 \[x \mid c \sim p(x)\]
 
-<p>The challenge LLMs tackle is twofold: estimating $p(x)$ and then sampling (generating) a reply to a prompt $c$ that maximizes $p(x \mid c)$.</p>
+<p>The challenge LLMs tackle is twofold: estimating $p(x)$ and then sampling (generating) a reply to a prompt $c$ that maximizes $p(x \mid c)$.<br /><br /></p>
 
 <h2 id="estimating-px-with-an-llm">Estimating p(x) with an LLM</h2>
-
 <p>LLMs represent a transformational improvement in our ability to estimate the likelihood of human language. An LLM is a function $f$ parameterised by $\theta$, $f_\theta$, that consumes context $c$ and estimates the probability distribution over the vocabulary at each position $i$ within the generated sequence. For this reason, an LLM can be viewed as an approximating density for $p(x \mid c) \approx \hat{p}(x \mid \theta,c)$. The best response $x_{\texttt{best}}$ from the LLM is then the point of highest conditional density $\hat{p}(x \mid c,\theta)$, which directly means that $x_{\texttt{best}}$ must maximize $f_\theta$.</p>
 
 \[p(x \mid c) \approx \hat{p}(x \mid \theta,c)\]
@@ -248,15 +246,13 @@ MathJax.Hub.Queue(function() {
 
 \[x_{\text{best}} = \underset{x}{\operatorname{argmax}} f_\theta(x)\]
 
-<p>The problem encountered by modern LLMs is that building a very good likelihood estimator was only half the problem. The other half is to sample the best response given context to the model. This is equivalent to finding the maximum of the likelihood function $f_{LLM}$. However, this requires checking all $M^n$ possible sequences, where $M$ is the number of tokens the model chooses at any point. For human language, $M &gt; 10^4$<br /></p>
+<p>The problem encountered by modern LLMs is that building a very good likelihood estimator was only half the problem. The other half is to sample the best response given context to the model. This is equivalent to finding the maximum of the likelihood function $f_{\theta}$. However, this requires checking all $L^V$ responses. As discussed above, this is an intractable problem.<br /><br /></p>
 
 <h2 id="peak-finding-vs-peak-mapping">Peak Finding vs. Peak Mapping</h2>
-
-<p><img src="/assets/images/himalayas.jpeg" height="300" alt="description" />
+<p>Imagine you have decided to drop yourself at a random location in the middle of Himalayas. Your goal is to find the highest peak, Everest, by only walking upwards. Crucially, once any peak in the mountain range is reached, you can no longer climb upwards so the task must complete. There are 3,411 named peaks in the Himalayas, of which only 1 is Mt. Everest. Clearly it is quite improbable to find Mt. Everest using this algorithm. This algorithm is known as gradient ascent, and it is related to how LLMs are trained.
+<img src="/assets/images/himalayas.jpeg" height="300" alt="description" />
 | Figure 1. Zoomed in area around Mt. Everest in the Himalayas.|
 <br /><br /></p>
-
-<p>Imagine you have decided to drop yourself at a random location in the middle of Himalayas. Your goal is to find the highest peak, Everest, by only walking upwards. Crucially, once any peak in the mountain range is reached, you can no longer climb upwards so the task must complete. There are 3,411 named peaks in the Himalayas, of which only 1 is Mt. Everest. Clearly it is quite improbable to find Mt. Everest using this algorithm. This algorithm is known as gradient ascent, and it is related to how LLMs are trained.</p>
 
 <p>Now imagine that you once again find yourself in the middle of the Himalayas. Rather than only climbing until a peak is reached, you continuously move around in a way that respects these rules:
 <br /><br /></p>
