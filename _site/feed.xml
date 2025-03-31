@@ -1,4 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-31T06:40:18-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Statistical modeling and machine learning in biology.</subtitle><entry><title type="html">Neighborhood Conservation Districts Suppress Housing in Cambridge, MA</title><link href="http://localhost:4000/2025/03/30/ncd" rel="alternate" type="text/html" title="Neighborhood Conservation Districts Suppress Housing in Cambridge, MA" /><published>2025-03-30T00:00:00-04:00</published><updated>2025-03-30T00:00:00-04:00</updated><id>http://localhost:4000/2025/03/30/ncd</id><content type="html" xml:base="http://localhost:4000/2025/03/30/ncd"><![CDATA[<hr />
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-31T06:48:02-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Statistical modeling and machine learning in biology.</subtitle><entry><title type="html">Neighborhood Conservation Districts Suppress Housing in Cambridge, MA</title><link href="http://localhost:4000/2025/03/30/ncd" rel="alternate" type="text/html" title="Neighborhood Conservation Districts Suppress Housing in Cambridge, MA" /><published>2025-03-30T00:00:00-04:00</published><updated>2025-03-30T00:00:00-04:00</updated><id>http://localhost:4000/2025/03/30/ncd</id><content type="html" xml:base="http://localhost:4000/2025/03/30/ncd"><![CDATA[<style>
+/* Add responsive design styles */
+img {
+  max-width: 100%;
+  height: auto;
+}
+.figure-container {
+  margin-bottom: 20px;
+  width: 100%;
+}
+.table-container {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  .flex-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .flex-item-large {
+    flex: 2;
+    min-width: 0;
+  }
+  .flex-item-small {
+    flex: 1;
+    min-width: 0;
+  }
+}
+</style>
+
+<hr />
 
 <h3 id="tldr">tl;dr</h3>
 
@@ -12,98 +43,103 @@
 
 <hr />
 
-<p><br /><br />
-Cambridge is a small city immediately adjacent to Boston, Massachusetts with one of the worst housing crises in the country. Despite this, the city has done remarkably little to address the problem. Inside the city’s residential districts, the city constructed a <em>cumulative</em> 1,848 housing units over 29 years from 1996 to 2024, which amounts to 0.06 housing units per 100 residents per year. Notably, Cambridge has found a way to build most of its residences in non-residential districts. Of the total 14,216 net residences constructed since 1996, 12,368 were constructed in non-residential areas of the city. Annual housing production per sqkm is shown in Fig 1 below.<br /><br /></p>
-<div style="float: left; margin-left: 0px; margin-bottom: 5px;">
-  <img src="/assets/images/housing_area.jpg" alt="Housing per sqkm" width="400px" />
-  <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Fig. 1 Housing units per square kilometer</figcaption>
-</div>
-<p>Cambridge’s residential areas, importantly, are not near capacity. These areas contain large numbers of detached 1-2 family housing units, some on estate sized lots that would not be out-of-place in the exurbs. The city has repeatedly found that there is adequate resources and infrastructure to build more housing in these areas. The question is not if there should be development but why there isn’t development in such a supply constrained market.<br /><br /></p>
+<p><br />
+Cambridge is a small city immediately adjacent to Boston, Massachusetts with one of the worst housing crises in the country. Despite this, the city has done remarkably little to address the problem. Inside the city’s residential districts, the city constructed a <em>cumulative</em> 1,848 housing units over 29 years from 1996 to 2024, which amounts to 0.06 housing units per 100 residents per year. Notably, Cambridge has found a way to build most of its residences in non-residential districts. Of the total 14,216 net residences constructed since 1996, 12,368 were constructed in non-residential areas of the city. Annual housing production per sqkm is shown in Fig 1 below.<br /></p>
 
-<p>In 2025, the Cambridge city council passed one of the most sincere zoning reforms in the United States. With this accomplishment, the city government not only increased the allowable housing density across large regions of Cambridge, it also corrected the historical injustice of applying different housing rules to different neighborhoods with absolutely no underlying environmental or infrastructure based justification. This ordinance makes serious attempts at not just changing the base zoning, but also relieving arbitrary and punitive dimensional constraints which serve little purpose other than to restrict housing construction.<br /><br /></p>
+<div class="figure-container" style="max-width: 400px; margin: 0 auto; margin-bottom: 10px;">
+  <img src="/assets/images/housing_area.jpg" alt="Housing per sqkm" />
+  <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Fig. 1 Housing units per square kilometer. Non-residential areas of the city are often adjacent to highways with poor walkability to necessities and amenities.</figcaption>
+</div>
+
+<p>Cambridge’s residential areas, importantly, are not near capacity. These areas contain large numbers of detached 1-2 family housing units, some on estate sized lots that would not be out-of-place in the exurbs. The city has repeatedly found that there is adequate resources and infrastructure to build more housing in these areas. The question is not if there should be development but why there isn’t development in such a supply constrained market.<br /></p>
+
+<p>In 2025, the Cambridge city council passed one of the most sincere zoning reforms in the United States. With this accomplishment, the city government not only increased the allowable housing density across large regions of Cambridge, it also corrected the historical injustice of applying different housing rules to different neighborhoods with absolutely no underlying environmental or infrastructure based justification. This ordinance makes serious attempts at not just changing the base zoning, but also relieving arbitrary and punitive dimensional constraints which serve little purpose other than to restrict housing construction.<br /></p>
 
 <h2 id="neighborhood-conservation-districts-ncds">Neighborhood Conservation Districts (NCDs)</h2>
-<p>NCDs were established by the city council in 1983 in an effort to protect the character of wealthy neighborhoods in the city from further development. According to the Cambridge Historical Commission’s (CHC) website, these districts were founded to be “more effective” than zoning and more flexible than historic districts. Perhaps sensing that elected officials are suspicious, CHC goes to great length on their official website to cite the number of applications approved by the city. For example, CHC cites that 462 applications were approved in the Half Crown-Marsh NCD since 2013 for a 96.9% approval rate. Interesting that those 462 applications has resulted in -6 housing units within the NCD (Table 1, below).<br /><br /></p>
+<p>NCDs were established by the city council in 1983 in an effort to protect the character of wealthy neighborhoods in the city from further development. According to the Cambridge Historical Commission’s (CHC) website, these districts were founded to be “more effective” than zoning and more flexible than historic districts. Perhaps sensing that elected officials are suspicious, CHC goes to great length on their official website to cite the number of applications approved by the city. For example, CHC cites that 462 applications were approved in the Half Crown-Marsh NCD since 2013 for a 96.9% approval rate. Interesting that those 462 applications has resulted in -6 housing units within the NCD (Table 1, below).<br /></p>
 
-<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 20px; margin-bottom: 20px;">
-  <div style="flex: 2; min-width: 400px;">
-    <img src="/assets/images/zoning_ncd_overlapy.png" alt="Zoning map with NCDs" style="width: 100%;" />
+<div class="flex-container">
+  <div class="flex-item-large figure-container">
+    <img src="/assets/images/zoning_ncd_overlapy.png" alt="Zoning map with NCDs" />
     <figcaption style="text-align: center; font-size: 0.9em;">Fig. 2 Historical residential zoning map of Cambridge MA showing regions of the city zoned for residential use (Red/Blue/Green), with areas of the city designated as special Neighborhood Conservation Districts (NCDs) shaded in.</figcaption>
   </div>
   
-  <div style="flex: 1; min-width: 200px;">
-    <table style="font-size: 0.85em; width: 100%;">
-      <thead>
-        <tr>
-          <th style="white-space: normal; width: 60%;">Neighborhood Conservation District</th>
-          <th style="text-align: right; width: 40%;">Total Net Housing Change (1996-2024)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="white-space: normal;">None (Non-NCD Areas)</td>
-          <td style="text-align: right;">1862</td>
-        </tr>
-        <tr>
-          <td style="white-space: normal;">Avon Hill</td>
-          <td style="text-align: right;">-5</td>
-        </tr>
-        <tr>
-          <td style="white-space: normal;">Half Crown-Marsh</td>
-          <td style="text-align: right;">-6</td>
-        </tr>
-        <tr>
-          <td style="white-space: normal;">Harvard Square</td>
-          <td style="text-align: right;">-6</td>
-        </tr>
-        <tr>
-          <td style="white-space: normal;">Mid Cambridge</td>
-          <td style="text-align: right;">3</td>
-        </tr>
-      </tbody>
-      <caption style="caption-side: bottom; text-align: center; font-size: 0.9em;">Table 1: Net Housing Change by NCD Status, not adjusted for area.</caption>
-    </table>
+  <div class="flex-item-small">
+    <div class="table-container">
+      <table style="font-size: 0.85em; width: 100%;">
+        <thead>
+          <tr>
+            <th style="white-space: normal;">Neighborhood Conservation District</th>
+            <th style="text-align: right;">Total Net Housing Change (1996-2024)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="white-space: normal;">None (Non-NCD Areas)</td>
+            <td style="text-align: right;">1862</td>
+          </tr>
+          <tr>
+            <td style="white-space: normal;">Avon Hill</td>
+            <td style="text-align: right;">-5</td>
+          </tr>
+          <tr>
+            <td style="white-space: normal;">Half Crown-Marsh</td>
+            <td style="text-align: right;">-6</td>
+          </tr>
+          <tr>
+            <td style="white-space: normal;">Harvard Square</td>
+            <td style="text-align: right;">-6</td>
+          </tr>
+          <tr>
+            <td style="white-space: normal;">Mid Cambridge</td>
+            <td style="text-align: right;">3</td>
+          </tr>
+        </tbody>
+      </table>
+      <figcaption style="text-align: center; font-size: 0.9em;">Table 1: Net Housing Change by NCD Status, not adjusted for area.</figcaption>
+    </div>
   </div>
 </div>
 
-<p>When considering the impact of NCDs, it is important to consider what they are <em>not</em> allowed to do:<br /><br /></p>
+<p>When considering the impact of NCDs, it is important to consider what they are <em>not</em> allowed to do:<br /></p>
 
 <ol>
   <li>NCDs are not allowed to impose dimensional or setback restrictions greater than the base zoning</li>
   <li>Cannot consider size and shape (“massing”)</li>
   <li>Limited to considering incongruity within the district
-<br /><br /></li>
+<br /></li>
 </ol>
 
 <p>In spite of this, NCDs have the power to issue binding decisions that can prevent permit issuance for a project with almost no oversight from the city council. Given that NCDs are forbidden from flouting the base zoning(s) of the district they reside within, if CHC’s claim is true that they issue approval 96.9% of applications then their should not be statistically meaningful differences in housing permits after controlling for neighborhood, base zoning(s), and area.
-<br /><br /></p>
+<br /></p>
 
-<p>To determine if this is true, I examined the citywide dataset of housing starts and found statistically significant evidence that NCDs act as an independent suppressor on housing in Cambridge. The raw data says enough on its own: housing production in Avon Hill, Half Crown-Marsh, and Harvard Square has been <em>negative</em> over the past 29 years. In the same time span, the Mid Cambridge NCD has managed to add 3 housing units inside an area that is nearly a square kilometer (Table 1). <br /><br /></p>
+<p>To determine if this is true, I examined the citywide dataset of housing starts and found statistically significant evidence that NCDs act as an independent suppressor on housing in Cambridge. The raw data says enough on its own: housing production in Avon Hill, Half Crown-Marsh, and Harvard Square has been <em>negative</em> over the past 29 years. In the same time span, the Mid Cambridge NCD has managed to add 3 housing units inside an area that is nearly a square kilometer (Table 1). <br /></p>
 
-<p>This is an important problem because the city recently upzoned all A and B regions of the city to C. If NCDs suppress housing, this will diminish the impact of the law.<br /><br /></p>
+<p>This is an important problem because the city recently upzoned all A and B regions of the city to C. If NCDs suppress housing, this will diminish the impact of the law.<br /></p>
 
 <h4 id="ncds-issue-fewer-housing-positive-permits-than-other-equal-areaequal-zoned-regions">NCDs Issue Fewer Housing Positive Permits Than Other Equal Area/Equal Zoned Regions</h4>
-<p>One of the more remarkable aspects of the housing starts dataset (outlined more in the Methods section below) is that Cambridge simply builds almost no housing, inside or outside of NCDs. This makes separating the effect of NCDs from base zoning a challenging task, particularly when considering NCDs that are a fraction of a square kilometer. The relevant statistical question, therefore, is pretty straightfoward: How many permits for how many units would be issued per sqkm per year in Res C, and does the observed data suggest a difference for areas inside NCDs?<br /><br /></p>
-<div style="float: left; margin-right: 15px; margin-bottom: 15px; width: 500px;">
-  <img src="/assets/images/permits.png" alt="Permit probability by zone" width="100%" />
+<p>One of the more remarkable aspects of the housing starts dataset (outlined more in the Methods section below) is that Cambridge simply builds almost no housing, inside or outside of NCDs. This makes separating the effect of NCDs from base zoning a challenging task, particularly when considering NCDs that are a fraction of a square kilometer. The relevant statistical question, therefore, is pretty straightfoward: How many permits for how many units would be issued per sqkm per year in Res C, and does the observed data suggest a difference for areas inside NCDs?<br /></p>
+
+<div class="figure-container">
+  <img src="/assets/images/permits.png" alt="Permit probability by zone" />
   <figcaption style="text-align: center; font-size: 0.9em;">Fig. 3 Probability of issuing at least one housing-increase permit annually, by zoning type and NCD status. Adjusted for area.</figcaption>
 </div>
-<p>Interestingly, <em>when</em> there is a housing positive development approved inside an NCD there is no statistical evidence that the number of units added is different from an equally zoned region outside the NCD (mean NCD fold change = 1.03 +/- 0.52).<br /><br /></p>
 
-<p>However, there was a large difference in the number of years for which their was <em>at least 1</em> (yes just 1) net housing increase permit issued between NCDs and not-NCD areas. The results are striking: In nearly all cases, NCDs have substantially fewer years with <em>any</em> housing positive permits issued (Figure 3). Mid-Cambridge, the largest NCD with the most available data, gives the clearest picture of the effect that an NCD has when nested inside a predominantly Res C zoning district. The Mid-Cambridge NCD issues ~50% fewer housing positive permits per year than an equivalent Res C plot of land outside the NCD. Half Crown-Marsh stands in a world of its own, issuing essentially nothing in the 29 year observation period.<br /><br /></p>
+<p>Interestingly, <em>when</em> there is a housing positive development approved inside an NCD there is no statistical evidence that the number of units added is different from an equally zoned region outside the NCD (mean NCD fold change = 1.03 +/- 0.52).<br /></p>
+
+<p>However, there was a large difference in the number of years for which their was <em>at least 1</em> (yes just 1) net housing increase permit issued between NCDs and not-NCD areas. The results are striking: In nearly all cases, NCDs have substantially fewer years with <em>any</em> housing positive permits issued (Figure 3). Mid-Cambridge, the largest NCD with the most available data, gives the clearest picture of the effect that an NCD has when nested inside a predominantly Res C zoning district. The Mid-Cambridge NCD issues ~50% fewer housing positive permits per year than an equivalent Res C plot of land outside the NCD. Half Crown-Marsh stands in a world of its own, issuing essentially nothing in the 29 year observation period.<br /></p>
 
 <h4 id="ncds-are-down-conversion-hotspots">NCDs Are Down-conversion Hotspots</h4>
 
 <p>Perhaps more concerning than the rarity of housing unit increases is the concentration of down-conversions inside NCDs as compared to the remainder of the city. Indeed, after splitting the data into permits with net removals or net additions and examining the removals in isolation it is clear that NCDs have a strong and statistically significant effect that is associated with a large multiplicative increase (mean = 10.69x, 95% CI [4.50,21.57]) in the average number of unit losses per sqkm per year relative to the base rate of unit losses in an equally sized Res C parcel (Figure 4).</p>
 
-<div style="text-align: center; margin-bottom: 20px;">
-  <img src="/assets/images/map_removals.png" alt="Zoning map with NCDs" width="800px" />
+<div class="figure-container">
+  <img src="/assets/images/map_removals.png" alt="Zoning map with NCDs" />
   <figcaption style="text-align: center; font-size: 0.9em;">Fig. 4 Regression estimates for annual housing unit losses per sqkm, controlled for base zoning and neighborhood. Inset shows the unit loss fold change associated with a project being in Res. A, Res.B, or in an NCD relative to the base unit loss rate in Res C. Bracketed numbers indicate lower and upper 95%CI. Thick black lines demarcate NCD regions.</figcaption>
 </div>
 
 <p>This is strong evidence that NCDs preferentially approve permits that are net housing losses. It is also reflective of the very real chilling effect that NCDs have on developers: why spend months battling against an unaccountable group and endless carrying costs when the lot can simply be converted into a single family residence?</p>
 
-<div style="clear: both;"></div>
 <hr />
 
 <h1 id="methods">Methods</h1>
@@ -113,7 +149,7 @@ Cambridge is a small city immediately adjacent to Boston, Massachusetts with one
 <h2 id="data-sources-and-preparation">Data Sources and Preparation</h2>
 
 <p>Data sources included GeoJSON files of NCD boundaries, residential districts, zoning districts, and neighborhood boundaries, alongside housing starts from 1996 to present, containing building permit and housing unit change data. Area calculations for each spatial unit were calculated in square kilometers. Zoning district areas were adjusted to account for NCD overlaps to ensure accurate density measurements. 
-<br /><br />
+<br />
 Two specific cases inside the data were adjusted to correct for errors:</p>
 
 <ol>
@@ -197,7 +233,7 @@ Two specific cases inside the data were adjusted to correct for errors:</p>
 
 <p>Models were implemented using the <code class="language-plaintext highlighter-rouge">brms</code> package with 8 MCMC chains and 1,000-2,000 iterations. Weakly informative priors were specified for the permit probability model to improve stability.</p>
 
-<p>Analyses derived from posterior distributions included effects of NCDs on housing additions/removals, permit issuance probability estimates across zoning types and NCD status, and 95% credible intervals for all parameters.</p>]]></content><author><name></name></author><category term="Housing Policy" /><summary type="html"><![CDATA[tl;dr]]></summary></entry><entry><title type="html">Thinking Machines</title><link href="http://localhost:4000/2025/02/01/llmthinking" rel="alternate" type="text/html" title="Thinking Machines" /><published>2025-02-01T23:00:00-05:00</published><updated>2025-02-01T23:00:00-05:00</updated><id>http://localhost:4000/2025/02/01/llmthinking</id><content type="html" xml:base="http://localhost:4000/2025/02/01/llmthinking"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<p>Analyses derived from posterior distributions included effects of NCDs on housing additions/removals, permit issuance probability estimates across zoning types and NCD status, and 95% credible intervals for all parameters.</p>]]></content><author><name></name></author><category term="Housing Policy" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Thinking Machines</title><link href="http://localhost:4000/2025/02/01/llmthinking" rel="alternate" type="text/html" title="Thinking Machines" /><published>2025-02-01T23:00:00-05:00</published><updated>2025-02-01T23:00:00-05:00</updated><id>http://localhost:4000/2025/02/01/llmthinking</id><content type="html" xml:base="http://localhost:4000/2025/02/01/llmthinking"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 <ul>
   <li><a href="#language-models">Language Models</a></li>
   <li><a href="#llms-are-approximating-densities-of-natural-language">LLMs Are Approximating Densities of Natural Language</a></li>
