@@ -44,7 +44,8 @@ img {
 1. ⁠The Mid-Cambridge NCD is ~50% less likely to issue a *single* permit that adds a *single* net housing unit in a given year than an equivalent Res C plot of land outside the NCD. 
 2. Half Crown-Marsh stands in a world of its own, having issued none in the 29 year dataset.
 3. NCDs are hotspots for down-conversion projects, and with more housing losses than comparable plots of land outside the NCD.
-4. Statistical analyses show that these effects are very unlikely to be due to random chance.
+4. For projects that are net housing losses, NCDs are associated with a ~10 fold increase in the number of units lost, on average, compared to an equivalent Res C plot of land outside the NCD.
+5. Statistical analyses show that these effects are very unlikely to be due to random chance.
 
 <hr>
 <br>
