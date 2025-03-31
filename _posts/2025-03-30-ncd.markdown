@@ -49,6 +49,7 @@ img {
 
 <hr>
 <br>
+## Background 
 Cambridge is a small city immediately adjacent to Boston, Massachusetts with one of the worst housing crises in the country. Despite this, the city has done remarkably little to address the problem. Inside the city's residential districts, the city constructed a *cumulative* 1,848 housing units over 29 years from 1996 to 2024, which amounts to 0.06 housing units per 100 residents per year. Notably, Cambridge has found a way to build most of its residences in non-residential districts. Of the total 14,216 net residences constructed since 1996, 12,368 were constructed in non-residential areas of the city. Annual housing production per sqkm is shown in Fig 1 below.<br>
 
 <div class="figure-container" style="max-width: 400px; margin: 0 auto; margin-bottom: 10px;">
@@ -60,7 +61,7 @@ Cambridge's residential areas, importantly, are not near capacity. These areas c
 
 In 2025, the Cambridge city council passed one of the most sincere zoning reforms in the United States. With this accomplishment, the city government not only increased the allowable housing density across large regions of Cambridge, it also corrected the historical injustice of applying different housing rules to different neighborhoods with absolutely no underlying environmental or infrastructure based justification. This ordinance makes serious attempts at not just changing the base zoning, but also relieving arbitrary and punitive dimensional constraints which serve little purpose other than to restrict housing construction.<br>
 
-## Neighborhood Conservation Districts (NCDs)
+### Neighborhood Conservation Districts (NCDs)
 NCDs were established by the city council in 1983 in an effort to protect the character of wealthy neighborhoods in the city from further development. According to the Cambridge Historical Commission's (CHC) website, these districts were founded to be "more effective" than zoning and more flexible than historic districts. Perhaps sensing that elected officials are suspicious, CHC goes to great length on their official website to cite the number of applications approved by the city. For example, CHC cites that 462 applications were approved in the Half Crown-Marsh NCD since 2013 for a 96.9% approval rate. Interesting that those 462 applications has resulted in -6 housing units within the NCD (Table 1, below).<br>
 
 <div class="flex-container">
@@ -120,7 +121,7 @@ To determine if this is true, I examined the citywide dataset of housing starts 
 
 This is an important problem because the city recently upzoned all A and B regions of the city to C. If NCDs suppress housing, this will diminish the impact of the law.<br>
 
-#### NCDs Issue Fewer Housing Positive Permits Than Other Equal Area/Equal Zoned Regions
+## Results
 One of the more remarkable aspects of the housing starts dataset (outlined more in the Methods section below) is that Cambridge simply builds almost no housing, inside or outside of NCDs. This makes separating the effect of NCDs from base zoning a challenging task, particularly when considering NCDs that are a fraction of a square kilometer. The relevant statistical question, therefore, is pretty straightfoward: How many permits for how many units would be issued per sqkm per year in Res C, and does the observed data suggest a difference for areas inside NCDs?<br>
 
 <div class="figure-container">
@@ -130,6 +131,7 @@ One of the more remarkable aspects of the housing starts dataset (outlined more 
 
 Interestingly, *when* there is a housing positive development approved inside an NCD there is no statistical evidence that the number of units added is different from an equally zoned region outside the NCD (mean NCD fold change = 1.03 +/- 0.52).<br>
 
+#### NCDs Issue Fewer Housing Positive Permits Than Other Equal Area/Equal Zoned Regions
 However, there was a large difference in the number of years for which their was *at least 1* (yes just 1) net housing increase permit issued between NCDs and not-NCD areas. The results are striking: In nearly all cases, NCDs have substantially fewer years with *any* housing positive permits issued (Figure 3). Mid-Cambridge, the largest NCD with the most available data, gives the clearest picture of the effect that an NCD has when nested inside a predominantly Res C zoning district. The Mid-Cambridge NCD is ~50% less likely to issue a *single* permit that adds a *single* net housing unit in a given year than an equivalent Res C plot of land outside the NCD. Half Crown-Marsh stands in a world of its own, issuing essentially nothing in the 29 year observation period.<br>
 
 #### NCDs Are Down-conversion Hotspots
