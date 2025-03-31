@@ -98,7 +98,7 @@ However, there was a large difference in the number of years for which their was
 
 #### NCDs Are Down-conversion Hotspots
 
-The most striking pattern in the data is the prevalence by which down-conversions are concentrated inside NCDs as compared to the remainder of the city. Indeed, after splitting the data into permits with net removals or net additions and examining the removals in isolation it is clear that NCDs have a strong and statistically significant effect that is associated with a large multiplicative increase (mean = 10.69x, 95% CI [4.50,21.57]) in the average number of unit losses per sqkm per year relative to the base rate of unit losses in an equally sized Res C parcel (Figure 4).
+Perhaps more concerning than the rarity of housing unit increases is the concentration of down-conversions inside NCDs as compared to the remainder of the city. Indeed, after splitting the data into permits with net removals or net additions and examining the removals in isolation it is clear that NCDs have a strong and statistically significant effect that is associated with a large multiplicative increase (mean = 10.69x, 95% CI [4.50,21.57]) in the average number of unit losses per sqkm per year relative to the base rate of unit losses in an equally sized Res C parcel (Figure 4).
 
 <div style="text-align: center; margin-bottom: 20px;">
   <img src="/assets/images/map_removals.png" alt="Zoning map with NCDs" width="800px"/>
