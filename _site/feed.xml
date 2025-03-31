@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-31T18:14:48-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Stories of variation around a mean.</subtitle><entry><title type="html">Neighborhood Conservation Districts Suppress Housing in Cambridge, MA</title><link href="http://localhost:4000/2025/03/30/ncd" rel="alternate" type="text/html" title="Neighborhood Conservation Districts Suppress Housing in Cambridge, MA" /><published>2025-03-30T00:00:00-04:00</published><updated>2025-03-30T00:00:00-04:00</updated><id>http://localhost:4000/2025/03/30/ncd</id><content type="html" xml:base="http://localhost:4000/2025/03/30/ncd"><![CDATA[<style>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-31T19:01:35-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Stories of variation around a mean.</subtitle><entry><title type="html">Neighborhood Conservation Districts Suppress Housing in Cambridge, MA</title><link href="http://localhost:4000/2025/03/30/ncd" rel="alternate" type="text/html" title="Neighborhood Conservation Districts Suppress Housing in Cambridge, MA" /><published>2025-03-30T00:00:00-04:00</published><updated>2025-03-30T00:00:00-04:00</updated><id>http://localhost:4000/2025/03/30/ncd</id><content type="html" xml:base="http://localhost:4000/2025/03/30/ncd"><![CDATA[<style>
 /* Add responsive design styles */
 img {
   max-width: 100%;
@@ -35,11 +35,10 @@ img {
 
 <ol>
   <li>Analyses were performed by controlling for area, base zoning, and neighborhood.</li>
-  <li>⁠The Mid-Cambridge NCD is ~50% less likely to issue a <em>single</em> permit that adds a <em>single</em> net housing unit in a given year than an equivalent Res C plot of land outside the NCD.</li>
+  <li>⁠The Mid-Cambridge NCD is ~50% less likely to issue a <em>single</em> permit that adds at least 1 net housing unit in a given year than an equivalent Res C plot of land outside the NCD.</li>
   <li>The Half Crown-Marsh NCD stands in a world of its own, having issued none in the 29 year dataset.</li>
   <li>NCDs are hotspots for down-conversion projects, and with more housing losses than comparable plots of land outside the NCD.</li>
   <li>For projects that are net housing losses, NCDs are associated with a ~10 fold increase in the number of units lost, on average, compared to an equivalent Res C plot of land outside the NCD.</li>
-  <li>Statistical analyses show that these effects are very unlikely to be due to random chance.</li>
 </ol>
 
 <hr />
