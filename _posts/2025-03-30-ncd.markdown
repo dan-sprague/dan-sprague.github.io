@@ -112,6 +112,8 @@ This is strong evidence that NCDs preferentially approve permits that are net ho
 
 # Methods
 
+R code and data are available at my [github repo for this project](https://github.com/dan-sprague/CambridgeHousing)
+
 ## Data Sources and Preparation
 
 Data sources included GeoJSON files of NCD boundaries, residential districts, zoning districts, and neighborhood boundaries, alongside housing starts from 1996 to present, containing building permit and housing unit change data. Area calculations for each spatial unit were calculated in square kilometers. Zoning district areas were adjusted to account for NCD overlaps to ensure accurate density measurements. 
