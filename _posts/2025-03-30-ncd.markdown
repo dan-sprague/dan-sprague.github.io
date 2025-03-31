@@ -112,7 +112,7 @@ This is strong evidence that NCDs preferentially approve permits that are net ho
 
 # Methods
 
-R code and data are available at my [github repo for this project](https://github.com/dan-sprague/CambridgeHousing)
+R code and data are available at my [<u>github repo for this project</u>](https://github.com/dan-sprague/CambridgeHousing).
 
 ## Data Sources and Preparation
 

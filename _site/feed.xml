@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-30T21:40:28-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Statistical modeling and machine learning in biology.</subtitle><entry><title type="html">Neighborhood Conservation Districts Suppress Housing in Cambridge, MA</title><link href="http://localhost:4000/2025/03/30/ncd" rel="alternate" type="text/html" title="Neighborhood Conservation Districts Suppress Housing in Cambridge, MA" /><published>2025-03-30T00:00:00-04:00</published><updated>2025-03-30T00:00:00-04:00</updated><id>http://localhost:4000/2025/03/30/ncd</id><content type="html" xml:base="http://localhost:4000/2025/03/30/ncd"><![CDATA[<hr />
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-30T21:41:17-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Statistical modeling and machine learning in biology.</subtitle><entry><title type="html">Neighborhood Conservation Districts Suppress Housing in Cambridge, MA</title><link href="http://localhost:4000/2025/03/30/ncd" rel="alternate" type="text/html" title="Neighborhood Conservation Districts Suppress Housing in Cambridge, MA" /><published>2025-03-30T00:00:00-04:00</published><updated>2025-03-30T00:00:00-04:00</updated><id>http://localhost:4000/2025/03/30/ncd</id><content type="html" xml:base="http://localhost:4000/2025/03/30/ncd"><![CDATA[<hr />
 
 <h3 id="tldr">tl;dr</h3>
 
@@ -110,7 +110,7 @@ Cambridge is a small city immediately adjacent to Boston Massachusetts with one 
 
 <h1 id="methods">Methods</h1>
 
-<p>R code and data are available at my <a href="https://github.com/dan-sprague/CambridgeHousing">github repo for this project</a></p>
+<p>R code and data are available at my <a href="https://github.com/dan-sprague/CambridgeHousing"><u>github repo for this project</u></a>.</p>
 
 <h2 id="data-sources-and-preparation">Data Sources and Preparation</h2>
 
