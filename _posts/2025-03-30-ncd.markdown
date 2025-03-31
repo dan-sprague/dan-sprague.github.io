@@ -86,7 +86,7 @@ To determine if this is true, I examined the citywide dataset of housing starts 
 
 This is an important problem because the city recently upzoned all A and B regions of the city to C. If NCDs suppress housing, this will diminish the impact of the law.<br><br>
 
-#### NCDs Issue Fewer Housing Positive Permits Than Equal Area Equal Zoned Regions
+#### NCDs Issue Fewer Housing Positive Permits Than Other Equal Area/Equal Zoned Regions
 One of the more remarkable aspects of the housing starts dataset (outlined more in the Methods section below) is that Cambridge simply builds almost no housing, inside or outside of NCDs. This makes separating the effect of NCDs from base zoning a challenging task, particularly when considering NCDs that are a fraction of a square kilometer. The relevant statistical question, therefore, is pretty straightfoward: How many permits for how many units would be issued per sqkm per year in Res C, and does the observed data suggest a difference for areas inside NCDs?<br><br>
 <div style="float: left; margin-right: 15px; margin-bottom: 15px; width: 500px;">
   <img src="/assets/images/permits.png" alt="Permit probability by zone" width="100%"/>
