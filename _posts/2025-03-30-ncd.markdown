@@ -49,6 +49,7 @@ img {
 
 <hr>
 <br>
+
 ## Background 
 Cambridge is a small city immediately adjacent to Boston, Massachusetts with one of the worst housing crises in the country. Despite this, the city has done remarkably little to address the problem. Inside the city's residential districts, the city constructed a *cumulative* 1,848 housing units over 29 years from 1996 to 2024, which amounts to 0.06 housing units per 100 residents per year. Notably, Cambridge has found a way to build most of its residences in non-residential districts. Of the total 14,216 net residences constructed since 1996, 12,368 were constructed in non-residential areas of the city. Annual housing production per sqkm is shown in Fig 1 below.<br>
 
