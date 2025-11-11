@@ -164,6 +164,9 @@ using Distributions
 
     y ~ product_distribution(LogNormal.(μ[class], σ[class]))
 end
+
+model = lognormal_model(class_data, y_data)
+chain = sample(model, NUTS(), 5000;drop_warmup=true)
 ```
 
 <br><br>
