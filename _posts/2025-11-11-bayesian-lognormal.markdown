@@ -23,8 +23,8 @@ img {
 **Key findings:**
 
 - **Appropriate Transformation**: LogNormal distributed data must have uncertainty quantified in the log transformed space.
-- **Bayesian Hierarchical Model**: A statistical method is proposed that better estimates the underlying distirbution and uncertainty for lognormal data.
-- **Regularization benefit**: The common sense hierarchical priors prevent extreme parameter estimates that commonly occur with small sample maximum likelihood estimation, particularly for scale parameters
+- **Bayesian Posterior Estimation**: A statistical method is proposed that better estimates the underlying distirbution and uncertainty for lognormal data.
+- **Regularization benefit**: Common sense priors prevent extreme parameter estimates that commonly occur with small sample maximum likelihood estimation, particularly for scale parameters
 - **Average KL divergence**: Improved modeling of lognormal data uncertainty causes large (approximately 90% reduction) and significant decrease in average KL divergence in simulation experiment.
 - **Consistent improvement**: The Bayesian approach provides superior distribution approximation across diverse parameter regimes
 <br><br>
