@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(julia:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(pkill:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

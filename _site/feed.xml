@@ -1,4 +1,208 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-31T19:03:57-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Stories of variation around a mean.</subtitle><entry><title type="html">Neighborhood Conservation Districts Suppress Housing in Cambridge, MA</title><link href="http://localhost:4000/2025/03/30/ncd" rel="alternate" type="text/html" title="Neighborhood Conservation Districts Suppress Housing in Cambridge, MA" /><published>2025-03-30T00:00:00-04:00</published><updated>2025-03-30T00:00:00-04:00</updated><id>http://localhost:4000/2025/03/30/ncd</id><content type="html" xml:base="http://localhost:4000/2025/03/30/ncd"><![CDATA[<style>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-11-11T18:11:39-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Stories of variation around a mean.</subtitle><entry><title type="html">Bayesian Uncertainty Estimation for Small Sample LogNormal Data</title><link href="http://localhost:4000/2025/11/10/bayesian-lognormal" rel="alternate" type="text/html" title="Bayesian Uncertainty Estimation for Small Sample LogNormal Data" /><published>2025-11-10T23:00:00-05:00</published><updated>2025-11-10T23:00:00-05:00</updated><id>http://localhost:4000/2025/11/10/bayesian-lognormal</id><content type="html" xml:base="http://localhost:4000/2025/11/10/bayesian-lognormal"><![CDATA[<style>
+/* Add responsive design styles */
+img {
+  max-width: 100%;
+  height: auto;
+}
+.figure-container {
+  margin-bottom: 20px;
+  width: 100%;
+}
+</style>
+
+<p><br /></p>
+
+<p><strong>Key findings:</strong></p>
+
+<ul>
+  <li><strong>Appropriate Transformation</strong>: LogNormal distributed data must have uncertainty quantified in the log transformed space.</li>
+  <li><strong>Bayesian Hierarchical Model</strong>: A statistical method is proposed that better estimates the underlying distirbution and uncertainty for lognormal data.</li>
+  <li><strong>Regularization benefit</strong>: The common sense hierarchical priors prevent extreme parameter estimates that commonly occur with small sample maximum likelihood estimation, particularly for scale parameters</li>
+  <li><strong>Average KL divergence</strong>: Improved modeling of lognormal data uncertainty causes large (approximately 90% reduction) and significant decrease in average KL divergence in simulation experiment.</li>
+  <li><strong>Consistent improvement</strong>: The Bayesian approach provides superior distribution approximation across diverse parameter regimes
+<br /><br /></li>
+</ul>
+<hr />
+
+<h2 id="overview">Overview</h2>
+
+<p>Biological data often spans multiple orders of magnitude and is right-skewed away from the mean. Standard visualization practice transforms the data to log-space while adjusting axis labels to display the original scale (Figure 1). While this transformation aids visual interpretation, it introduces a subtle but important consideration for uncertainty estimation.</p>
+
+<div class="figure-container">
+  <img src="/assets/images/plot.svg" alt="Prior distribution comparisons" />
+  <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 1: Simulated data often seen in biological contexts.</figcaption>
+</div>
+
+<p>Statistical inference for lognormal data must be conducted on the log-transformed scale where the parameters estimating the average then follow a normal distribution. Consider the two groups in Figure 1 with medians at 10 and 7000 in the original scale. Correct inference requires evaluating the difference $\log(7000) - \log(10) \approx 6.55 - 2.30 = 4.25$ on the log scale where the data are normally distributed and can be compared against a null standard normal. Moreover, naively applying standard statistical methods (like frequentist confidence intervals) directly to lognormal data can lead to inferential errors, as we demonstrate in the following section.</p>
+<p><br /></p>
+
+<p>A bayesian method is proposed that better estimates the uncertainty from log-normal data.</p>
+
+<hr />
+
+<h2 id="standard-ci-underestimate-uncertainty">Standard CI Underestimate Uncertainty</h2>
+
+<p>Inferring 95% confidence intervals prior to log-transforming the data leads to incorrect 95% CI (Figure 2, left). This is shown that as the data becomes more skewed with $\sigma$, the odds that the 95% CI contains the true parameter value goes down. Even when using the correct approach to calculate SEM in the log scale (Figure 2, center), small sample confidence intervals fail to capture upper tail behavior (Figure 2, right). 
+<br /><br />
+To demonstrate these issues, 10,000 datasets were simulated for various sample sizes (n = 3, 5, 10, 20, 50) and scale parameters (σ = 0.25, 0.5, 1.0, 2.0). For each dataset, we computed 95% confidence intervals using the standard $\bar{x} \pm t_{\alpha/2, n-1} \cdot \text{SEM}$ formula on both scales.</p>
+
+<div class="figure-container">
+  <img src="/assets/images/coverage_combined.svg" alt="Coverage probability comparison" />
+  <figcaption style="text-align: left; font-style: plain; font-size: 0.9em;">Figure 2: Three problems with frequentist confidence intervals for lognormal data. Left:  Estimated 95% CIs fail to contain the true mean 95% of the time when CI is computed on original scale. Middle: Correct nominal coverage when CI is computed on log scale. Right: Even with correct log-scale CIs, the upper bound systematically falls below the true 95th percentile.</figcaption>
+</div>
+
+<p>Taken together, these graphs illustrate two things: Sampling error must be considered on the transformed space, and that standard frequentist confidence bands result in inferior understanding of the underlying data distribution.</p>
+
+<h3 id="implication">Implication</h3>
+<p>For lognormal biological data where upper tail behavior matters (e.g., maximum drug concentrations, peak immune responses), standard frequentist confidence intervals are inadequate. Researchers need methods that properly quantify uncertainty about tail behavior.</p>
+<hr />
+
+<h2 id="model-specification">Model Specification</h2>
+
+<p>Bayesian models allow us to place common sense priors against the data that prevent model overfitting, particularly in the case of small data. In the case of the data shown in Figure 1, two important priors admit themselves.</p>
+
+<ol>
+  <li>The group means are, a priori, equally likely between $y_{min}$ and $y_{max}$ and follow a T-Distribution due to the small sample size.</li>
+  <li>The scale of the log normal is, a priori, likely to be close to standard.</li>
+</ol>
+
+<p><strong>Mean Parameters</strong>: The group mean parameters are modeled as shifted T-Distributions, with locations $\mu_j$ given uniform priors $\nu$ over the observed log-data range, while the degress of freedom parameter $\tau$ is estimated from the data.</p>
+
+<p><strong>Scale Parameters</strong>: The group scale parameters $\sigma_j$ use a Gamma prior parameterized such that the mode is precisely equal to 1. This is derived with $\alpha = (1/\beta) + 1$, where $\beta \sim \text{Exponential}(1)$. This enforces a prior for standard scale while allowing the model to estimate uncertainty in the scale parameter. The gamma distribution was chosen because the exponential distribution either has a mode at 0 (Figure 3, blue) which is not our prior belief, or a mean that isn’t 1 (red).</p>
+
+<div class="figure-container">
+  <img src="/assets/images/prior_comparison.svg" alt="Prior distribution comparisons" />
+  <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 3: Comparison of prior distributions for location and scale parameters across groups.</figcaption>
+</div>
+
+<p>The unique parameterization of the Gamma distribution represents the ideal behavior for the scale prior. The posterior for each group is the estimated using the data.</p>
+
+<hr />
+
+<h3 id="probabilistic-model">Probabilistic Model</h3>
+
+<p>The model is specified as follows:</p>
+
+<table style="width: 100%; border-collapse: collapse;">
+<tr style="border-bottom: 1px solid #ddd;">
+  <td style="padding: 10px; vertical-align: top; width: 30%;"><strong>T-Distributed Means</strong></td>
+  <td style="padding: 10px; vertical-align: top;">
+<div style="text-align: left; display: inline-block;">
+$$
+\begin{aligned}
+\tau &amp;\sim \text{LocationScale}(1, 1, \text{Exponential}(1/29)) \\
+\nu &amp;\sim \text{Uniform}(\min(\log y), \max(\log y)) \quad \text{for } j = 1,\ldots,6 \\
+\mu_j &amp;\sim \text{LocationScale}(\nu, 1, \text{TDist}(\tau)) \quad \text{for } j = 1,\ldots,6 \\
+\end{aligned}
+$$
+</div>
+  </td>
+</tr>
+<tr style="border-bottom: 1px solid #ddd;">
+  <td style="padding: 10px; vertical-align: top;"><strong>Standard scale prior</strong></td>
+  <td style="padding: 10px; vertical-align: top;">
+<div style="text-align: left; display: inline-block;">
+$$
+\begin{aligned}
+\beta &amp;\sim \text{Exponential}(1) \\
+\alpha &amp;= \frac{1}{\beta} + 1 \\
+\sigma_j &amp;\sim \text{Gamma}(\alpha, \beta) \quad \text{for } j = 1,\ldots,6 \\
+\end{aligned}
+$$
+</div>
+  </td>
+</tr>
+<tr>
+  <td style="padding: 10px; vertical-align: top;"><strong>Likelihood</strong></td>
+  <td style="padding: 10px; vertical-align: top;">
+<div style="text-align: left; display: inline-block;">
+$$
+\begin{aligned}
+y_i &amp;\sim \text{LogNormal}(\mu_{c_i}, \sigma_{c_i})
+\end{aligned}
+$$
+</div>
+  </td>
+</tr>
+</table>
+
+<p>where $c_i$ denotes the class (group) assignment for observation $i$.</p>
+
+<h2 id="julia-implementation">Julia Implementation</h2>
+
+<p>The Turing.jl package enables easy specification and fast sampling of this relatively simple model.</p>
+
+<div class="language-julia highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="n">Turing</span>
+<span class="k">using</span> <span class="n">Distributions</span>
+
+<span class="nd">@model</span> <span class="k">function</span><span class="nf"> lognormal_model</span><span class="x">(</span><span class="n">class</span><span class="x">,</span> <span class="n">y</span><span class="x">)</span>
+    <span class="c"># Number of unique groups (6 total)</span>
+    <span class="n">n_groups</span> <span class="o">=</span> <span class="n">length</span><span class="x">(</span><span class="n">unique</span><span class="x">(</span><span class="n">class</span><span class="x">))</span>
+
+    <span class="c"># Data range for uniform prior on location</span>
+    <span class="n">y_min</span> <span class="o">=</span> <span class="n">minimum</span><span class="x">(</span><span class="n">log</span><span class="o">.</span><span class="x">(</span><span class="n">y</span><span class="x">))</span>
+    <span class="n">y_max</span> <span class="o">=</span> <span class="n">maximum</span><span class="x">(</span><span class="n">log</span><span class="o">.</span><span class="x">(</span><span class="n">y</span><span class="x">))</span>
+
+    <span class="c"># Degrees of freedom for t-distribution</span>
+    <span class="n">τ</span> <span class="o">~</span> <span class="n">LocationScale</span><span class="x">(</span><span class="mi">1</span><span class="x">,</span> <span class="mi">1</span><span class="x">,</span> <span class="n">Exponential</span><span class="x">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">29</span><span class="x">))</span>
+
+    <span class="c"># Priors on location parameters - uniform from min to max of log(y)</span>
+    <span class="n">ν</span> <span class="o">~</span> <span class="n">filldist</span><span class="x">(</span><span class="n">Uniform</span><span class="x">(</span><span class="n">y_min</span><span class="x">,</span> <span class="n">y_max</span><span class="x">),</span> <span class="n">n_groups</span><span class="x">)</span>
+    <span class="n">μ</span> <span class="o">~</span> <span class="n">arraydist</span><span class="x">(</span><span class="n">LocationScale</span><span class="o">.</span><span class="x">(</span><span class="n">ν</span><span class="x">,</span> <span class="mf">1.0</span><span class="x">,</span> <span class="n">TDist</span><span class="x">(</span><span class="n">τ</span><span class="x">)))</span>
+
+    <span class="c"># Mode = 1 prior for standard lognormal scale</span>
+    <span class="n">β</span> <span class="o">~</span> <span class="n">Exponential</span><span class="x">()</span>
+    <span class="n">α</span> <span class="o">=</span> <span class="x">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">β</span><span class="x">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">σ</span> <span class="o">~</span> <span class="n">filldist</span><span class="x">(</span><span class="n">Gamma</span><span class="x">(</span><span class="n">α</span><span class="x">,</span><span class="n">β</span><span class="x">),</span> <span class="n">n_groups</span><span class="x">)</span>
+
+    <span class="n">y</span> <span class="o">~</span> <span class="n">product_distribution</span><span class="x">(</span><span class="n">LogNormal</span><span class="o">.</span><span class="x">(</span><span class="n">μ</span><span class="x">[</span><span class="n">class</span><span class="x">],</span> <span class="n">σ</span><span class="x">[</span><span class="n">class</span><span class="x">]))</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><br /><br /></p>
+<h1 id="results">Results</h1>
+
+<p><strong>Comparing 95%CI</strong></p>
+<div class="figure-container">
+  <img src="/assets/images/comparison_plot.svg" alt="Model fit comparison" />
+  <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 4: Posterior predictive distributions compared to observed data for each group.</figcaption>
+</div>
+
+<p><strong>Evaluating fitted distribution against simulated ground truth</strong></p>
+
+<p>To quantify the improvement of the hierarchical Bayesian approach over standard maximum likelihood estimation across different levels of data skewness, we simulated 30 groups with n=3 samples for each of four scale parameters (σ = 0.25, 0.5, 1.0, 2.0). For each group, we calculated the Kullback-Leibler (KL) divergence between each method’s estimated distributions and the true underlying distributions. Lower KL divergence indicates better approximation of the true distribution.</p>
+
+<div class="figure-container">
+  <img src="/assets/images/kl_divergence_comparison.svg" alt="KL divergence comparison" />
+  <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 5: Comparison of average KL divergence between maximum likelihood (red) and Bayesian hierarchical (blue) models across different scale parameters. The Bayesian approach consistently outperforms ML across all levels of data skewness, with ML showing high variance while Bayesian maintains stable, low KL divergence.</figcaption>
+</div>
+
+<hr />
+
+<h2 id="discussion">Discussion</h2>
+
+<p>The hierarchical structure allows for partial pooling of information across groups while maintaining group-specific estimates. The uniform prior on location parameters bounded by the observed data range provides a weakly informative prior that regularizes extreme estimates without imposing strong assumptions.</p>
+
+<p>The mode-at-one parameterization for the scale parameter represents a principled choice for lognormal data, as it centers the prior on a neutral scaling assumption while allowing the data to drive the posterior away from this default when warranted.</p>
+
+<p>This substantial improvement in KL divergence demonstrates that the Bayesian hierarchical approach provides superior approximation of the true underlying distributions, especially in small-sample scenarios where maximum likelihood estimation is unstable.</p>
+
+<hr />
+
+<h2 id="methods">Methods</h2>
+
+<p>Analysis was performed using <a href="https://turing.ml/">Turing.jl</a> for probabilistic programming. Code and data are available at [link to repository].</p>
+
+<h3 id="inference-details">Inference Details</h3>
+
+<ul>
+  <li>Sampler: NUTS with automatic differentiation</li>
+  <li>Chains: 4 independent chains</li>
+  <li>Iterations: 2000 per chain (1000 warmup)</li>
+  <li>Convergence diagnostics: $\hat{R} &lt; 1.01$ for all parameters</li>
+</ul>
+
+<hr />]]></content><author><name></name></author><category term="Statistical Modeling" /><category term="Julia" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Neighborhood Conservation Districts Suppress Housing in Cambridge, MA</title><link href="http://localhost:4000/2025/03/30/ncd" rel="alternate" type="text/html" title="Neighborhood Conservation Districts Suppress Housing in Cambridge, MA" /><published>2025-03-30T00:00:00-04:00</published><updated>2025-03-30T00:00:00-04:00</updated><id>http://localhost:4000/2025/03/30/ncd</id><content type="html" xml:base="http://localhost:4000/2025/03/30/ncd"><![CDATA[<style>
 /* Add responsive design styles */
 img {
   max-width: 100%;
@@ -37,7 +241,7 @@ img {
   <li>Analyses were performed by controlling for area, base zoning, and neighborhood.</li>
   <li>NCDs rarely issue even a single permit that has a net housing increase of at least 1 unit in an entire year.</li>
   <li>⁠The Mid-Cambridge NCD is ~50% less likely to issue a single housing-positive permit than an equivalent Res C plot of land outside the NCD per year.</li>
-  <li>The Half Crown-Marsh NCD stands in a world of its own, having issued no housig positive permits in the 29 year dataset.</li>
+  <li>The Half Crown-Marsh NCD stands in a world of its own, having issued no housing positive permits in the 29 year dataset.</li>
   <li>NCDs are hotspots for down-conversion projects, and with more housing losses than comparable plots of land outside the NCD.</li>
   <li>For projects that are net housing losses, NCDs are associated with a ~10 fold increase in the number of units lost, on average, compared to an equivalent Res C plot of land outside the NCD.</li>
 </ol>
@@ -238,7 +442,7 @@ Two specific cases inside the data were adjusted to correct for errors:</p>
 
 <p>Models were implemented using the <code class="language-plaintext highlighter-rouge">brms</code> package with 8 MCMC chains and 1,000-2,000 iterations. Weakly informative priors were specified for the permit probability model to improve stability.</p>
 
-<p>Analyses derived from posterior distributions included effects of NCDs on housing additions/removals, permit issuance probability estimates across zoning types and NCD status, and 95% credible intervals for all parameters.</p>]]></content><author><name></name></author><category term="Housing Policy" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Thinking Machines</title><link href="http://localhost:4000/2025/02/01/llmthinking" rel="alternate" type="text/html" title="Thinking Machines" /><published>2025-02-01T23:00:00-05:00</published><updated>2025-02-01T23:00:00-05:00</updated><id>http://localhost:4000/2025/02/01/llmthinking</id><content type="html" xml:base="http://localhost:4000/2025/02/01/llmthinking"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<p>Analyses derived from posterior distributions included effects of NCDs on housing additions/removals, permit issuance probability estimates across zoning types and NCD status, and 95% credible intervals for all parameters.</p>]]></content><author><name></name></author><category term="Statistical Modeling" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Thinking Machines</title><link href="http://localhost:4000/2025/02/01/llmthinking" rel="alternate" type="text/html" title="Thinking Machines" /><published>2025-02-01T23:00:00-05:00</published><updated>2025-02-01T23:00:00-05:00</updated><id>http://localhost:4000/2025/02/01/llmthinking</id><content type="html" xml:base="http://localhost:4000/2025/02/01/llmthinking"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 <ul>
   <li><a href="#language-models">Language Models</a></li>
   <li><a href="#llms-are-approximating-densities-of-natural-language">LLMs Are Approximating Densities of Natural Language</a></li>
