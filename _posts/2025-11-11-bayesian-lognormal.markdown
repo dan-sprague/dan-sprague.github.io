@@ -194,7 +194,7 @@ This substantial improvement in KL divergence against simulated ground truth dat
 
 ## Methods
 
-Analysis was performed using [Turing.jl](https://turing.ml/) for probabilistic programming. Code and data are available at [link to repository].
+Analysis was performed using [Turing.jl](https://turing.ml/) for probabilistic programming. Code and data are available from [this script](https://github.com/dan-sprague/LogNormalError/blob/main/bayesian_lognormal_analysis.jl).
 
 ### Inference Details
 
@@ -203,4 +203,3 @@ Analysis was performed using [Turing.jl](https://turing.ml/) for probabilistic p
 - Iterations: 2000 per chain (1000 warmup)
 - Convergence diagnostics: $\hat{R} < 1.01$ for all parameters
 
-<hr>
