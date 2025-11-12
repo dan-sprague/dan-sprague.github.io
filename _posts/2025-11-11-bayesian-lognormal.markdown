@@ -20,18 +20,18 @@ img {
 
 <br>
 
-**Key findings:**
+**Summary:**
 
 - **Appropriate Transformation**: LogNormal distributed data must have uncertainty quantified in the log transformed space.
-- **Uncertainty Underestimation**: Naive frequentist maximum likelihood 95% CI underestimate true uncertainty of right-skewed data.
-- **Bayesian Posterior Estimation**: A statistical method is proposed that better estimates the underlying distirbution and uncertainty for lognormal data.
-- **Consistent improvement**: The Bayesian approach provides superior distribution approximation across diverse parameter regimes
+- **Uncertainty Underestimation**: Naive frequentist maximum likelihood 95% CI underestimate true uncertainty of right-skewed data due to the unknown scale parameter in the lognormal likelihood. Complex estimatation methods exist but $n=3$ samples stretches what is possible.
+- **Bayesian Posterior Estimation**: A simple bayesian approach is proposed that better estimates the underlying distirbution and uncertainty for lognormal data. Partial pooling is used to estimate a posterior distribution for the scale parameter.
+- **Consistent improvement**: The Bayesian approach provides superior distribution approximation across diverse parameter regimes. The model jointly estimates the posterior of the mean and scale parameters and allows precise quantification of derived statistics from the posterior.
 <br><br>
 <hr>
 
 ## Overview
 
-<p>Biological data often spans multiple orders of magnitude and is right-skewed away from the mean. Standard visualization practice transforms the data to log-space while adjusting axis labels to display the original scale (Figure 1). While this transformation aids visual interpretation, it introduces a subtle but important consideration for uncertainty estimation.</p>
+<p>Biological data often span multiple orders of magnitude and are right-skewed from the mean. Standard visualization practice in biology transforms the data to log-space while adjusting axis labels to display the original scale (Figure 1). While this transformation aids visual interpretation, it encourages misinterpreation of uncertainty.</p>
 
 
 <div class="figure-container">
@@ -39,7 +39,7 @@ img {
   <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 1: Simulated data often seen in biological contexts.</figcaption>
 </div>
 
-<p>Statistical inference for lognormal data must be conducted on the log-transformed scale where the parameters estimating the average then follow a normal distribution. Consider the two groups in Figure 1 with medians at 10 and 7000 in the original scale. Correct inference requires evaluating the difference $\log(7000) - \log(10) \approx 6.55 - 2.30 = 4.25$ on the log scale where the data are normally distributed and can be compared against a null standard normal. Moreover, naively applying standard statistical methods (like frequentist confidence intervals) directly to lognormal data can lead to inferential errors, as we demonstrate in the following section.</p>
+<p>Below, I show that inference for lognormal data must be conducted on the log-transformed scale where the parameters estimating the average are normally distributed. Consider the two groups in Figure 1 with medians at 10 and 7000 in the original scale. Correct inference requires evaluating the difference $\log(7000) - \log(10) \approx 6.55 - 2.30 = 4.25$ on the log scale where the data are normally distributed and can be compared against a null standard normal. Moreover, naively applying standard statistical methods (like frequentist confidence intervals) directly to lognormal data can lead to inferential errors, as we demonstrate in the following section.</p>
 <br>
 
 A bayesian method is proposed that better estimates the uncertainty from log-normal data.
@@ -49,7 +49,7 @@ A bayesian method is proposed that better estimates the uncertainty from log-nor
 
 ## Standard CI Underestimate Uncertainty
 
-Inferring 95% confidence intervals prior to log-transforming the data leads to incorrect 95% CI. Unsurprisingly, as the data becomes more skewed given $\sigma$, the odds that the 95% CI contains the true parameter value goes down (Figure 2, left). Transforming the data first then calculating 95% CI corrects this problem, as expected (Figure 2, center). However, normality assumptions against right-skewed data fail to capture upper tail behavior (Figure 2, right). 
+Inferring 95% confidence intervals prior to log-transforming the data indisputably leads to incorrect 95% CI. Unsurprisingly, as the data becomes more skewed given $\sigma$, the odds that the 95% CI contains the true parameter value goes down (Figure 2, left). Transforming the data first then calculating 95% CI corrects this problem, as expected (Figure 2, center). However, normality assumptions against right-skewed data fail to capture upper tail behavior (Figure 2, right). 
 <br><br>
 To demonstrate these issues, 10,000 datasets were simulated for various sample sizes (n = 3, 5, 10, 20, 50) and scale parameters (σ = 0.25, 0.5, 1.0, 2.0). For each dataset, we computed 95% confidence intervals using the standard $\bar{x} \pm t_{\alpha/2, n-1} \cdot \text{SE}$ formula on both scales.
 
@@ -63,14 +63,14 @@ For lognormal biological data where upper tail behavior matters (e.g., maximum d
 
 ## Model Specification
 
-Bayesian models allow us to place common sense priors against the data that prevent model overfitting, particularly in the case of small data. In the case of the data shown in Figure 1, two important priors admit themselves.
+Bayesian models allow us to place common sense priors, particularly in this case, that prevent model overfitting, particularly in the case of small data. In the case of the data shown in Figure 1, two important priors admit themselves.
 
 1. The group means are, a priori, equally likely between $y_{min}$ and $y_{max}$ and follow a T-Distribution due to the small sample size. 
 2. The scale of the log normal is, a priori, likely to be close to standard.
 
 **Mean Parameters**: The group mean parameters are modeled as shifted T-Distributions, with locations $\mu_j$ given uniform priors $\nu$ over the observed log-data range, while the degress of freedom parameter $\tau$ is estimated from the data.
 
-**Scale Parameters**: The group scale parameters $\sigma_j$ use a $\text{Gamma}(\alpha,\beta)$ prior parameterized such that the prior mode is equal to 1. This is derived with $\alpha = (1/\beta) + 1$, where $\beta \sim \text{Exponential}(1)$. This enforces a prior for standard scale while allowing the model to estimate uncertainty in the scale parameter. The gamma distribution was chosen because the exponential distribution either has a mode at 0 (Figure 3, blue) which is not our prior belief, or a mean that isn't 1 (red). 
+**Scale Parameters**: The group scale parameters $\sigma_j$ share a hierarchical $\text{Gamma}(\alpha,\beta)$ prior parameterized such that its mode is precisely equal to 1. This is derived with $\alpha = (1/\beta) + 1$, where $\beta \sim \text{Exponential}(1)$. This enforces a prior for standard scale while allowing the model to estimate uncertainty in the scale parameter. The gamma distribution was chosen because the exponential distribution either has a mode at 0 (Figure 3, blue) which is not our prior belief, or a mean that isn't 1 (red). 
 
 <div class="figure-container">
   <img src="/assets/images/prior_comparison.svg" alt="Prior distribution comparisons"/>
