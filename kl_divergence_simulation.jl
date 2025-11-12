@@ -114,9 +114,9 @@ end
 # Calculate statistics for each sigma and method
 sigma_labels = String[]
 ml_means = Float64[]
-ml_ci_half_widths = Float64[]
+ml_sems = Float64[]
 bayes_means = Float64[]
-bayes_ci_half_widths = Float64[]
+bayes_sems = Float64[]
 
 for σ in sigma_values
     # Get ML results for this sigma
@@ -129,13 +129,13 @@ for σ in sigma_values
 
     push!(sigma_labels, "σ=$σ")
     push!(ml_means, mean(ml_kls))
-    push!(ml_ci_half_widths, 1.96 * std(ml_kls) / sqrt(length(ml_kls)))
+    push!(ml_sems, std(ml_kls) / sqrt(length(ml_kls)))
     push!(bayes_means, mean(bayes_kls))
-    push!(bayes_ci_half_widths, 1.96 * std(bayes_kls) / sqrt(length(bayes_kls)))
+    push!(bayes_sems, std(bayes_kls) / sqrt(length(bayes_kls)))
 
     println("\nσ = $σ:")
-    @printf("  ML - Mean: %.4f, 95%% CI: %.4f\n", mean(ml_kls), 1.96 * std(ml_kls) / sqrt(length(ml_kls)))
-    @printf("  Bayesian - Mean: %.4f, 95%% CI: %.4f\n", mean(bayes_kls), 1.96 * std(bayes_kls) / sqrt(length(bayes_kls)))
+    @printf("  ML - Mean: %.4f, SEM: %.4f\n", mean(ml_kls), std(ml_kls) / sqrt(length(ml_kls)))
+    @printf("  Bayesian - Mean: %.4f, SEM: %.4f\n", mean(bayes_kls), std(bayes_kls) / sqrt(length(bayes_kls)))
 end
 
 # Create grouped bar chart
@@ -160,14 +160,14 @@ x_positions = 1:length(sigma_values)
 
 # ML bars (red, left)
 barplot!(ax, x_positions .- bar_width/2, ml_means, color=:red, width=bar_width, label="ML")
-errorbars!(ax, x_positions .- bar_width/2, ml_means, ml_ci_half_widths, color=:black, linewidth=2, whiskerwidth=8)
+errorbars!(ax, x_positions .- bar_width/2, ml_means, ml_sems, color=:black, linewidth=2, whiskerwidth=8)
 
 # Bayesian bars (blue, right)
 barplot!(ax, x_positions .+ bar_width/2, bayes_means, color=:blue, width=bar_width, label="Bayesian")
-errorbars!(ax, x_positions .+ bar_width/2, bayes_means, bayes_ci_half_widths, color=:black, linewidth=2, whiskerwidth=8)
+errorbars!(ax, x_positions .+ bar_width/2, bayes_means, bayes_sems, color=:black, linewidth=2, whiskerwidth=8)
 
-# Add legend
-axislegend(ax, position=:lt)
+# Add legend outside plot area on the right
+Legend(fig[1, 2], ax, halign=:left, valign=:top)
 
 save("/Users/dansprague/Documents/dan-sprague.github.io/assets/images/kl_divergence_comparison.svg", fig)
 
