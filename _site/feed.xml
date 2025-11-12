@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-11-11T19:42:26-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Stories of variation around a mean.</subtitle><entry><title type="html">Bayesian Uncertainty Estimation for Small Sample LogNormal Data</title><link href="http://localhost:4000/2025/11/10/bayesian-lognormal" rel="alternate" type="text/html" title="Bayesian Uncertainty Estimation for Small Sample LogNormal Data" /><published>2025-11-10T23:00:00-05:00</published><updated>2025-11-10T23:00:00-05:00</updated><id>http://localhost:4000/2025/11/10/bayesian-lognormal</id><content type="html" xml:base="http://localhost:4000/2025/11/10/bayesian-lognormal"><![CDATA[<style>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-11-11T19:45:22-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Stories of variation around a mean.</subtitle><entry><title type="html">Bayesian Uncertainty Estimation for Small Sample LogNormal Data</title><link href="http://localhost:4000/2025/11/10/bayesian-lognormal" rel="alternate" type="text/html" title="Bayesian Uncertainty Estimation for Small Sample LogNormal Data" /><published>2025-11-10T23:00:00-05:00</published><updated>2025-11-10T23:00:00-05:00</updated><id>http://localhost:4000/2025/11/10/bayesian-lognormal</id><content type="html" xml:base="http://localhost:4000/2025/11/10/bayesian-lognormal"><![CDATA[<style>
 /* Add responsive design styles */
 img {
   max-width: 100%;
@@ -70,8 +70,6 @@ To demonstrate these issues, 10,000 datasets were simulated for various sample s
   <img src="/assets/images/prior_comparison.svg" alt="Prior distribution comparisons" />
   <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 3: Comparison of prior distributions for location and scale parameters across groups.</figcaption>
 </div>
-
-<p>The unique parameterization of the Gamma distribution represents the ideal behavior for the scale prior. The posterior for each group is the estimated using the data.</p>
 
 <hr />
 

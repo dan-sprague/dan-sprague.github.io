@@ -77,8 +77,6 @@ Bayesian models allow us to place common sense priors against the data that prev
   <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 3: Comparison of prior distributions for location and scale parameters across groups.</figcaption>
 </div>
 
-The unique parameterization of the Gamma distribution represents the ideal behavior for the scale prior. The posterior for each group is the estimated using the data. 
-
 <hr>
 
 ### Probabilistic Model
