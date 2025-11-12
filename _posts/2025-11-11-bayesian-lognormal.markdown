@@ -49,7 +49,7 @@ A bayesian method is proposed that better estimates the uncertainty from log-nor
 
 ## Standard CI Underestimate Uncertainty
 
-Inferring 95% confidence intervals prior to log-transforming the data leads to incorrect 95% CI (Figure 2, left). This is shown that as the data becomes more skewed with $\sigma$, the odds that the 95% CI contains the true parameter value goes down. Even when using the correct approach to calculate SEM in the log scale (Figure 2, center), small sample confidence intervals fail to capture upper tail behavior (Figure 2, right). 
+Inferring 95% confidence intervals prior to log-transforming the data leads to incorrect 95% CI (Figure 2, left). Unsurprisingly, as the data becomes more skewed given $\sigma$, the odds that the 95% CI contains the true parameter value goes down. Even when using the correct approach to calculate SEM in the log scale (Figure 2, center), small sample confidence intervals fail to capture upper tail behavior (Figure 2, right). 
 <br><br>
 To demonstrate these issues, 10,000 datasets were simulated for various sample sizes (n = 3, 5, 10, 20, 50) and scale parameters (σ = 0.25, 0.5, 1.0, 2.0). For each dataset, we computed 95% confidence intervals using the standard $\bar{x} \pm t_{\alpha/2, n-1} \cdot \text{SEM}$ formula on both scales.
 
