@@ -166,7 +166,9 @@ chain = sample(model, NUTS(), 5000;drop_warmup=true)
 <br><br>
 # Results
 
-Calculated 95% CI are shown in Figure 4. It is evident that the Bayesian 95%CI (specifically, posterior credible intervals) better represent uncertainty at the scale of $\log{y}$ with samples having a 95% chance of falling within $\mu \pm 0.5$ (approximately) as opposed to almost invisible bands in the naive maximum likelihood 95% CI. 
+Calculated 95% CI are shown in Figure 4. It is evident that the Bayesian 95%CI (specifically, posterior credible intervals) better represent uncertainty at the scale of $\log{y}$ with samples having a 95% chance of falling within $\mu \pm 0.5$ (approximately) as opposed to almost invisible bands in the naive maximum likelihood 95% CI.
+
+In the next section, we will show that these wider confidence bands reflect better estimation of the data distribution are not just cautious estimates.
 
 <div class="figure-container">
   <img src="/assets/images/comparison_plot.svg" alt="Model fit comparison"/>
