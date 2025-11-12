@@ -68,7 +68,7 @@ Bayesian models allow us to place common sense priors, particularly in this case
 1. The group means are, a priori, equally likely between $y_{min}$ and $y_{max}$ and follow a T-Distribution due to the small sample size. 
 2. The scale of the log normal is, a priori, likely to be close to standard.
 
-**Mean Parameters**: The group mean parameters are modeled as shifted T-Distributions, with locations $\mu_j$ given uniform priors $\nu$ over the observed log-data range, while the degress of freedom parameter $\tau$ is estimated from the data.
+**Mean Parameters**: The group mean parameters are modeled as shifted T-Distributions, with locations $\mu_j$ given uniform priors $\nu$ over the observed log-data range, while the degrees of freedom parameter $\tau$ is estimated from the data.
 
 **Scale Parameters**: The group scale parameters $\sigma_j$ share a hierarchical $\text{Gamma}(\alpha,\beta)$ prior parameterized such that its mode is precisely equal to 1. This is derived with $\alpha = (1/\beta) + 1$, where $\beta \sim \text{Exponential}(1)$. This enforces a prior for standard scale while allowing the model to estimate uncertainty in the scale parameter. The gamma distribution was chosen because the exponential distribution either has a mode at 0 (Figure 3, blue) which is not our prior belief, or a mean that isn't 1 (red). 
 
