@@ -24,7 +24,7 @@ img {
 
 - **Appropriate Transformation**: LogNormal distributed data must have uncertainty quantified in the log transformed space.
 - **Uncertainty Underestimation**: Naive frequentist maximum likelihood 95% CI underestimate true uncertainty of right-skewed data due to the unknown scale parameter in the LogNormal likelihood. Complex estimatation methods exist but $n=3$ samples stretches what is possible.
-- **Bayesian Posterior Estimation**: A simple bayesian approach is proposed that better estimates the underlying distirbution and uncertainty for LogNormal data. Partial pooling is used to estimate a posterior distribution for the scale parameter.
+- **Bayesian Posterior Estimation**: A simple bayesian approach is proposed that better estimates the underlying distribution and uncertainty for LogNormal data. Partial pooling is used to estimate a posterior distribution for the scale parameter.
 - **Consistent improvement**: The Bayesian approach provides superior distribution approximation across diverse parameter regimes. The model jointly estimates the posterior of the mean and scale parameters and allows precise quantification of derived statistics from the posterior.
 <br><br>
 <hr>
