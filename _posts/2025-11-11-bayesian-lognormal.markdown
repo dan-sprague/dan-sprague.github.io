@@ -23,8 +23,8 @@ img {
 **Summary:**
 
 - **Appropriate Transformation**: LogNormal distributed data must have uncertainty quantified in the log transformed space.
-- **Uncertainty Underestimation**: Naive frequentist maximum likelihood 95% CI underestimate true uncertainty of right-skewed data due to the unknown scale parameter in the lognormal likelihood. Complex estimatation methods exist but $n=3$ samples stretches what is possible.
-- **Bayesian Posterior Estimation**: A simple bayesian approach is proposed that better estimates the underlying distirbution and uncertainty for lognormal data. Partial pooling is used to estimate a posterior distribution for the scale parameter.
+- **Uncertainty Underestimation**: Naive frequentist maximum likelihood 95% CI underestimate true uncertainty of right-skewed data due to the unknown scale parameter in the LogNormal likelihood. Complex estimatation methods exist but $n=3$ samples stretches what is possible.
+- **Bayesian Posterior Estimation**: A simple bayesian approach is proposed that better estimates the underlying distirbution and uncertainty for LogNormal data. Partial pooling is used to estimate a posterior distribution for the scale parameter.
 - **Consistent improvement**: The Bayesian approach provides superior distribution approximation across diverse parameter regimes. The model jointly estimates the posterior of the mean and scale parameters and allows precise quantification of derived statistics from the posterior.
 <br><br>
 <hr>
@@ -39,7 +39,7 @@ img {
   <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 1: Simulated data often seen in biological contexts.</figcaption>
 </div>
 
-<p>Below, I show that inference for lognormal data must be conducted on the log-transformed scale where the parameters estimating the average are normally distributed. Consider the two groups in Figure 1 with medians at 10 and 7000 in the original scale. Correct inference requires evaluating the difference $\log(7000) - \log(10) \approx 6.55 - 2.30 = 4.25$ on the log scale where the data are normally distributed and can be compared against a null standard normal. Moreover, naively applying standard statistical methods (like frequentist confidence intervals) directly to lognormal data can lead to inferential errors, as we demonstrate in the following section.</p>
+<p>Below, I show that inference for LogNormal data must be conducted on the log-transformed scale where the parameters estimating the average are normally distributed. Consider the two groups in Figure 1 with medians at 10 and 7000 in the original scale. Correct inference requires evaluating the difference $\log(7000) - \log(10) \approx 6.55 - 2.30 = 4.25$ on the log scale where the data are normally distributed and can be compared against a null standard normal. Moreover, naively applying standard statistical methods (like frequentist confidence intervals) directly to LogNormal data can lead to inferential errors, as we demonstrate in the following section.</p>
 <br>
 
 A bayesian method is proposed that better estimates the uncertainty from log-normal data.
@@ -55,10 +55,10 @@ To demonstrate these issues, 10,000 datasets were simulated for various sample s
 
 <div class="figure-container">
   <img src="/assets/images/coverage_combined.svg" alt="Coverage probability comparison"/>
-  <figcaption style="text-align: left; font-style: plain; font-size: 0.9em;">Figure 2: Three problems with frequentist confidence intervals for lognormal data. Left:  Estimated 95% CIs fail to contain the true mean 95% of the time when CI is computed on original scale. Middle: Correct nominal coverage when CI is computed on log scale. Right: Even with correct log-scale CIs, the upper bound systematically falls below the true 95th percentile.</figcaption>
+  <figcaption style="text-align: left; font-style: plain; font-size: 0.9em;">Figure 2: Three problems with frequentist confidence intervals for LogNormal data. Left:  Estimated 95% CIs fail to contain the true mean 95% of the time when CI is computed on original scale. Middle: Correct nominal coverage when CI is computed on log scale. Right: Even with correct log-scale CIs, the upper bound systematically falls below the true 95th percentile.</figcaption>
 </div>
 
-For lognormal biological data where upper tail behavior matters (e.g., maximum drug concentrations, peak immune responses), care must be taken when plotting and analyzing such data.
+For LogNormal biological data where upper tail behavior matters (e.g., maximum drug concentrations, peak immune responses), care must be taken when plotting and analyzing such data.
 <hr>
 
 ## Model Specification
@@ -136,7 +136,7 @@ The Turing.jl package enables easy specification and fast sampling of this relat
 using Turing
 using Distributions
 
-@model function lognormal_model(class, y)
+@model function LogNormal_model(class, y)
     # Number of unique groups (6 total)
     n_groups = length(unique(class))
 
@@ -151,7 +151,7 @@ using Distributions
     ν ~ filldist(Uniform(y_min, y_max), n_groups)
     μ ~ arraydist(LocationScale.(ν, 1.0, TDist(τ)))
 
-    # Mode = 1 prior for standard lognormal scale
+    # Mode = 1 prior for standard LogNormal scale
     β ~ Exponential()
     α = (1 / β) + 1
     σ ~ filldist(Gamma(α,β), n_groups)
@@ -159,7 +159,7 @@ using Distributions
     y ~ product_distribution(LogNormal.(μ[class], σ[class]))
 end
 
-model = lognormal_model(class_data, y_data)
+model = LogNormal_model(class_data, y_data)
 chain = sample(model, NUTS(), 5000;drop_warmup=true)
 ```
 
@@ -168,7 +168,7 @@ chain = sample(model, NUTS(), 5000;drop_warmup=true)
 
 Calculated 95% CI are shown in Figure 4. It is evident that the Bayesian 95%CI (specifically, posterior credible intervals) better represent uncertainty at the scale of $\log{y}$ with samples having a 95% chance of falling within $\mu \pm 0.5$ (approximately) as opposed to almost invisible bands in the naive maximum likelihood 95% CI.
 
-In the next section, I show that these wider confidence bands reflect better estimation of the underlying lognormal data distribution and are not just cautious estimates.
+In the next section, I show that these wider confidence bands reflect better estimation of the underlying LogNormal data distribution and are not just cautious estimates.
 
 <div class="figure-container">
   <img src="/assets/images/comparison_plot.svg" alt="Model fit comparison"/>
@@ -188,15 +188,15 @@ To quantify the improvement of the Bayesian approach over standard maximum likel
 
 ## Discussion
 
-The mode-at-one parameterization for the scale prior represents a principled choice for lognormal data, as it centers the prior on a neutral scaling assumption while allowing the data to drive the posterior away from this default when warranted. Likewise for the uniform prior on group means, which specifies no prior assumption on the location of the means while incorporating uncertainty. These choices prevent overconfidence in the ultra small data regime while simultaneously representing common sense prior belief about the data, conditional on true lognormal distribution.
+The mode-at-one parameterization for the scale prior represents a principled choice for LogNormal data, as it centers the prior on a neutral scaling assumption while allowing the data to drive the posterior away from this default when warranted. Likewise for the uniform prior on group means, which specifies no prior assumption on the location of the means while incorporating uncertainty. These choices prevent overconfidence in the ultra small data regime while simultaneously representing common sense prior belief about the data, conditional on true LogNormal distribution.
 
-This substantial improvement in KL divergence against simulated ground truth data demonstrates that the Bayesian approach provides superior approximation of underlying lognormal distributed data, especially in small-sample scenarios where maximum likelihood estimation is unstable.
+This substantial improvement in KL divergence against simulated ground truth data demonstrates that the Bayesian approach provides superior approximation of underlying LogNormal distributed data, especially in small-sample scenarios where maximum likelihood estimation is unstable.
 
 <hr>
 
 ## Methods
 
-Analysis was performed using [Turing.jl](https://turing.ml/) for probabilistic programming. Code and data are available from [this script](https://github.com/dan-sprague/LogNormalError/blob/main/bayesian_lognormal_analysis.jl).
+Analysis was performed using [Turing.jl](https://turing.ml/) for probabilistic programming. Code and data are available from [this script](https://github.com/dan-sprague/LogNormalError/blob/main/bayesian_LogNormal_analysis.jl).
 
 ### Inference Details
 
