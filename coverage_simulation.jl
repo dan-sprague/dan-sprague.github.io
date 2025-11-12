@@ -6,9 +6,9 @@ using CairoMakie
 Random.seed!(42)
 
 """
-Simulate coverage probabilities for SEM-based confidence intervals
+Simulate coverage probabilities for 95% confidence intervals
 on lognormal data with varying sample sizes and σ values.
-Compares SEM on original scale vs log scale.
+Compares 95% CI on original scale vs log scale.
 """
 function simulate_coverage(μ, σ, n, n_sims=10000)
     # True parameters
@@ -28,12 +28,12 @@ function simulate_coverage(μ, σ, n, n_sims=10000)
         log_data = rand(Normal(μ, σ), n)
         orig_data = exp.(log_data)
 
-        # Approach 1: SEM on log scale (correct)
+        # Approach 1: 95% CI on log scale (correct)
         m_log = mean(log_data)
-        sem_log = std(log_data) / sqrt(n)
+        se_log = std(log_data) / sqrt(n)
         t_crit = quantile(TDist(n-1), 0.975)
-        ci_lower_log = m_log - t_crit * sem_log
-        ci_upper_log = m_log + t_crit * sem_log
+        ci_lower_log = m_log - t_crit * se_log
+        ci_upper_log = m_log + t_crit * se_log
 
         if ci_lower_log <= true_log_mean <= ci_upper_log
             coverage_log += 1
@@ -43,11 +43,11 @@ function simulate_coverage(μ, σ, n, n_sims=10000)
             upper_viol_log += 1
         end
 
-        # Approach 2: SEM on original scale (incorrect for lognormal)
+        # Approach 2: 95% CI on original scale (incorrect for lognormal)
         m_orig = mean(orig_data)
-        sem_orig = std(orig_data) / sqrt(n)
-        ci_lower_orig = m_orig - t_crit * sem_orig
-        ci_upper_orig = m_orig + t_crit * sem_orig
+        se_orig = std(orig_data) / sqrt(n)
+        ci_lower_orig = m_orig - t_crit * se_orig
+        ci_upper_orig = m_orig + t_crit * se_orig
 
         if ci_lower_orig <= true_mean <= ci_upper_orig
             coverage_orig += 1
@@ -114,9 +114,9 @@ function simulate_ci_vs_percentile(μ, σ, n, n_sims=10000)
 
         # Compute 95% CI on log scale
         m_log = mean(log_data)
-        sem_log = std(log_data) / sqrt(n)
+        se_log = std(log_data) / sqrt(n)
         t_crit = quantile(TDist(n-1), 0.975)
-        ci_upper_log = m_log + t_crit * sem_log
+        ci_upper_log = m_log + t_crit * se_log
 
         # Transform back to original scale
         ci_upper_orig = exp(ci_upper_log)

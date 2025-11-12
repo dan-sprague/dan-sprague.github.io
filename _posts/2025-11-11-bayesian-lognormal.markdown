@@ -51,7 +51,7 @@ A bayesian method is proposed that better estimates the uncertainty from log-nor
 
 Inferring 95% confidence intervals prior to log-transforming the data leads to incorrect 95% CI. Unsurprisingly, as the data becomes more skewed given $\sigma$, the odds that the 95% CI contains the true parameter value goes down (Figure 2, left). Transforming the data first then calculating 95% CI corrects this problem, as expected (Figure 2, center). However, normality assumptions against right-skewed data fail to capture upper tail behavior (Figure 2, right). 
 <br><br>
-To demonstrate these issues, 10,000 datasets were simulated for various sample sizes (n = 3, 5, 10, 20, 50) and scale parameters (σ = 0.25, 0.5, 1.0, 2.0). For each dataset, we computed 95% confidence intervals using the standard $\bar{x} \pm t_{\alpha/2, n-1} \cdot \text{SEM}$ formula on both scales.
+To demonstrate these issues, 10,000 datasets were simulated for various sample sizes (n = 3, 5, 10, 20, 50) and scale parameters (σ = 0.25, 0.5, 1.0, 2.0). For each dataset, we computed 95% confidence intervals using the standard $\bar{x} \pm t_{\alpha/2, n-1} \cdot \text{SE}$ formula on both scales.
 
 <div class="figure-container">
   <img src="/assets/images/coverage_combined.svg" alt="Coverage probability comparison"/>
