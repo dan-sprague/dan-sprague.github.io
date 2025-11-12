@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-11-11T19:45:22-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Stories of variation around a mean.</subtitle><entry><title type="html">Bayesian Uncertainty Estimation for Small Sample LogNormal Data</title><link href="http://localhost:4000/2025/11/10/bayesian-lognormal" rel="alternate" type="text/html" title="Bayesian Uncertainty Estimation for Small Sample LogNormal Data" /><published>2025-11-10T23:00:00-05:00</published><updated>2025-11-10T23:00:00-05:00</updated><id>http://localhost:4000/2025/11/10/bayesian-lognormal</id><content type="html" xml:base="http://localhost:4000/2025/11/10/bayesian-lognormal"><![CDATA[<style>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-11-11T19:53:34-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Stories of variation around a mean.</subtitle><entry><title type="html">Bayesian Uncertainty Estimation for Small Sample LogNormal Data</title><link href="http://localhost:4000/2025/11/10/bayesian-lognormal" rel="alternate" type="text/html" title="Bayesian Uncertainty Estimation for Small Sample LogNormal Data" /><published>2025-11-10T23:00:00-05:00</published><updated>2025-11-10T23:00:00-05:00</updated><id>http://localhost:4000/2025/11/10/bayesian-lognormal</id><content type="html" xml:base="http://localhost:4000/2025/11/10/bayesian-lognormal"><![CDATA[<style>
 /* Add responsive design styles */
 img {
   max-width: 100%;
@@ -159,7 +159,8 @@ $$
 <p><br /><br /></p>
 <h1 id="results">Results</h1>
 
-<p><strong>Comparing 95%CI</strong></p>
+<p>Calculated 95% CI are shown in Figure 4. It is evident that the Bayesian 95%CI (specifically, posterior credible intervals) better represent uncertainty at the scale of $\log{y}$ with samples having a 95% chance of falling within $\mu \pm 0.5$ (approximately) as opposed to almost invisible bands in the naive maximum likelihood 95% CI.</p>
+
 <div class="figure-container">
   <img src="/assets/images/comparison_plot.svg" alt="Model fit comparison" />
   <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 4: Posterior predictive distributions compared to observed data for each group.</figcaption>
@@ -178,11 +179,9 @@ $$
 
 <h2 id="discussion">Discussion</h2>
 
-<p>The hierarchical structure allows for partial pooling of information across groups while maintaining group-specific estimates. The uniform prior on location parameters bounded by the observed data range provides a weakly informative prior that regularizes extreme estimates without imposing strong assumptions.</p>
+<p>The mode-at-one parameterization for the scale prior represents a principled choice for lognormal data, as it centers the prior on a neutral scaling assumption while allowing the data to drive the posterior away from this default when warranted. Likewise for the uniform prior on group means, which specifies no prior assumption on the location of the means while incorporating uncertainty. These choices prevent overconfidence in the ultra small data regime while simultaneously representing common sense prior belief about the data, conditional on true lognormal distribution.</p>
 
-<p>The mode-at-one parameterization for the scale parameter represents a principled choice for lognormal data, as it centers the prior on a neutral scaling assumption while allowing the data to drive the posterior away from this default when warranted.</p>
-
-<p>This substantial improvement in KL divergence demonstrates that the Bayesian hierarchical approach provides superior approximation of the true underlying distributions, especially in small-sample scenarios where maximum likelihood estimation is unstable.</p>
+<p>This substantial improvement in KL divergence against simulated ground truth data demonstrates that the Bayesian approach provides superior approximation of underlying lognormal distributed data, especially in small-sample scenarios where maximum likelihood estimation is unstable.</p>
 
 <hr />
 
