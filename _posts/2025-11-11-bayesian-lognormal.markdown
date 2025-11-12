@@ -58,10 +58,7 @@ To demonstrate these issues, 10,000 datasets were simulated for various sample s
   <figcaption style="text-align: left; font-style: plain; font-size: 0.9em;">Figure 2: Three problems with frequentist confidence intervals for lognormal data. Left:  Estimated 95% CIs fail to contain the true mean 95% of the time when CI is computed on original scale. Middle: Correct nominal coverage when CI is computed on log scale. Right: Even with correct log-scale CIs, the upper bound systematically falls below the true 95th percentile.</figcaption>
 </div>
 
-Taken together, these graphs illustrate two things: Sampling error must be considered on the transformed space, and that standard frequentist confidence bands result in inferior understanding of the underlying data distribution.
-
-### Implication
-For lognormal biological data where upper tail behavior matters (e.g., maximum drug concentrations, peak immune responses), standard frequentist confidence intervals are inadequate. Researchers need methods that properly quantify uncertainty about tail behavior.
+For lognormal biological data where upper tail behavior matters (e.g., maximum drug concentrations, peak immune responses), care must be taken when plotting and analyzing such data.
 <hr>
 
 ## Model Specification
