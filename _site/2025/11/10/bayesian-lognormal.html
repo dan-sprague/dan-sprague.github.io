@@ -374,11 +374,11 @@ $$
 
 <p><strong>Evaluating fitted distribution against simulated ground truth</strong></p>
 
-<p>To quantify the improvement of the hierarchical Bayesian approach over standard maximum likelihood estimation across different levels of data skewness, we simulated 30 groups with n=3 samples for each of four scale parameters (σ = 0.25, 0.5, 1.0, 2.0). For each group, we calculated the Kullback-Leibler (KL) divergence between each method’s estimated distributions and the true underlying distributions. Lower KL divergence indicates better approximation of the true distribution.</p>
+<p>To quantify the improvement of the Bayesian approach over standard maximum likelihood estimation across different levels of data skewness, we simulated 30 groups with n=3 samples for each of four scale parameters (σ = 0.25, 0.5, 1.0, 2.0). For each group, we calculated the Kullback-Leibler (KL) divergence between each method’s estimated distributions and the true underlying distributions. Lower KL divergence indicates better approximation of the true distribution.</p>
 
 <div class="figure-container">
   <img src="/assets/images/kl_divergence_comparison.svg" alt="KL divergence comparison" />
-  <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 5: Comparison of average KL divergence between maximum likelihood (red) and Bayesian hierarchical (blue) models across different scale parameters. The Bayesian approach consistently outperforms ML across all levels of data skewness, with ML showing high variance while Bayesian maintains stable, low KL divergence.</figcaption>
+  <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 5: Comparison of average KL divergence between maximum likelihood (red) and Bayesian  (blue) models across different scale parameters. The Bayesian approach consistently outperforms ML across all levels of data skewness, with ML showing high variance while Bayesian maintains stable, low KL divergence.</figcaption>
 </div>
 
 <hr />
