@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Simplex Projection (Sparsemax) for Differentiable Discrete Cluster Assignments | Dan Sprague</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Simplex Projection (Sparsemax) for Differentiable Discrete Cluster Assignments" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Stories of variation around a mean." />
+<meta property="og:description" content="Stories of variation around a mean." />
+<link rel="canonical" href="http://localhost:4000/2025/11/10/discrete_clustering" />
+<meta property="og:url" content="http://localhost:4000/2025/11/10/discrete_clustering" />
+<meta property="og:site_name" content="Dan Sprague" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-11-10T23:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Simplex Projection (Sparsemax) for Differentiable Discrete Cluster Assignments" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-11-10T23:00:00-05:00","datePublished":"2025-11-10T23:00:00-05:00","description":"Stories of variation around a mean.","headline":"Simplex Projection (Sparsemax) for Differentiable Discrete Cluster Assignments","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2025/11/10/discrete_clustering"},"url":"http://localhost:4000/2025/11/10/discrete_clustering"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<meta
+  name="keywords"
+  content="" />
+
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" href="/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="Dan Sprague - Stories of variation around a mean."
+  href="/feed.xml" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/assets/css/base.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/assets/css/highlight.css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  async>
+</script>
+
+<style>
+.math-container {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 10px 0;
+  margin: 1em 0;
+}
+
+.math-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.math-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.math-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.inline-math-container {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  vertical-align: middle;
+  padding: 0 2px;
+}
+
+.inline-math-container::-webkit-scrollbar {
+  height: 4px;
+}
+
+.inline-math-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
+}
+</style>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+  CommonHTML: {
+    scale: 100,
+    minScaleAdjust: 100,
+    linebreaks: { automatic: false }
+  },
+  "HTML-CSS": {
+    linebreaks: { automatic: false }
+  },
+  SVG: {
+    linebreaks: { automatic: false }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+  
+  var mathElements = document.querySelectorAll('.MathJax, .MathJax_CHTML, .MathJax_SVG');
+  
+  mathElements.forEach(function(element) {
+    var isDisplayMode = element.parentNode.className.indexOf('display') !== -1;
+    
+    var container = document.createElement('div');
+    container.className = isDisplayMode ? 'math-container' : 'inline-math-container';
+    
+    element.parentNode.insertBefore(container, element);
+    container.appendChild(element);
+    
+    element.style.fontSize = '100%';
+  });
+});
+</script>
+
+
+
+<script src="/assets/scripts/jekyllpaper.js" async></script>
+<script
+  src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"
+  onload="javascript:loadMermaid();"
+  async>
+</script>
+
+
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+  <div class="header-info-name">Dan Sprague</div>
+  <div class="header-info-desc">Stories of variation around a mean.</div>
+</div>
+<nav class="header-nav">
+  <ul class="header-main-nav">
+    
+    <li class="header-main-nav-item">
+      <a href="/">
+        
+          home
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/categories">
+        
+          categories
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/projects">
+        
+          projects
+        
+      </a>
+    </li>
+    
+    <li class="header-main-nav-item">
+      <a href="/photography">
+        
+          photography
+        
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+      </header>
+      <main class="container-main">
+        <article class="container-post">
+  <div class="post-title">
+    <h1>Simplex Projection (Sparsemax) for Differentiable Discrete Cluster Assignments</h1>
+  </div>
+  
+  <div class="post-author print-post-author">
+    <span>Dan Sprague</span>
+  </div>
+  
+  <div class="post-content">
+    <style>
+.figure-container {
+  margin: 20px auto;
+  width: 90%;
+  text-align: center; 
+}
+
+.figure-container img {
+  display: block; 
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.figure-container figcaption {
+  text-align: center; 
+  font-style: italic; 
+  font-size: 0.9em;
+  margin-top: 8px;
+  color: #666;
+}
+
+.code-comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.9em;
+}
+
+.code-comparison-table th, .code-comparison-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.code-comparison-table th {
+  background-color: #f2f2f2;
+}
+
+pre {
+  margin: 0; 
+}
+</style>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Sampling the posterior for a likelihood conditional on discrete cluster assignment is a notoriously difficult problem for probabilistic models. Such discrete samples create a gradient discontinuity that prevents the use of gradient-based Hamiltonian Monte Carlo (HMC) samplers. This is unfortunate given the far superior efficiency of gradient-based samplers for MCMC.</p>
+
+<div class="figure-container">
+  <img width="500" src="/assets/images/sparsemax/demo.png" alt="Simulated 3 component 2D multivariate gaussian mixture model" />
+  <figcaption>Figure 1: Simulated 3-component 2-dimensional Gaussian Mixture Model.</figcaption>
+</div>
+
+<p>Consider the distribution shown above, which represents a 3-component, 2-dimensional Gaussian Mixture Model (GMM). Turing.jl, a Julia package for Bayesian inference, is notable for its superlative ability to easily sample the full posterior of cluster assignment for each observation. However, the sampling time for even small datasets is enormously restrictive.</p>
+
+<p>It is for this reason that most GMMs are implemented as <strong>marginalized models</strong>, as shown below:</p>
+
+<div class="language-julia highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@model</span> <span class="k">function</span><span class="nf"> gmm_standard</span><span class="x">(</span><span class="n">x</span><span class="x">,</span> <span class="n">K</span><span class="x">)</span>
+    <span class="n">D</span><span class="x">,</span> <span class="n">N</span> <span class="o">=</span> <span class="n">size</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+
+    <span class="n">μ</span> <span class="o">~</span> <span class="n">filldist</span><span class="x">(</span><span class="n">MvNormal</span><span class="x">(</span><span class="n">Zeros</span><span class="x">(</span><span class="n">D</span><span class="x">),</span> <span class="n">I</span><span class="x">),</span> <span class="n">K</span><span class="x">)</span>
+    <span class="n">w</span> <span class="o">~</span> <span class="n">Dirichlet</span><span class="x">(</span><span class="n">K</span><span class="x">,</span> <span class="mf">1.0</span><span class="x">)</span>
+
+    <span class="n">x</span> <span class="o">~</span> <span class="n">MixtureModel</span><span class="x">([</span><span class="n">MvNormal</span><span class="x">(</span><span class="n">μ</span><span class="x">[</span><span class="o">:</span><span class="x">,</span> <span class="n">k</span><span class="x">],</span> <span class="n">I</span><span class="x">)</span> <span class="k">for</span> <span class="n">k</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">K</span><span class="x">],</span> <span class="n">w</span><span class="x">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="the-smearing-problem">The Smearing Problem</h2>
+
+<p>Standard marginalized models suffer from the fact that the Dirichlet distribution and/or any Softmax-based learned weights tend to be “dense,” or non-sparse. This results in probability mass being smeared across clusters that should essentially have zero probability.</p>
+
+<p>We can observe this behavior in the REPL execution below. Note how softmax assigns substantial non-zero probability to every element, whereas project_to_simplex (Sparsemax) is capable of allocating true zeros.</p>
+
+<table class="code-comparison-table">
+<thead>
+<tr>
+<th>Function Call</th>
+<th>Output Vector</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>softmax([1, 2, 3])</code></td>
+<td><code>[0.090, 0.245, 0.665]</code></td>
+<td><strong>Dense</strong>: All clusters have mass.</td>
+</tr>
+<tr>
+<td><code>project_to_simplex([1, 2, 3])</code></td>
+<td><code>[0.0, 0.0, 1.0]</code></td>
+<td><strong>Sparse</strong>: Converges to a "hard" assignment (One-hot).</td>
+</tr>
+<tr>
+<td><code>project_to_simplex([1, 2.9, 3])</code></td>
+<td><code>[0.0, 0.45, 0.55]</code></td>
+<td><strong>Mixture</strong>: Sparse, but handles ambiguity.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="the-sparsemax-solution">The Sparsemax Solution</h2>
+
+<p><b><a href="https://arxiv.org/pdf/1602.02068" style="text-decoration: underline;">Martins and Astudillo (2016)</a></b> provide an interesting method for projecting any vector of reals onto a probability simplex. This projection has the fascinating property of being able to project—<b>differentiably</b>—to a one-hot vector.</p>
+
+<p>If inputs fall within a specific radius of the $\max x$, the vector retains mixture characteristics; otherwise, it snaps to a one-hot encoding. This property gives the method something along the lines of a “super-power,” allowing for both mixtures and discrete cluster assignments while maintaining the differentiability required for HMC.</p>
+
+<p><strong>Note:</strong> You can find my Julia implementation of the algorithm described in the original paper, including a custom ChainRules pullback for fast differentiation, <strong><a href="#">here</a></strong>.</p>
+
+<p>We can implement this in a Turing model as follows:</p>
+
+<div class="language-julia highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@model</span> <span class="k">function</span><span class="nf"> gmm_sparsemax</span><span class="x">(</span><span class="n">x</span><span class="x">,</span> <span class="n">K</span><span class="x">,</span> <span class="n">temperature</span><span class="x">)</span>
+    <span class="n">D</span><span class="x">,</span> <span class="n">N</span> <span class="o">=</span> <span class="n">size</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+
+    <span class="n">μ</span> <span class="o">~</span> <span class="n">filldist</span><span class="x">(</span><span class="n">MvNormal</span><span class="x">(</span><span class="n">Zeros</span><span class="x">(</span><span class="n">D</span><span class="x">),</span> <span class="n">I</span><span class="x">),</span> <span class="n">K</span><span class="x">)</span>
+    
+    <span class="c"># Learnable scaling factor for the logits</span>
+    <span class="n">α</span> <span class="o">~</span> <span class="n">Exponential</span><span class="x">(</span><span class="mf">0.5</span><span class="x">)</span>
+    
+    <span class="n">logits</span> <span class="o">~</span> <span class="n">filldist</span><span class="x">(</span><span class="n">Gumbel</span><span class="x">(),</span> <span class="n">K</span><span class="x">)</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">project_to_simplex</span><span class="x">(</span><span class="n">logits</span> <span class="o">./</span> <span class="n">α</span><span class="x">)</span>
+
+    <span class="n">x</span> <span class="o">~</span> <span class="n">MixtureModel</span><span class="x">([</span><span class="n">MvNormal</span><span class="x">(</span><span class="n">μ</span><span class="x">[</span><span class="o">:</span><span class="x">,</span> <span class="n">k</span><span class="x">],</span> <span class="n">I</span><span class="x">)</span> <span class="k">for</span> <span class="n">k</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">K</span><span class="x">],</span> <span class="n">w</span><span class="x">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="results--validation">Results &amp; Validation</h2>
+
+<p>This non-linear transformation can be applied to induce sparsity in the learned weight vector for the marginalized GMM. It is interesting to note the similarity to the stick-breaking process used in the marginal approximation to the “infinite” Gaussian Mixture Model. Therefore, I sought to determine if Sparsemax would produce similar results to stick-breaking and improve model fitting over a standard Dirichlet marginalized GMM.</p>
+
+<p>To do this, I estimated a Standard GMM, a Stick-breaking GMM, and a Sparsemax GMM with $K = 5$ to examine how robust each model was to misspecification (fitting 5 clusters to data generated from 3). Cluster assignments were visualized by taking the weights—e.g., <code class="language-plaintext highlighter-rouge">w = sparsemax(logits / α)</code>—and visualizing them as a proportion of a unit stick.</p>
+
+<h3 id="posterior-weights-analysis">Posterior Weights Analysis</h3>
+
+<p>The results below show that the standard GMM fails to learn the correct weight structure, assigning significant weight to two clusters that do not actually exist.</p>
+
+<div class="figure-container">
+<img width="100%" src="/assets/images/sparsemax/gmm_discrete_heatmap.png" alt="Ground truth vs posterior weights heatmap" />
+<figcaption>Figure 2: Heatmap comparison of learned weights. Note the noise in the Standard GMM vs. the sparsity in Stick-Breaking and Sparsemax.</figcaption>
+</div>
+
+<h3 id="cluster-separation">Cluster Separation</h3>
+
+<p>Both the stick-breaking and Sparsemax models induce significant sparsity into the model while remaining fully differentiable. Indeed, it appears that the overall results for stick-breaking and Sparsemax are nearly identical. Both have nearly identical distributions for the weights $w$, and both appear to discriminate cluster membership well, even for low-separation data.</p>
+
+<div class="figure-container">
+<img width="100%" src="/assets/images/sparsemax/gmm_grid_comparison_final.png" alt="Grid comparison of GMM fit" />
+<figcaption>Figure 3: TOP: Ground truth vs. posterior weights for each cluster. BOTTOM: Points colored by most likely cluster assignment with opacity indicating confidence of assignment.</figcaption>
+</div>
+
+<h2 id="discussion--conclusion">Discussion &amp; Conclusion</h2>
+
+<p>The simplex projection (Sparsemax) offers a compelling alternative to traditional Softmax or Dirichlet-based parameterizations. By allowing the model to hit “hard zeros” in the weight vector, we achieve a level of interpretability usually reserved for discrete sampling methods, without sacrificing the gradients necessary for efficient MCMC.</p>
+
+<p>While the Stick-breaking process yields similar results in this experiment, Sparsemax offers distinct theoretical advantages. Stick-breaking imposes an ordering on the clusters (the “rich get richer” phenomenon), which can sometimes be undesirable depending on the prior knowledge of the data. Sparsemax, conversely, treats the logits symmetrically before projection.</p>
+
+<p>For practitioners using Julia and Turing.jl, this implies that we can build models that are both sparse (interpretable) and fast (differentiable). Future work might explore how this projection behaves in higher-dimensional latent spaces, such as those found in Variational Autoencoders (VAEs), where “disentanglement” is often a primary goal.</p>
+
+  </div>
+  <div class="post-info">
+    <div class="post-date">
+      Written on 
+      2025-11-10
+      
+        ,
+        updated at 
+        2025-11-11
+      
+      .
+    </div>
+    
+    <div class="post-author">
+      Author: Dan Sprague
+    </div>
+    
+    <div class="post-categories">
+      <span>Categories: </span>
+      
+      <a 
+        href="/categories#Statistical Modeling"
+        class="post-category">
+        Statistical Modeling
+      </a>
+      
+      <a 
+        href="/categories#Julia"
+        class="post-category">
+        Julia
+      </a>
+      
+    </div>
+    <div class="post-tags">
+      <span>Tags: </span>
+      
+    </div>
+    <div class="post-other">
+      
+      
+      <div>
+        <span>
+          Previous: 
+        </span>
+        <a href="/2025/11/10/bayesian-lognormal">
+          Bayesian Uncertainty Estimation for Small Sample LogNormal Data
+        </a>
+      </div>
+      
+    </div>
+    
+  </div>
+</article>
+
+      </main>
+      <footer class="container-footer">
+        <div class="footer-copyright">
+  <span class="footer-copyright-text float-left">
+    Copyright &copy; 2025. example.com.
+  </span>
+  <span class="footer-copyright-text float-right">
+    Powered by <a href="https://jekyllrb.com/">Jekyll</a>, themed by <a href="https://github.com/ghosind/Jekyll-Paper-Github">Jekyll-Paper-Github</a>.
+  </span>
+</div>
+
+      </footer>
+    </div>
+  </body>
+</html>
