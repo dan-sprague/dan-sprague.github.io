@@ -111,7 +111,7 @@ We can observe this behavior in the REPL execution below. Note how softmax assig
 
 ## The Sparsemax Solution
 
-<p><b><a href="https://arxiv.org/pdf/1602.02068" style="text-decoration: underline;">Martins and Astudillo (2016)</a></b> provide an interesting method for projecting any vector of reals onto a probability simplex. This projection has the fascinating property of being able to project—<b>differentiably</b>—to a one-hot vector.</p>
+<p><a href="https://arxiv.org/pdf/1309.1541" style="text-decoration: underline;">Wang and Carreira-Perpiñán (2013)</a> provide an interesting method for projecting any vector of reals onto a probability simplex. This projection has the fascinating property of being able to project—<b>differentiably</b>—to a one-hot vector.</p>
 
 If inputs fall within a specific radius of the $\max x$, the vector retains mixture characteristics; otherwise, it snaps to a one-hot encoding. This property gives the method something along the lines of a "super-power," allowing for both mixtures and discrete cluster assignments while maintaining the differentiability required for HMC.
 
