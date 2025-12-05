@@ -157,7 +157,7 @@ Both the stick-breaking and Sparsemax models induce significant sparsity into th
 
 <div class="figure-container">
 <img width="100%" src="/assets/images/sparsemax/gmm_grid_comparison_final.png" alt="Grid comparison of GMM fit"/>
-<figcaption>Figure 3: TOP: Ground truth vs. posterior weights for each cluster. BOTTOM: Points colored by most likely cluster assignment with opacity indicating confidence of assignment.</figcaption>
+<figcaption>Figure 3: Points colored by most likely cluster assignment with opacity indicating confidence of assignment.</figcaption>
 </div>
 
 ## Discussion & Conclusion

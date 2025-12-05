@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-05T18:27:05-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Stories of variation around a mean.</subtitle><entry><title type="html">Bayesian Uncertainty Estimation for Small Sample LogNormal Data</title><link href="http://localhost:4000/2025/11/10/bayesian-lognormal" rel="alternate" type="text/html" title="Bayesian Uncertainty Estimation for Small Sample LogNormal Data" /><published>2025-11-10T23:00:00-05:00</published><updated>2025-11-10T23:00:00-05:00</updated><id>http://localhost:4000/2025/11/10/bayesian-lognormal</id><content type="html" xml:base="http://localhost:4000/2025/11/10/bayesian-lognormal"><![CDATA[<style>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-05T18:48:52-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Stories of variation around a mean.</subtitle><entry><title type="html">Bayesian Uncertainty Estimation for Small Sample LogNormal Data</title><link href="http://localhost:4000/2025/11/10/bayesian-lognormal" rel="alternate" type="text/html" title="Bayesian Uncertainty Estimation for Small Sample LogNormal Data" /><published>2025-11-10T23:00:00-05:00</published><updated>2025-11-10T23:00:00-05:00</updated><id>http://localhost:4000/2025/11/10/bayesian-lognormal</id><content type="html" xml:base="http://localhost:4000/2025/11/10/bayesian-lognormal"><![CDATA[<style>
 /* Add responsive design styles */
 img {
   max-width: 100%;
@@ -347,7 +347,7 @@ pre {
 
 <div class="figure-container">
 <img width="100%" src="/assets/images/sparsemax/gmm_grid_comparison_final.png" alt="Grid comparison of GMM fit" />
-<figcaption>Figure 3: TOP: Ground truth vs. posterior weights for each cluster. BOTTOM: Points colored by most likely cluster assignment with opacity indicating confidence of assignment.</figcaption>
+<figcaption>Figure 3: Points colored by most likely cluster assignment with opacity indicating confidence of assignment.</figcaption>
 </div>
 
 <h2 id="discussion--conclusion">Discussion &amp; Conclusion</h2>
