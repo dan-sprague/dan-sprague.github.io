@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-11-11T20:41:26-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Stories of variation around a mean.</subtitle><entry><title type="html">Bayesian Uncertainty Estimation for Small Sample LogNormal Data</title><link href="http://localhost:4000/2025/11/10/bayesian-lognormal" rel="alternate" type="text/html" title="Bayesian Uncertainty Estimation for Small Sample LogNormal Data" /><published>2025-11-10T23:00:00-05:00</published><updated>2025-11-10T23:00:00-05:00</updated><id>http://localhost:4000/2025/11/10/bayesian-lognormal</id><content type="html" xml:base="http://localhost:4000/2025/11/10/bayesian-lognormal"><![CDATA[<style>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-05T18:25:58-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dan Sprague</title><subtitle>Stories of variation around a mean.</subtitle><entry><title type="html">Bayesian Uncertainty Estimation for Small Sample LogNormal Data</title><link href="http://localhost:4000/2025/11/10/bayesian-lognormal" rel="alternate" type="text/html" title="Bayesian Uncertainty Estimation for Small Sample LogNormal Data" /><published>2025-11-10T23:00:00-05:00</published><updated>2025-11-10T23:00:00-05:00</updated><id>http://localhost:4000/2025/11/10/bayesian-lognormal</id><content type="html" xml:base="http://localhost:4000/2025/11/10/bayesian-lognormal"><![CDATA[<style>
 /* Add responsive design styles */
 img {
   max-width: 100%;
@@ -12,27 +12,27 @@ img {
 
 <p><br /></p>
 
-<p><strong>Key findings:</strong></p>
+<p><strong>Summary:</strong></p>
 
 <ul>
   <li><strong>Appropriate Transformation</strong>: LogNormal distributed data must have uncertainty quantified in the log transformed space.</li>
-  <li><strong>Uncertainty Underestimation</strong>: Naive frequentist maximum likelihood 95% CI underestimate true uncertainty of right-skewed data.</li>
-  <li><strong>Bayesian Posterior Estimation</strong>: A statistical method is proposed that better estimates the underlying distirbution and uncertainty for lognormal data.</li>
-  <li><strong>Consistent improvement</strong>: The Bayesian approach provides superior distribution approximation across diverse parameter regimes
+  <li><strong>Uncertainty Underestimation</strong>: Naive frequentist maximum likelihood 95% CI underestimate true uncertainty of right-skewed data due to the unknown scale parameter in the LogNormal likelihood. Complex estimatation methods exist but $n=3$ samples stretches what is possible.</li>
+  <li><strong>Bayesian Posterior Estimation</strong>: A simple bayesian approach is proposed that better estimates the underlying distribution and uncertainty for LogNormal data. Partial pooling is used to estimate a posterior distribution for the scale parameter.</li>
+  <li><strong>Consistent improvement</strong>: The Bayesian approach provides superior distribution approximation across diverse parameter regimes. The model jointly estimates the posterior of the mean and scale parameters and allows precise quantification of derived statistics from the posterior.
 <br /><br /></li>
 </ul>
 <hr />
 
 <h2 id="overview">Overview</h2>
 
-<p>Biological data often spans multiple orders of magnitude and is right-skewed away from the mean. Standard visualization practice transforms the data to log-space while adjusting axis labels to display the original scale (Figure 1). While this transformation aids visual interpretation, it introduces a subtle but important consideration for uncertainty estimation.</p>
+<p>Biological data often span multiple orders of magnitude and are right-skewed from the mean. Standard visualization practice in biology transforms the data to log-space while adjusting axis labels to display the original scale (Figure 1). While this transformation aids visual interpretation, it encourages misinterpreation of uncertainty.</p>
 
 <div class="figure-container">
   <img src="/assets/images/plot.svg" alt="Prior distribution comparisons" />
   <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 1: Simulated data often seen in biological contexts.</figcaption>
 </div>
 
-<p>Statistical inference for lognormal data must be conducted on the log-transformed scale where the parameters estimating the average then follow a normal distribution. Consider the two groups in Figure 1 with medians at 10 and 7000 in the original scale. Correct inference requires evaluating the difference $\log(7000) - \log(10) \approx 6.55 - 2.30 = 4.25$ on the log scale where the data are normally distributed and can be compared against a null standard normal. Moreover, naively applying standard statistical methods (like frequentist confidence intervals) directly to lognormal data can lead to inferential errors, as we demonstrate in the following section.</p>
+<p>Below, I show that inference for LogNormal data must be conducted on the log-transformed scale where the parameters estimating the average are normally distributed. Consider the two groups in Figure 1 with medians at 10 and 7000 in the original scale. Correct inference requires evaluating the difference $\log(7000) - \log(10) \approx 6.55 - 2.30 = 4.25$ on the log scale where the data are normally distributed and can be compared against a null standard normal. Moreover, naively applying standard statistical methods (like frequentist confidence intervals) directly to LogNormal data can lead to inferential errors, as we demonstrate in the following section.</p>
 <p><br /></p>
 
 <p>A bayesian method is proposed that better estimates the uncertainty from log-normal data.</p>
@@ -41,34 +41,34 @@ img {
 
 <h2 id="standard-ci-underestimate-uncertainty">Standard CI Underestimate Uncertainty</h2>
 
-<p>Inferring 95% confidence intervals prior to log-transforming the data leads to incorrect 95% CI. Unsurprisingly, as the data becomes more skewed given $\sigma$, the odds that the 95% CI contains the true parameter value goes down (Figure 2, left). Transforming the data first then calculating 95% CI corrects this problem, as expected (Figure 2, center). However, normality assumptions against right-skewed data fail to capture upper tail behavior (Figure 2, right). 
+<p>Inferring 95% confidence intervals prior to log-transforming the data indisputably leads to incorrect 95% CI. Unsurprisingly, as the data becomes more skewed given $\sigma$, the odds that the 95% CI contains the true parameter value goes down (Figure 2, left). Transforming the data first then calculating 95% CI corrects this problem, as expected (Figure 2, center). However, normality assumptions against right-skewed data fail to capture upper tail behavior (Figure 2, right). 
 <br /><br />
 To demonstrate these issues, 10,000 datasets were simulated for various sample sizes (n = 3, 5, 10, 20, 50) and scale parameters (σ = 0.25, 0.5, 1.0, 2.0). For each dataset, we computed 95% confidence intervals using the standard $\bar{x} \pm t_{\alpha/2, n-1} \cdot \text{SE}$ formula on both scales.</p>
 
 <div class="figure-container">
   <img src="/assets/images/coverage_combined.svg" alt="Coverage probability comparison" />
-  <figcaption style="text-align: left; font-style: plain; font-size: 0.9em;">Figure 2: Three problems with frequentist confidence intervals for lognormal data. Left:  Estimated 95% CIs fail to contain the true mean 95% of the time when CI is computed on original scale. Middle: Correct nominal coverage when CI is computed on log scale. Right: Even with correct log-scale CIs, the upper bound systematically falls below the true 95th percentile.</figcaption>
+  <figcaption style="text-align: left; font-style: plain; font-size: 0.9em;">Figure 2: Three problems with frequentist confidence intervals for LogNormal data. Left:  Estimated 95% CIs fail to contain the true mean 95% of the time when CI is computed on original scale. Middle: Correct nominal coverage when CI is computed on log scale. Right: Even with correct log-scale CIs, the upper bound systematically falls below the true 95th percentile.</figcaption>
 </div>
 
-<p>For lognormal biological data where upper tail behavior matters (e.g., maximum drug concentrations, peak immune responses), care must be taken when plotting and analyzing such data.</p>
+<p>For LogNormal biological data where upper tail behavior matters (e.g., maximum drug concentrations, peak immune responses), care must be taken when plotting and analyzing such data.</p>
 <hr />
 
 <h2 id="model-specification">Model Specification</h2>
 
-<p>Bayesian models allow us to place common sense priors against the data that prevent model overfitting, particularly in the case of small data. In the case of the data shown in Figure 1, two important priors admit themselves.</p>
+<p>Bayesian models allow us to place common sense priors, particularly in this case, that prevent model overfitting, particularly in the case of small data. In the case of the data shown in Figure 1, two important priors admit themselves.</p>
 
 <ol>
   <li>The group means are, a priori, equally likely between $y_{min}$ and $y_{max}$ and follow a T-Distribution due to the small sample size.</li>
   <li>The scale of the log normal is, a priori, likely to be close to standard.</li>
 </ol>
 
-<p><strong>Mean Parameters</strong>: The group mean parameters are modeled as shifted T-Distributions, with locations $\mu_j$ given uniform priors $\nu$ over the observed log-data range, while the degress of freedom parameter $\tau$ is estimated from the data.</p>
+<p><strong>Mean Parameters</strong>: The group mean parameters are modeled as shifted T-Distributions, with locations $\mu_j$ given uniform priors $\nu$ over the observed log-data range, while the degrees of freedom parameter $\tau$ is estimated from the data.</p>
 
-<p><strong>Scale Parameters</strong>: The group scale parameters $\sigma_j$ use a $\text{Gamma}(\alpha,\beta)$ prior parameterized such that the prior mode is equal to 1. This is derived with $\alpha = (1/\beta) + 1$, where $\beta \sim \text{Exponential}(1)$. This enforces a prior for standard scale while allowing the model to estimate uncertainty in the scale parameter. The gamma distribution was chosen because the exponential distribution either has a mode at 0 (Figure 3, blue) which is not our prior belief, or a mean that isn’t 1 (red).</p>
+<p><strong>Scale Parameters</strong>: The group scale parameters $\sigma_j$ share a hierarchical $\text{Gamma}(\alpha,\beta)$ prior parameterized such that its mode is precisely equal to 1. This is derived with $\alpha = (1/\beta) + 1$, where $\beta \sim \text{Exponential}(1)$. This enforces a prior for standard scale while allowing the model to estimate uncertainty in the scale parameter. The gamma distribution was chosen because the exponential distribution either has a mode at 0 (Figure 3, blue) which is not our prior belief, or disallows values below 1 (red).</p>
 
 <div class="figure-container">
   <img src="/assets/images/prior_comparison.svg" alt="Prior distribution comparisons" />
-  <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 3: Comparison of prior distributions for location and scale parameters across groups.</figcaption>
+  <figcaption style="text-align: center; font-style: plain; font-size: 0.9em;">Figure 3: Mode-at-1 Gamma prior for LogNormal scale parameter.</figcaption>
 </div>
 
 <hr />
@@ -129,7 +129,7 @@ $$
 <div class="language-julia highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="n">Turing</span>
 <span class="k">using</span> <span class="n">Distributions</span>
 
-<span class="nd">@model</span> <span class="k">function</span><span class="nf"> lognormal_model</span><span class="x">(</span><span class="n">class</span><span class="x">,</span> <span class="n">y</span><span class="x">)</span>
+<span class="nd">@model</span> <span class="k">function</span><span class="nf"> LogNormal_model</span><span class="x">(</span><span class="n">class</span><span class="x">,</span> <span class="n">y</span><span class="x">)</span>
     <span class="c"># Number of unique groups (6 total)</span>
     <span class="n">n_groups</span> <span class="o">=</span> <span class="n">length</span><span class="x">(</span><span class="n">unique</span><span class="x">(</span><span class="n">class</span><span class="x">))</span>
 
@@ -144,7 +144,7 @@ $$
     <span class="n">ν</span> <span class="o">~</span> <span class="n">filldist</span><span class="x">(</span><span class="n">Uniform</span><span class="x">(</span><span class="n">y_min</span><span class="x">,</span> <span class="n">y_max</span><span class="x">),</span> <span class="n">n_groups</span><span class="x">)</span>
     <span class="n">μ</span> <span class="o">~</span> <span class="n">arraydist</span><span class="x">(</span><span class="n">LocationScale</span><span class="o">.</span><span class="x">(</span><span class="n">ν</span><span class="x">,</span> <span class="mf">1.0</span><span class="x">,</span> <span class="n">TDist</span><span class="x">(</span><span class="n">τ</span><span class="x">)))</span>
 
-    <span class="c"># Mode = 1 prior for standard lognormal scale</span>
+    <span class="c"># Mode = 1 prior for standard LogNormal scale</span>
     <span class="n">β</span> <span class="o">~</span> <span class="n">Exponential</span><span class="x">()</span>
     <span class="n">α</span> <span class="o">=</span> <span class="x">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">β</span><span class="x">)</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">σ</span> <span class="o">~</span> <span class="n">filldist</span><span class="x">(</span><span class="n">Gamma</span><span class="x">(</span><span class="n">α</span><span class="x">,</span><span class="n">β</span><span class="x">),</span> <span class="n">n_groups</span><span class="x">)</span>
@@ -152,7 +152,7 @@ $$
     <span class="n">y</span> <span class="o">~</span> <span class="n">product_distribution</span><span class="x">(</span><span class="n">LogNormal</span><span class="o">.</span><span class="x">(</span><span class="n">μ</span><span class="x">[</span><span class="n">class</span><span class="x">],</span> <span class="n">σ</span><span class="x">[</span><span class="n">class</span><span class="x">]))</span>
 <span class="k">end</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">lognormal_model</span><span class="x">(</span><span class="n">class_data</span><span class="x">,</span> <span class="n">y_data</span><span class="x">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogNormal_model</span><span class="x">(</span><span class="n">class_data</span><span class="x">,</span> <span class="n">y_data</span><span class="x">)</span>
 <span class="n">chain</span> <span class="o">=</span> <span class="n">sample</span><span class="x">(</span><span class="n">model</span><span class="x">,</span> <span class="n">NUTS</span><span class="x">(),</span> <span class="mi">5000</span><span class="x">;</span><span class="n">drop_warmup</span><span class="o">=</span><span class="nb">true</span><span class="x">)</span>
 </code></pre></div></div>
 
@@ -161,7 +161,7 @@ $$
 
 <p>Calculated 95% CI are shown in Figure 4. It is evident that the Bayesian 95%CI (specifically, posterior credible intervals) better represent uncertainty at the scale of $\log{y}$ with samples having a 95% chance of falling within $\mu \pm 0.5$ (approximately) as opposed to almost invisible bands in the naive maximum likelihood 95% CI.</p>
 
-<p>In the next section, I show that these wider confidence bands reflect better estimation of the underlying lognormal data distribution and are not just cautious estimates.</p>
+<p>In the next section, I show that these wider confidence bands reflect better estimation of the underlying LogNormal data distribution and are not just cautious estimates.</p>
 
 <div class="figure-container">
   <img src="/assets/images/comparison_plot.svg" alt="Model fit comparison" />
@@ -181,15 +181,15 @@ $$
 
 <h2 id="discussion">Discussion</h2>
 
-<p>The mode-at-one parameterization for the scale prior represents a principled choice for lognormal data, as it centers the prior on a neutral scaling assumption while allowing the data to drive the posterior away from this default when warranted. Likewise for the uniform prior on group means, which specifies no prior assumption on the location of the means while incorporating uncertainty. These choices prevent overconfidence in the ultra small data regime while simultaneously representing common sense prior belief about the data, conditional on true lognormal distribution.</p>
+<p>The mode-at-one parameterization for the scale prior represents a principled choice for LogNormal data, as it centers the prior on a neutral scaling assumption while allowing the data to drive the posterior away from this default when warranted. Likewise for the uniform prior on group means, which specifies no prior assumption on the location of the means while incorporating uncertainty. These choices prevent overconfidence in the ultra small data regime while simultaneously representing common sense prior belief about the data, conditional on true LogNormal distribution.</p>
 
-<p>This substantial improvement in KL divergence against simulated ground truth data demonstrates that the Bayesian approach provides superior approximation of underlying lognormal distributed data, especially in small-sample scenarios where maximum likelihood estimation is unstable.</p>
+<p>This substantial improvement in KL divergence against simulated ground truth data demonstrates that the Bayesian approach provides superior approximation of underlying LogNormal distributed data, especially in small-sample scenarios where maximum likelihood estimation is unstable.</p>
 
 <hr />
 
 <h2 id="methods">Methods</h2>
 
-<p>Analysis was performed using <a href="https://turing.ml/">Turing.jl</a> for probabilistic programming. Code and data are available from <a href="https://github.com/dan-sprague/LogNormalError/blob/main/bayesian_lognormal_analysis.jl">this script</a>.</p>
+<p>Analysis was performed using <a href="https://turing.ml/">Turing.jl</a> for probabilistic programming. Code and data are available from <a href="https://github.com/dan-sprague/LogNormalError/blob/main/bayesian_LogNormal_analysis.jl">this script</a>.</p>
 
 <h3 id="inference-details">Inference Details</h3>
 
@@ -198,7 +198,165 @@ $$
   <li>Chains: 4 independent chains</li>
   <li>Iterations: 2000 per chain (1000 warmup)</li>
   <li>Convergence diagnostics: $\hat{R} &lt; 1.01$ for all parameters</li>
-</ul>]]></content><author><name></name></author><category term="Statistical Modeling" /><category term="Julia" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Neighborhood Conservation Districts Suppress Housing in Cambridge, MA</title><link href="http://localhost:4000/2025/03/30/ncd" rel="alternate" type="text/html" title="Neighborhood Conservation Districts Suppress Housing in Cambridge, MA" /><published>2025-03-30T00:00:00-04:00</published><updated>2025-03-30T00:00:00-04:00</updated><id>http://localhost:4000/2025/03/30/ncd</id><content type="html" xml:base="http://localhost:4000/2025/03/30/ncd"><![CDATA[<style>
+</ul>]]></content><author><name></name></author><category term="Statistical Modeling" /><category term="Julia" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Simplex Projection (Sparsemax) for Differentiable Discrete Cluster Assignments</title><link href="http://localhost:4000/2025/11/10/discrete_clustering" rel="alternate" type="text/html" title="Simplex Projection (Sparsemax) for Differentiable Discrete Cluster Assignments" /><published>2025-11-10T23:00:00-05:00</published><updated>2025-11-10T23:00:00-05:00</updated><id>http://localhost:4000/2025/11/10/discrete_clustering</id><content type="html" xml:base="http://localhost:4000/2025/11/10/discrete_clustering"><![CDATA[<style>
+.figure-container {
+  margin: 20px auto;
+  width: 90%;
+  text-align: center; 
+}
+
+.figure-container img {
+  display: block; 
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.figure-container figcaption {
+  text-align: center; 
+  font-style: italic; 
+  font-size: 0.9em;
+  margin-top: 8px;
+  color: #666;
+}
+
+.code-comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.9em;
+}
+
+.code-comparison-table th, .code-comparison-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.code-comparison-table th {
+  background-color: #f2f2f2;
+}
+
+pre {
+  margin: 0; 
+}
+</style>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Sampling the posterior for a likelihood conditional on discrete cluster assignment is a notoriously difficult problem for probabilistic models. Such discrete samples create a gradient discontinuity that prevents the use of gradient-based Hamiltonian Monte Carlo (HMC) samplers. This is unfortunate given the far superior efficiency of gradient-based samplers for MCMC.</p>
+
+<div class="figure-container">
+  <img width="500" src="/assets/images/sparsemax/demo.png" alt="Simulated 3 component 2D multivariate gaussian mixture model" />
+  <figcaption>Figure 1: Simulated 3-component 2-dimensional Gaussian Mixture Model.</figcaption>
+</div>
+
+<p>Consider the distribution shown above, which represents a 3-component, 2-dimensional Gaussian Mixture Model (GMM). Turing.jl, a Julia package for Bayesian inference, is notable for its superlative ability to easily sample the full posterior of cluster assignment for each observation. However, the sampling time for even small datasets is enormously restrictive.</p>
+
+<p>It is for this reason that most GMMs are implemented as <strong>marginalized models</strong>, as shown below:</p>
+
+<div class="language-julia highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@model</span> <span class="k">function</span><span class="nf"> gmm_standard</span><span class="x">(</span><span class="n">x</span><span class="x">,</span> <span class="n">K</span><span class="x">)</span>
+    <span class="n">D</span><span class="x">,</span> <span class="n">N</span> <span class="o">=</span> <span class="n">size</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+
+    <span class="n">μ</span> <span class="o">~</span> <span class="n">filldist</span><span class="x">(</span><span class="n">MvNormal</span><span class="x">(</span><span class="n">Zeros</span><span class="x">(</span><span class="n">D</span><span class="x">),</span> <span class="n">I</span><span class="x">),</span> <span class="n">K</span><span class="x">)</span>
+    <span class="n">w</span> <span class="o">~</span> <span class="n">Dirichlet</span><span class="x">(</span><span class="n">K</span><span class="x">,</span> <span class="mf">1.0</span><span class="x">)</span>
+
+    <span class="n">x</span> <span class="o">~</span> <span class="n">MixtureModel</span><span class="x">([</span><span class="n">MvNormal</span><span class="x">(</span><span class="n">μ</span><span class="x">[</span><span class="o">:</span><span class="x">,</span> <span class="n">k</span><span class="x">],</span> <span class="n">I</span><span class="x">)</span> <span class="k">for</span> <span class="n">k</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">K</span><span class="x">],</span> <span class="n">w</span><span class="x">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="the-smearing-problem">The Smearing Problem</h2>
+
+<p>Standard marginalized models suffer from the fact that the Dirichlet distribution and/or any Softmax-based learned weights tend to be “dense,” or non-sparse. This results in probability mass being smeared across clusters that should essentially have zero probability.</p>
+
+<p>We can observe this behavior in the REPL execution below. Note how softmax assigns substantial non-zero probability to every element, whereas project_to_simplex (Sparsemax) is capable of allocating true zeros.</p>
+
+<table class="code-comparison-table">
+<thead>
+<tr>
+<th>Function Call</th>
+<th>Output Vector</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>softmax([1, 2, 3])</code></td>
+<td><code>[0.090, 0.245, 0.665]</code></td>
+<td><strong>Dense</strong>: All clusters have mass.</td>
+</tr>
+<tr>
+<td><code>project_to_simplex([1, 2, 3])</code></td>
+<td><code>[0.0, 0.0, 1.0]</code></td>
+<td><strong>Sparse</strong>: Converges to a "hard" assignment (One-hot).</td>
+</tr>
+<tr>
+<td><code>project_to_simplex([1, 2.9, 3])</code></td>
+<td><code>[0.0, 0.45, 0.55]</code></td>
+<td><strong>Mixture</strong>: Sparse, but handles ambiguity.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="the-sparsemax-solution">The Sparsemax Solution</h2>
+
+<p><b><a href="https://arxiv.org/pdf/1602.02068" style="text-decoration: underline;">Martins and Astudillo (2016)</a></b> provide an interesting method for projecting any vector of reals onto a probability simplex. This projection has the fascinating property of being able to project—<b>differentiably</b>—to a one-hot vector.</p>
+
+<p>If inputs fall within a specific radius of the $\max x$, the vector retains mixture characteristics; otherwise, it snaps to a one-hot encoding. This property gives the method something along the lines of a “super-power,” allowing for both mixtures and discrete cluster assignments while maintaining the differentiability required for HMC.</p>
+
+<p><strong>Note:</strong> You can find my Julia implementation of the algorithm described in the original paper, including a custom ChainRules pullback for fast differentiation, <strong><a href="#">here</a></strong>.</p>
+
+<p>We can implement this in a Turing model as follows:</p>
+
+<div class="language-julia highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@model</span> <span class="k">function</span><span class="nf"> gmm_sparsemax</span><span class="x">(</span><span class="n">x</span><span class="x">,</span> <span class="n">K</span><span class="x">,</span> <span class="n">temperature</span><span class="x">)</span>
+    <span class="n">D</span><span class="x">,</span> <span class="n">N</span> <span class="o">=</span> <span class="n">size</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+
+    <span class="n">μ</span> <span class="o">~</span> <span class="n">filldist</span><span class="x">(</span><span class="n">MvNormal</span><span class="x">(</span><span class="n">Zeros</span><span class="x">(</span><span class="n">D</span><span class="x">),</span> <span class="n">I</span><span class="x">),</span> <span class="n">K</span><span class="x">)</span>
+    
+    <span class="c"># Learnable scaling factor for the logits</span>
+    <span class="n">α</span> <span class="o">~</span> <span class="n">Exponential</span><span class="x">(</span><span class="mf">0.5</span><span class="x">)</span>
+    
+    <span class="n">logits</span> <span class="o">~</span> <span class="n">filldist</span><span class="x">(</span><span class="n">Gumbel</span><span class="x">(),</span> <span class="n">K</span><span class="x">)</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">project_to_simplex</span><span class="x">(</span><span class="n">logits</span> <span class="o">./</span> <span class="n">α</span><span class="x">)</span>
+
+    <span class="n">x</span> <span class="o">~</span> <span class="n">MixtureModel</span><span class="x">([</span><span class="n">MvNormal</span><span class="x">(</span><span class="n">μ</span><span class="x">[</span><span class="o">:</span><span class="x">,</span> <span class="n">k</span><span class="x">],</span> <span class="n">I</span><span class="x">)</span> <span class="k">for</span> <span class="n">k</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">K</span><span class="x">],</span> <span class="n">w</span><span class="x">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="results--validation">Results &amp; Validation</h2>
+
+<p>This non-linear transformation can be applied to induce sparsity in the learned weight vector for the marginalized GMM. It is interesting to note the similarity to the stick-breaking process used in the marginal approximation to the “infinite” Gaussian Mixture Model. Therefore, I sought to determine if Sparsemax would produce similar results to stick-breaking and improve model fitting over a standard Dirichlet marginalized GMM.</p>
+
+<p>To do this, I estimated a Standard GMM, a Stick-breaking GMM, and a Sparsemax GMM with $K = 5$ to examine how robust each model was to misspecification (fitting 5 clusters to data generated from 3). Cluster assignments were visualized by taking the weights—e.g., <code class="language-plaintext highlighter-rouge">w = sparsemax(logits / α)</code>—and visualizing them as a proportion of a unit stick.</p>
+
+<h3 id="posterior-weights-analysis">Posterior Weights Analysis</h3>
+
+<p>The results below show that the standard GMM fails to learn the correct weight structure, assigning significant weight to two clusters that do not actually exist.</p>
+
+<div class="figure-container">
+<img width="100%" src="/assets/images/sparsemax/gmm_discrete_heatmap.png" alt="Ground truth vs posterior weights heatmap" />
+<figcaption>Figure 2: Heatmap comparison of learned weights. Note the noise in the Standard GMM vs. the sparsity in Stick-Breaking and Sparsemax.</figcaption>
+</div>
+
+<h3 id="cluster-separation">Cluster Separation</h3>
+
+<p>Both the stick-breaking and Sparsemax models induce significant sparsity into the model while remaining fully differentiable. Indeed, it appears that the overall results for stick-breaking and Sparsemax are nearly identical. Both have nearly identical distributions for the weights $w$, and both appear to discriminate cluster membership well, even for low-separation data.</p>
+
+<div class="figure-container">
+<img width="100%" src="/assets/images/sparsemax/gmm_grid_comparison_final.png" alt="Grid comparison of GMM fit" />
+<figcaption>Figure 3: TOP: Ground truth vs. posterior weights for each cluster. BOTTOM: Points colored by most likely cluster assignment with opacity indicating confidence of assignment.</figcaption>
+</div>
+
+<h2 id="discussion--conclusion">Discussion &amp; Conclusion</h2>
+
+<p>The simplex projection (Sparsemax) offers a compelling alternative to traditional Softmax or Dirichlet-based parameterizations. By allowing the model to hit “hard zeros” in the weight vector, we achieve a level of interpretability usually reserved for discrete sampling methods, without sacrificing the gradients necessary for efficient MCMC.</p>
+
+<p>While the Stick-breaking process yields similar results in this experiment, Sparsemax offers distinct theoretical advantages. Stick-breaking imposes an ordering on the clusters (the “rich get richer” phenomenon), which can sometimes be undesirable depending on the prior knowledge of the data. Sparsemax, conversely, treats the logits symmetrically before projection.</p>
+
+<p>For practitioners using Julia and Turing.jl, this implies that we can build models that are both sparse (interpretable) and fast (differentiable). Future work might explore how this projection behaves in higher-dimensional latent spaces, such as those found in Variational Autoencoders (VAEs), where “disentanglement” is often a primary goal.</p>]]></content><author><name></name></author><category term="Statistical Modeling" /><category term="Julia" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Neighborhood Conservation Districts Suppress Housing in Cambridge, MA</title><link href="http://localhost:4000/2025/03/30/ncd" rel="alternate" type="text/html" title="Neighborhood Conservation Districts Suppress Housing in Cambridge, MA" /><published>2025-03-30T00:00:00-04:00</published><updated>2025-03-30T00:00:00-04:00</updated><id>http://localhost:4000/2025/03/30/ncd</id><content type="html" xml:base="http://localhost:4000/2025/03/30/ncd"><![CDATA[<style>
 /* Add responsive design styles */
 img {
   max-width: 100%;
