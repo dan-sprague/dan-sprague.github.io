@@ -51,7 +51,7 @@ pre {
   margin: 0; 
 }
 </style>
-<br/>
+
 <br/>
 
 Code for this analysis can be found by clicking **[here](https://github.com/dan-sprague/DirichletDiffusion/blob/main/mixture_modeling.jl)**. 
