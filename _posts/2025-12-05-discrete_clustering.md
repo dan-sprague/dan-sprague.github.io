@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "Simplex Projection (Sparsemax) for Differentiable Discrete Cluster Assignments"
-date:   2025-12-05 12:00:00 +0800
-last_modified_at: 2025-12-07 12:00:00 +0800
-categories: [ Bayesian Machine Learning, Julia]
+date:   2025-11-11 12:00:00 +0800
+last_modified_at: 2025-11-11 12:00:00 +0800
+categories: [Statistical Modeling, Julia]
 ---
 
 <style>
