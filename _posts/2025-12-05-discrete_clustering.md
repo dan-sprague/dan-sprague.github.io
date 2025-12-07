@@ -179,7 +179,7 @@ To read the figure, consider the following. The weights $w$ must sum to 1, $\sum
 
 <div class="figure-container">
 <img width="100%" src="/assets/images/sparsemax/gmm_discrete_heatmap.png" alt="Ground truth vs posterior weights heatmap"/>
-<figcaption>Figure 2: Heatmap comparison of learned weights. Note the noise in the Standard GMM vs. the sparsity in Stick-Breaking and Sparsemax.</figcaption>
+<figcaption>Figure 2: Heatmap comparison of learned weights $w$. Note the noise in the Standard GMM vs. the sparsity in Stick-Breaking and Sparsemax.</figcaption>
 </div>
 
 ### Cluster Separation
