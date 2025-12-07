@@ -67,9 +67,9 @@ Sampling the posterior for a likelihood conditional on discrete cluster assignme
   <figcaption>Figure 1: Simulated 3-component 2-dimensional Gaussian Mixture Model.</figcaption>
 </div>
 
-Consider the distribution shown above, which represents a 3-component, 2-dimensional Gaussian Mixture Model (GMM). Turing.jl, a Julia package for Bayesian inference, is notable for its superlative ability to easily sample the full posterior of cluster assignment for each observation. However, the sampling time for even small datasets is enormously restrictive.
+Consider the distribution shown above, which represents samples from a 3-component, 2-dimensional Gaussian Mixture Model (GMM). Turing.jl, a Julia package for Bayesian inference, is notable for its superlative ability to easily sample the full posterior of cluster assignment for each observation. However, the sampling time for even small datasets is enormously restrictive.
 
-It is for this reason that most GMMs are implemented as **marginalized models**, as shown below:
+It is for this reason that most GMMs are implemented as **marginalized models**, as shown below. In a marginalized model, the cluster assignments *for each point* are summed out of the joint distribution. This simplifies things greatly and results in much faster fitting because the log-joint is now differentiable.
 
 ```julia
 @model function gmm_standard(x, K)
@@ -84,7 +84,7 @@ end
 
 ## The Smearing Problem
 
-Standard marginalized models suffer from the fact that the Dirichlet distribution and/or any Softmax-based learned weights tend to be "dense," or non-sparse. This results in probability mass being smeared across clusters that should essentially have zero probability.
+The weights "w" in the code above represent how strong each gaussian is in the mixture. Standard marginalized models suffer from the fact that the Dirichlet distribution and/or any Softmax-based learned weights tend to be "dense," or non-sparse. This results in probability mass being smeared across clusters that should essentially have zero probability.
 
 We can observe this behavior in the REPL execution below. Note how softmax assigns substantial non-zero probability to every element, whereas project_to_simplex (Sparsemax) is capable of allocating true zeros.
 
@@ -115,7 +115,9 @@ We can observe this behavior in the REPL execution below. Note how softmax assig
 </tbody>
 </table>
 
-## The Sparsemax Solution
+This makes GMMs tricky to fit -- because often the true number of clusters $K$ is not known ahead of time. Sparsity offers a way to fix this -- by giving unlikely clusters probability 0.
+
+## Sparsemax
 
 <p><a href="https://arxiv.org/pdf/1309.1541" style="text-decoration: underline;">Wang and Carreira-Perpiñán (2013)</a> provide an interesting method for projecting any vector of reals onto a probability simplex. This projection has the fascinating property of being able to project—<b>differentiably</b>—to a one-hot vector.</p>
 
@@ -171,7 +173,9 @@ To do this, I estimated a Standard GMM, a Stick-breaking GMM, and a Sparsemax GM
 
 ### Posterior Weights Analysis
 
-The results below show that the standard GMM fails to learn the correct weight structure, assigning significant weight to two clusters that do not actually exist.
+The figure below shows that the standard GMM fails to learn the correct weight structure, assigning significant weight to two clusters that do not actually exist.
+
+To read the figure, consider the following. The weights $w$ must sum to 1, $\sum_{k\in K}w_k = 1$. The area for each color is proportional to the estimated cluster "representation" in the fitted model. Clearly, the standard GMM is failing to identify the correct clustering behavior in the data.
 
 <div class="figure-container">
 <img width="100%" src="/assets/images/sparsemax/gmm_discrete_heatmap.png" alt="Ground truth vs posterior weights heatmap"/>
