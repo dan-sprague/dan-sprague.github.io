@@ -115,7 +115,7 @@ We can observe this behavior in the REPL execution below. Note how softmax assig
 
 If inputs fall within a specific radius of the $\max x$, the vector retains mixture characteristics; otherwise, it snaps to a one-hot encoding. This property gives the method something along the lines of a "super-power," allowing for both mixtures and discrete cluster assignments while maintaining the differentiability required for HMC.
 
-**Note:** You can find my Julia implementation of the algorithm described in the original paper, including a custom ChainRules pullback for fast differentiation, **[here](#)**.
+**Note:** You can find my Julia implementation of the algorithm described in the original paper, including a custom ChainRules pullback for fast differentiation, **[here](https://github.com/dan-sprague/DirichletDiffusion/blob/main/src/sparsemax.jl)**.
 
 We can implement this in a Turing model as follows:
 
