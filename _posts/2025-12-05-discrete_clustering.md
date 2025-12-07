@@ -56,6 +56,8 @@ pre {
 
 Code for this analysis can be found by clicking **[here](https://github.com/dan-sprague/DirichletDiffusion/blob/main/mixture_modeling.jl)**. 
 <br/>
+<br/>
+
 ## Introduction
 
 Sampling the posterior for a likelihood conditional on discrete cluster assignment is a notoriously difficult problem for probabilistic models. Such discrete samples create a gradient discontinuity that prevents the use of gradient-based Hamiltonian Monte Carlo (HMC) samplers. This is unfortunate given the far superior efficiency of gradient-based samplers for MCMC.
