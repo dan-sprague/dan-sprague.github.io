@@ -12,6 +12,7 @@ engines: [julia]
 author: "Dan Sprague"
 
 website:
+  # site-url: "https://letsmodelitout.com"
   title: "Let's Model It Out"
   description: "Building mathematical and computational models from first principles"
   navbar:
