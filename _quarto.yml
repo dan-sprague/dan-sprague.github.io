@@ -1,0 +1,38 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "posts/**/*.qmd"
+  resources:
+    - "assets/**"
+
+engines: [julia]
+
+author: "Dan Sprague"
+
+website:
+  title: "Let's Model It Out"
+  description: "Building mathematical and computational models from first principles"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Posts
+      - href: about.qmd
+        text: About
+
+format:
+  html:
+    theme: darkly
+    css: styles.css
+    mainfont: "IBM Plex Sans"
+    monofont: "IBM Plex Mono"
+    linkcolor: "#ff8a3d"
+    toc: true
+    code-fold: show
+    code-tools: true
+    fig-responsive: true
+
+execute:
+  warning: false
+  freeze: auto

@@ -1,0 +1,23 @@
+---
+title: "Let's Model It Out"
+subtitle: "Building mathematical and computational models from first principles"
+listing:
+  contents: posts
+  sort: "order asc"
+  type: default
+  categories: true
+format:
+  html:
+    include-before-body: partials/hero.html
+    include-in-header:
+      text: |
+        <style>#title-block-header{display:none;}</style>
+---
+
+What happens when we take an interesting idea, state its assumptions, derive the model, and build it ourselves?
+
+**Let's Model It Out** is an implementation-driven notebook-free blog about building mathematical and computational models from first principles.
+
+The first series, **Bayes Through Physics**, begins with a desire to watch Bayes' theorem happen as a physical process. Probability distributions become energy landscapes, Bayesian updating adds physical potentials, KL divergence becomes excess free energy, and probability moves through diffusion, least-action transport, information geometry, and eventually discrete Generative Flow Networks.
+
+Every chapter includes a Julia implementation that can be run without a notebook interface.

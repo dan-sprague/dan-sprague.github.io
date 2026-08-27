@@ -1,0 +1,84 @@
+---
+title: "Every Probability Distribution Is an Energy Landscape"
+description: "Turning relative probability into terrain, one negative logarithm at a time."
+date: 2026-09-01
+order: 1
+categories:
+  - probability
+  - thermodynamics
+  - julia
+draft: true
+---
+
+> What terrain would make a thermally moving particle spend most of its time near the center, while still occasionally wandering far away?
+
+This post will build the correspondence
+
+\[
+\pi(\theta)=\frac{e^{-U(\theta)}}{Z}
+\qquad\Longleftrightarrow\qquad
+U(\theta)=-\log \pi(\theta)+C.
+\]
+
+The repository preserves the detailed writing and implementation brief in `planning/POST_01_PLAN.md`.
+
+## Relative probability becomes an energy difference
+
+Suppose \(f(\theta)\) is a positive, possibly unnormalized weight. Define
+
+\[
+U(\theta)=-\log f(\theta).
+\]
+
+Then
+
+\[
+U(\theta_2)-U(\theta_1)
+=
+-\log\frac{f(\theta_2)}{f(\theta_1)}.
+\]
+
+```{julia}
+#| label: discrete-energy-levels
+#| echo: true
+
+using BayesThroughPhysics
+
+weights = [1.0, 2.0, 4.0, 8.0]
+probabilities, logZ = normalize_logweights(log.(weights))
+
+(; weights, probabilities, logZ)
+```
+
+## The Gaussian becomes a spring
+
+For a Gaussian density,
+
+\[
+U(\theta)=\frac{(\theta-\mu)^2}{2\sigma^2}+C.
+\]
+
+Ignoring the irrelevant constant, this is a quadratic potential well: the energy of an ideal spring.
+
+```{julia}
+#| label: fig-gaussian-energy
+#| fig-cap: "A Gaussian density and its quadratic energy landscape."
+#| echo: true
+
+using CairoMakie
+
+grid = collect(range(-5.0, 5.0; length=1_001))
+energy = grid .^ 2 ./ 2
+density, _ = density_from_energy(grid, energy)
+
+figure = Figure(size=(900, 650))
+probability_axis = Axis(figure[1, 1]; xlabel="θ", ylabel="density")
+energy_axis = Axis(figure[2, 1]; xlabel="θ", ylabel="U(θ)")
+lines!(probability_axis, grid, density; color=:teal, linewidth=3)
+lines!(energy_axis, grid, energy; color=:navy, linewidth=3)
+figure
+```
+
+## Coming next
+
+Bayesian models naturally arrive factorized. The prior and likelihood multiply as probabilities, so they add as energies. In the Gaussian case, that addition can be built literally—with springs.

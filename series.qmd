@@ -1,0 +1,20 @@
+---
+title: "Bayes Through Physics"
+subtitle: "Energy, information, and the flow of probability"
+---
+
+The project follows one continuous argument:
+
+\[
+\text{probability}
+\rightarrow \text{energy}
+\rightarrow \text{equilibrium}
+\rightarrow \text{free energy}
+\rightarrow \text{dynamics}
+\rightarrow \text{geometry}
+\rightarrow \text{online information}
+\rightarrow \text{discrete flow}
+\rightarrow \text{GFlowNets}.
+\]
+
+The repository also preserves a detailed working roadmap for all 25 posts in `planning/SERIES_PLAN.md`.

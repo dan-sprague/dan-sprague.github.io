@@ -1,0 +1,13 @@
+/.quarto/
+/_site/
+/_freeze/
+/.tools/
+/scratch/
+*_files/
+.DS_Store
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+**/*.quarto_ipynb
+/data/*.csv
+/data/*.json

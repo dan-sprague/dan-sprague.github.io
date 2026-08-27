@@ -1,0 +1,465 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&family=Press+Start+2P&display=swap');
+
+/* ===================================================================
+   Palette
+   ===================================================================
+   The five accents are the exact bands of the hero's posterized magma
+   colormap — cgrad(:magma, 5, categorical=true) in
+   examples/export_score_field.jl — so the page and the wordmark are
+   drawn from one ramp.
+
+   The arcade chrome (navbar, footer, cards, buttons) stays dark in both
+   colour schemes, like a cabinet bezel; only the reading surface follows
+   the light/dark toggle. Prose never gets the pixel font.
+   =================================================================== */
+
+:root {
+  --band-0: #000004; /* magma 0.00 — near black */
+  --band-1: #50127c; /* magma 0.25 — violet    */
+  --band-2: #b63779; /* magma 0.50 — magenta   */
+  --band-3: #fb8761; /* magma 0.75 — ember     */
+  --band-4: #fcfdbf; /* magma 1.00 — cream     */
+
+  --field-ink: #000000;
+  --field-panel: #0b0b12;
+  --field-line: #26263a;
+  --field-ember: var(--band-3);
+  --field-magenta: var(--band-2);
+  --field-particle: #5b8def;
+
+  --chrome-bg: #000000;
+  --chrome-fg: var(--band-4);
+  --chrome-edge: var(--band-1);
+  --chrome-accent: var(--band-3);
+
+  --pixel-font: "Press Start 2P", "IBM Plex Mono", monospace;
+  --pixel-border: 3px;
+  --pixel-drop: 6px;
+
+  --surface: #000000;
+  --surface-raised: var(--field-panel);
+  --surface-line: var(--field-line);
+}
+
+/* Flat black behind everything. Darkly paints its own near-black (#222) on
+   the page wrappers, so they are cleared explicitly rather than relying on
+   body alone showing through. */
+body,
+#quarto-content,
+.page-columns,
+main.content,
+#quarto-document-content,
+#quarto-margin-sidebar {
+  background-color: var(--surface);
+}
+
+/* ===================================================================
+   Pixel primitives
+   =================================================================== */
+
+/* Arcade UI has no rounded corners and no soft shadows. Scoped to chrome
+   so it never touches figures, plots, or callout internals. */
+.navbar,
+.navbar .dropdown-menu,
+.nav-footer,
+.quarto-post,
+.quarto-listing .list-item,
+.quarto-category,
+.quarto-listing-category .category,
+.btn,
+.code-tools-button,
+pre,
+code {
+  border-radius: 0 !important;
+}
+
+/* The classic hard offset "sticker" shadow: no blur, one solid step. */
+.pixel-drop,
+.quarto-post,
+.quarto-listing .list-item {
+  box-shadow: var(--pixel-drop) var(--pixel-drop) 0 0 var(--chrome-edge);
+}
+
+/* Scanlines. Applied only over chrome and the hero — never over prose,
+   where the 1px banding would fight the text. */
+.navbar::after,
+.nav-footer::after,
+.hero-sim::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.28) 0 1px,
+    rgba(0, 0, 0, 0) 1px 3px
+  );
+}
+
+::selection {
+  background: var(--band-2);
+  color: var(--band-4);
+}
+
+:focus-visible {
+  outline: var(--pixel-border) solid var(--band-3);
+  outline-offset: 2px;
+  border-radius: 0;
+}
+
+/* ===================================================================
+   Navbar — the cabinet bezel
+   =================================================================== */
+
+.navbar {
+  position: relative;
+  background: var(--chrome-bg) !important;
+  border-bottom: var(--pixel-border) solid var(--band-2);
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+.navbar-brand {
+  font-family: var(--pixel-font);
+  font-weight: 400;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--band-3) !important;
+  /* Hard 2px offset shadow — the arcade marquee look. */
+  text-shadow: 2px 2px 0 var(--band-1);
+}
+
+.navbar-brand:hover {
+  color: var(--band-4) !important;
+  text-shadow: 2px 2px 0 var(--band-2);
+}
+
+.navbar .nav-link {
+  font-family: var(--pixel-font);
+  font-size: 0.6rem;
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--band-4) !important;
+  padding: 0.4rem 0.7rem;
+  border: 2px solid transparent;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--band-0) !important;
+  background: var(--band-3);
+  border-color: var(--band-4);
+}
+
+.quarto-navbar-tools .quarto-navigation-tool {
+  color: var(--band-4) !important;
+}
+
+.quarto-navbar-tools .quarto-navigation-tool:hover {
+  color: var(--band-3) !important;
+}
+
+/* ===================================================================
+   Homepage hero
+   ===================================================================
+   Makie's rendered score field (assets/hero-field.png) with a live
+   particle simulation drawn over it (see assets/header-sim.js). The
+   field's native data aspect is 5:1, cropped to fit a wider outer box
+   rather than stretched. The image and the canvas are laid out
+   identically so data coordinates land on the same pixels in both. */
+.hero-sim {
+  position: relative;
+  /* header-sim.js lifts this element above #quarto-content (so it doesn't run
+     under the listing's Categories panel) and measures its full-bleed width
+     there. Without JS it simply fills whatever column it was authored in. */
+  width: auto;
+  aspect-ratio: 5.79 / 1;
+  max-height: 70vh;
+  overflow: hidden;
+  background: #000;
+  border-bottom: var(--pixel-border) solid var(--band-1);
+}
+
+.hero-sim img,
+.hero-sim canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  max-width: none;
+}
+
+/* Pre-JS (and no-JS) sizing: the container is wider than the image's 5:1,
+   so matching width overflows the height and crops vertically — the same
+   "cover" fit layout() computes once the field loads. */
+/* Left to smooth downscaling on purpose: the PNG is authored at 12 device
+   pixels per grid cell, so at a typical viewport it is scaled *down*, where
+   nearest-neighbour would drop rows and leave letter strokes uneven. */
+#hero-sim-bg {
+  width: 100%;
+  height: auto;
+}
+
+#hero-sim-particles {
+  pointer-events: none;
+}
+
+/* ===================================================================
+   Page titles and headings
+   ===================================================================
+   Pixel font stops at the page title. Headings inside prose stay in IBM
+   Plex Mono so posts remain readable at length. */
+
+.quarto-title-block .title {
+  font-family: var(--pixel-font);
+  font-weight: 400;
+  font-size: clamp(1rem, 2.6vw, 1.6rem);
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--band-3);
+  text-shadow: 3px 3px 0 var(--band-1);
+  margin-bottom: 0.8rem;
+}
+
+.quarto-title-block .subtitle {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 1.05rem;
+  opacity: 0.85;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+}
+
+/* A blocky marker instead of a pixel typeface — keeps post structure
+   scannable without costing legibility. */
+main.content h2:not(.listing-title) {
+  border-bottom: var(--pixel-border) solid var(--band-1);
+  padding-bottom: 0.3rem;
+}
+
+/* Listing cards carry their own pixel treatment — keep the prose marker off
+   their titles. */
+main.content h2:not(.listing-title)::before,
+main.content h3:not(.listing-title)::before {
+  content: "▍";
+  color: var(--band-3);
+  margin-right: 0.5rem;
+}
+
+hr {
+  border: none;
+  height: var(--pixel-border);
+  opacity: 1;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--band-2) 0 12px,
+    transparent 12px 24px
+  );
+}
+
+/* ===================================================================
+   Listing — the game-select screen
+   =================================================================== */
+
+.quarto-listing-category-title {
+  font-family: var(--pixel-font);
+  font-size: 0.7rem;
+  line-height: 1.8;
+  text-transform: uppercase;
+  color: var(--band-3);
+}
+
+.quarto-listing-category .category {
+  font-family: var(--pixel-font);
+  font-size: 0.55rem;
+  line-height: 1.9;
+  text-transform: uppercase;
+  padding: 0.35rem 0.5rem;
+  border: 2px solid var(--surface-line);
+  margin-bottom: 0.4rem;
+  cursor: pointer;
+}
+
+.quarto-listing-category .category:hover,
+.quarto-listing-category .category.active {
+  color: var(--band-0);
+  background: var(--band-3);
+  border-color: var(--band-4);
+  font-weight: 400;
+}
+
+.quarto-post,
+.quarto-listing .list-item {
+  background: var(--surface-raised);
+  border: var(--pixel-border) solid var(--band-1);
+  padding: 1.1rem 1.2rem;
+  margin-bottom: calc(1.5rem + var(--pixel-drop));
+  /* Snap, not glide — arcade UI moves in steps. */
+  transition: transform 80ms steps(2, end), box-shadow 80ms steps(2, end);
+}
+
+.quarto-post:hover,
+.quarto-listing .list-item:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: calc(var(--pixel-drop) + 3px) calc(var(--pixel-drop) + 3px) 0 0 var(--band-2);
+}
+
+.quarto-post .listing-title,
+.quarto-listing .listing-title {
+  font-family: var(--pixel-font);
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+
+.quarto-post .listing-title a,
+.quarto-listing .listing-title a {
+  color: var(--band-3);
+  text-decoration: none;
+  border-bottom: none;
+}
+
+.quarto-post:hover .listing-title a {
+  color: var(--band-4);
+  text-shadow: 2px 2px 0 var(--band-2);
+}
+
+.listing-date,
+.listing-author {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--band-2);
+}
+
+/* Descriptions are content — left readable. */
+.listing-description {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.listing-categories .listing-category {
+  font-family: var(--pixel-font);
+  font-size: 0.5rem;
+  line-height: 2;
+  text-transform: uppercase;
+  border: 2px solid var(--band-2);
+  border-radius: 0 !important;
+  padding: 0.25rem 0.4rem;
+  color: var(--band-2);
+  opacity: 1;
+}
+
+/* ===================================================================
+   Links, buttons, callouts, code
+   =================================================================== */
+
+a {
+  color: var(--field-ember);
+}
+
+main.content a:not(.btn):not(.nav-link) {
+  text-decoration: none;
+  border-bottom: 2px solid var(--band-1);
+}
+
+main.content a:not(.btn):not(.nav-link):hover {
+  color: var(--band-4);
+  background: var(--band-1);
+  border-bottom-color: var(--band-3);
+}
+
+.btn,
+.code-tools-button {
+  font-family: var(--pixel-font);
+  font-size: 0.55rem;
+  line-height: 1.9;
+  text-transform: uppercase;
+  border: 2px solid var(--band-1);
+  box-shadow: 3px 3px 0 0 var(--band-1);
+  transition: transform 80ms steps(2, end), box-shadow 80ms steps(2, end);
+}
+
+.btn:active,
+.code-tools-button:active {
+  /* Press the button into its own shadow. */
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 0 var(--band-1);
+}
+
+.callout {
+  border-radius: 0 !important;
+  border-left-width: var(--pixel-border) !important;
+}
+
+.callout-note {
+  border-left-color: var(--band-3) !important;
+}
+
+.callout-tip,
+.callout-important {
+  border-left-color: var(--field-particle) !important;
+}
+
+pre, code {
+  background-color: var(--surface-raised) !important;
+  border-color: var(--surface-line) !important;
+}
+
+div.sourceCode {
+  border: 2px solid var(--band-1);
+  border-radius: 0 !important;
+}
+
+/* ===================================================================
+   Table of contents and footer
+   =================================================================== */
+
+#TOC .toc-actions,
+nav[role="doc-toc"] > h2,
+.sidebar nav[role="doc-toc"] > h2 {
+  font-family: var(--pixel-font);
+  font-size: 0.55rem;
+  line-height: 2;
+  text-transform: uppercase;
+  color: var(--band-3);
+}
+
+nav[role="doc-toc"] ul {
+  border-left: 2px solid var(--band-1);
+}
+
+.nav-footer {
+  position: relative;
+  background: var(--chrome-bg) !important;
+  border-top: var(--pixel-border) solid var(--band-1);
+  color: var(--band-4);
+}
+
+.nav-footer .nav-footer-center {
+  font-family: var(--pixel-font);
+  font-size: 0.55rem;
+  line-height: 2.2;
+  text-transform: uppercase;
+  color: var(--band-2);
+}
+
+/* ===================================================================
+   Motion
+   =================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .quarto-post,
+  .quarto-listing .list-item,
+  .btn,
+  .code-tools-button {
+    transition: none;
+  }
+}

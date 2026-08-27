@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+set -eu
+
+project_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+
+if command -v quarto >/dev/null 2>&1; then
+    exec quarto "$@"
+fi
+
+portable_quarto="$project_dir/.tools/quarto/bin/quarto"
+if [ -x "$portable_quarto" ]; then
+    exec "$portable_quarto" "$@"
+fi
+
+echo "Quarto was not found. Install it or place the portable distribution in .tools/quarto." >&2
+exit 1

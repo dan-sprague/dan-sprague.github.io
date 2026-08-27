@@ -1,0 +1,11 @@
+---
+title: "About"
+---
+
+**Let's Model It Out** is an implementation-driven blog about building mathematical and computational models from first principles.
+
+Its first series, **Bayes Through Physics**, explores the mathematical correspondences between Bayesian inference, statistical mechanics, information geometry, optimal transport, fluid dynamics, and generative flow networks.
+
+The goal is not to claim that inference is secretly governed by one unique physical law. It is to ask what different physical dynamics reveal about learning when they share the same probabilistic target.
+
+sadasdas
