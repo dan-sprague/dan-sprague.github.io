@@ -136,6 +136,12 @@ code {
   text-shadow: 2px 2px 0 var(--band-2);
 }
 
+.navbar .navbar-nav {
+  gap: 0.5rem;   /* or 0.75rem */
+}
+
+
+
 .navbar .nav-link {
   font-family: var(--pixel-font);
   font-size: 0.6rem;
@@ -161,6 +167,32 @@ code {
 .quarto-navbar-tools .quarto-navigation-tool:hover {
   color: var(--band-3) !important;
 }
+
+/* ===================================================================
+   Headshot sidebar
+   ===================================================================
+   Fixed headshot to the left of the content column. Hidden on smaller
+   screens where there isn't enough margin room.
+   =================================================================== */
+
+/* Default: show the headshot inline, floated left within the intro text.
+   On wide screens the media queries below override this and pin it to the
+   left margin as a fixed sidebar. */
+.headshot-sidebar {
+  display: block;
+  float: left;
+  width: 120px;
+  margin: 0 1rem 1rem 0;
+}
+
+.headshot-img {
+  width: 100%;
+  height: auto;
+  border: var(--pixel-border) solid var(--band-3);
+  box-shadow: var(--pixel-drop) var(--pixel-drop) 0 0 var(--band-1);
+}
+
+/* The headshot stays floated inline with the intro text at every screen size. */
 
 /* ===================================================================
    Homepage hero
@@ -350,7 +382,7 @@ hr {
   font-size: 0.5rem;
   line-height: 2;
   text-transform: uppercase;
-  border: 2px solid var(--band-2);
+  border: none !important;
   border-radius: 0 !important;
   padding: 0.25rem 0.4rem;
   color: var(--band-2);
@@ -434,6 +466,26 @@ nav[role="doc-toc"] > h2,
 
 nav[role="doc-toc"] ul {
   border-left: 2px solid var(--band-1);
+}
+
+/* Override Darkly's green TOC accent with the magma palette. */
+.sidebar nav[role="doc-toc"] ul > li > a,
+.sidebar nav[role="doc-toc"] ul > li > ul > li > a {
+  border-left: 1px solid var(--band-3);
+  color: var(--band-3) !important;
+}
+/* Match Bootstrap's specificity so the active link is overridden too.
+   Active/hover highlight uses the brightest palette band (cream) so it reads
+   as a distinct state, not the ember link color. */
+.sidebar nav[role="doc-toc"] ul > li > a.active,
+.sidebar nav[role="doc-toc"] ul > li > ul > li > a.active {
+  border-left: 1px solid var(--band-4);
+  color: var(--band-4) !important;
+}
+/* Match Bootstrap's specificity for the hover state as well. */
+.sidebar nav[role="doc-toc"] ul > li > a:hover,
+.sidebar nav[role="doc-toc"] ul > li > ul > li > a:hover {
+  color: var(--band-4) !important;
 }
 
 .nav-footer {

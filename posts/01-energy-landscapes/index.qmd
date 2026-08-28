@@ -42,7 +42,11 @@ U(\theta_2)-U(\theta_1)
 #| label: discrete-energy-levels
 #| echo: true
 
-using BayesThroughPhysics
+function normalize_logweights(logweights)
+    m = maximum(logweights)
+    logZ = m + log(sum(exp.(logweights .- m)))
+    return exp.(logweights .- logZ), logZ
+end
 
 weights = [1.0, 2.0, 4.0, 8.0]
 probabilities, logZ = normalize_logweights(log.(weights))
@@ -66,6 +70,13 @@ Ignoring the irrelevant constant, this is a quadratic potential well: the energy
 #| echo: true
 
 using CairoMakie
+
+function density_from_energy(grid, energy)
+    m = minimum(energy)
+    logweights = -(energy .- m)
+    density, logZ = normalize_logweights(logweights)
+    return density, logZ
+end
 
 grid = collect(range(-5.0, 5.0; length=1_001))
 energy = grid .^ 2 ./ 2

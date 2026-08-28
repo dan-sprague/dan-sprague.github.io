@@ -14,6 +14,10 @@ format:
         <style>#title-block-header{display:none;}</style>
 ---
 
+<div class="headshot-sidebar">
+  <img src="assets/images/headshot_cropped.jpg" alt="Dan Sprague" class="headshot-img">
+</div>
+
 What happens when we take an interesting idea, state its assumptions, derive the model, and build it ourselves?
 
 **Let's Model It Out** is an implementation-driven notebook-free blog about building mathematical and computational models from first principles.

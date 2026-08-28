@@ -20,7 +20,9 @@
   // Tunables — picked by eye against the rendered background.
   const PARTICLE_COUNT = 500;
   const GAMMA = 1.0; // friction
-  const TEMPERATURE = 0.7; // noise scale (sqrt(2*gamma*T*dt) per step)
+  const TEMPERATURE_INITIAL = 0.7; // starting noise scale
+  const TEMPERATURE_FINAL = 0.05; // frozen noise scale
+  const COOLING_TIME = 30.0; // seconds over which temperature drops
   const SCORE_FORCE_MAX = 90; // just above the exported field's max (~77.5)
   const PARTICLE_COLOR = "#5b8def"; // Makie's :cornflowerblue
   // Particle diameter in the background PNG's own pixels, scaled with the
@@ -29,6 +31,10 @@
   const MOUSE_STRENGTH = 6.0;
   const MOUSE_EPS = 0.02;
   const MOUSE_RADIUS = 0.9; // data-space units; beyond this, no repulsion
+  const EXPLOSION_STRENGTH = 10.0; // click impulse scale
+  const EXPLOSION_HORIZONTAL_SPREAD = 0.25; // sideways fan (0 = purely vertical)
+  const EXPLOSION_VERTICAL_BOOST = 1.4; // how hard particles shoot to top/bottom
+  const EXPLOSION_EPS = 0.03; // softening for very close particles
 
   const reduceMotion = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -119,6 +125,13 @@
     return lower + width - Math.abs(floorMod(x - lower, 2 * width) - width);
   }
 
+  let elapsed = 0.0;
+
+  function currentTemperature(dt) {
+    // Keep the simulation at a constant temperature; no cooling over time.
+    return TEMPERATURE_INITIAL;
+  }
+
   let gaussSpare = null;
   function gaussian() {
     if (gaussSpare !== null) {
@@ -201,6 +214,35 @@
       pointerY = null;
     });
 
+    container.addEventListener("click", (evt) => {
+      const rect = container.getBoundingClientRect();
+      const cx = evt.clientX - rect.left - (rect.width - display.dw) / 2;
+      const cy = evt.clientY - rect.top - (rect.height - display.dh) / 2;
+      const clickX = xmin + (cx / display.dw) * (xmax - xmin);
+      const clickY = ymax - (cy / display.dh) * (ymax - ymin);
+
+      // Reheat the system.
+      elapsed = 0.0;
+
+      // Vertical-biased radial explosion: particles shoot mostly toward the
+      // top and bottom of the hero, clearing the center wordmark, while still
+      // fanning out a little sideways.
+      for (let k = 0; k < PARTICLE_COUNT; k++) {
+        const dx = px[k] - clickX;
+        const dy = py[k] - clickY;
+        const r = Math.sqrt(dx * dx + dy * dy);
+        if (r < EXPLOSION_EPS) continue;
+        const ux = dx / r;
+        const uy = dy / r;
+        const bx = ux * EXPLOSION_HORIZONTAL_SPREAD;
+        const by = uy * EXPLOSION_VERTICAL_BOOST + (dy >= 0 ? 0.1 : -0.1);
+        const bMag = Math.sqrt(bx * bx + by * by);
+        const scale = EXPLOSION_STRENGTH / bMag;
+        vx[k] += bx * scale;
+        vy[k] += by * scale;
+      }
+    });
+
     // --- particles (structure-of-arrays, reused every frame) ---
     const px = new Float32Array(PARTICLE_COUNT);
     const py = new Float32Array(PARTICLE_COUNT);
@@ -212,7 +254,8 @@
     }
 
     function step(dt) {
-      const noise = Math.sqrt(2 * GAMMA * TEMPERATURE * dt);
+      const temperature = currentTemperature(dt);
+      const noise = Math.sqrt(2 * GAMMA * temperature * dt);
       for (let k = 0; k < PARTICLE_COUNT; k++) {
         let fx = sample(sx, px[k], py[k]);
         let fy = sample(sy, px[k], py[k]);
