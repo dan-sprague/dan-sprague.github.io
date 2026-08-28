@@ -1,6 +1,6 @@
 ---
 title: "Simplex Projection (Sparsemax) for Differentiable Discrete Cluster Assignments"
-date: 2025-12-05
+date: 2025-04-02
 categories:
   - Statistical Modeling
   - Julia

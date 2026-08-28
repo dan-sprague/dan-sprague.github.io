@@ -36,9 +36,10 @@
   --pixel-border: 3px;
   --pixel-drop: 6px;
 
-  --surface: #000000;
+  --surface: #000000;        /* pure-black background, arcade cabinet bezel */
   --surface-raised: var(--field-panel);
   --surface-line: var(--field-line);
+  --text-body: #E8E6E1;      /* warm off-white body text, not pure white */
 }
 
 /* Flat black behind everything. Darkly paints its own near-black (#222) on
@@ -51,6 +52,31 @@ main.content,
 #quarto-document-content,
 #quarto-margin-sidebar {
   background-color: var(--surface);
+}
+
+/* Replace Darkly's pure-white body text with a warm off-white for
+   long-form readability. Headings keep the brighter cream accent. */
+body {
+  color: var(--text-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--band-4);
+  letter-spacing: 0;
+}
+
+/* Give paragraphs more breathing room on the dark background. */
+main.content p {
+  margin-bottom: 1.2rem;
+}
+
+/* Cap line length for long-form reading without breaking the grid layout. */
+main.content p,
+main.content li {
+  max-width: 70ch;
 }
 
 /* ===================================================================

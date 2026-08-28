@@ -6,6 +6,7 @@ listing:
   sort: "order asc"
   type: default
   categories: true
+
 format:
   html:
     include-before-body: partials/hero.html

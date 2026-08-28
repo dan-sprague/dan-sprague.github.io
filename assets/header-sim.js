@@ -19,7 +19,7 @@
 
   // Tunables — picked by eye against the rendered background.
   const PARTICLE_COUNT = 500;
-  const GAMMA = 1.0; // friction
+  const GAMMA = 1.1; // friction
   const TEMPERATURE_INITIAL = 0.7; // starting noise scale
   const TEMPERATURE_FINAL = 0.05; // frozen noise scale
   const COOLING_TIME = 30.0; // seconds over which temperature drops
@@ -31,10 +31,10 @@
   const MOUSE_STRENGTH = 6.0;
   const MOUSE_EPS = 0.02;
   const MOUSE_RADIUS = 0.9; // data-space units; beyond this, no repulsion
-  const EXPLOSION_STRENGTH = 10.0; // click impulse scale
-  const EXPLOSION_HORIZONTAL_SPREAD = 0.25; // sideways fan (0 = purely vertical)
-  const EXPLOSION_VERTICAL_BOOST = 1.4; // how hard particles shoot to top/bottom
-  const EXPLOSION_EPS = 0.03; // softening for very close particles
+  const EXPLOSION_STRENGTH = 9.0; // click impulse scale
+  const EXPLOSION_HORIZONTAL_SPREAD = 0.0; // sideways fan (0 = purely vertical)
+  const EXPLOSION_VERTICAL_BOOST = 1.0; // how hard particles shoot to top/bottom
+  const EXPLOSION_EPS = 0.1; // softening for very close particles
 
   const reduceMotion = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;

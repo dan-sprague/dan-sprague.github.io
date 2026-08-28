@@ -3,11 +3,11 @@ title: "Every Probability Distribution Is an Energy Landscape"
 description: "Turning relative probability into terrain, one negative logarithm at a time."
 date: 2026-09-01
 order: 1
+draft: true
 categories:
   - probability
   - thermodynamics
-  - julia
-draft: true
+  - Julia
 ---
 
 > What terrain would make a thermally moving particle spend most of its time near the center, while still occasionally wandering far away?
